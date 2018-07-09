@@ -9,7 +9,7 @@ public class Main {
 		String inputLine = input.nextLine();
 		FuncParser.theParser().parse(inputLine);
 		FuncParser.theParser().getWurzel().print();
-		input.close(); 
+		input.close();
 	}
 
 }
