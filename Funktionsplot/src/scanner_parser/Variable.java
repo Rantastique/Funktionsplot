@@ -10,4 +10,9 @@ public class Variable extends Knoten {
 	public void print() {
 		System.out.println("Knoten " + num + " Variable " + name + "\n");		
 	}
+	
+	@Override
+	public double calcAt(double x) {
+		return x;
+	}
 }

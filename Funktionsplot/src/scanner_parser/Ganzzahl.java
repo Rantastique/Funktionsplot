@@ -9,4 +9,9 @@ public class Ganzzahl extends Knoten {
 	public void print() {
 		System.out.println("Knoten " + num + " Integer " + wert + "\n");		
 	}
+	
+	@Override
+	public double calcAt(double x) {
+		return wert;
+	}
 }
