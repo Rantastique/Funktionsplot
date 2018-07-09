@@ -37,6 +37,7 @@ public class FuncParser {
     	return theparser;
     }
     private FuncParser() {}
+    
     void advance() {
        t = s.nextToken();
     }
@@ -214,16 +215,32 @@ public class FuncParser {
     	Knoten k = null;
     	switch (t.tokenId) {
     	case Token.Hoch :
-     		advance();
-     		if (t.tokenId == Token.Ganzzahl) {
-     			k = new Ganzzahl(Integer.valueOf(t.text));
+     		advance();     		
+     		switch (t.tokenId) {
+     		case Token.Ganzzahl:
+     		case Token.Number:
+     			k = new Gleitkomma(Double.valueOf(t.text));
      			kd = new HochOp();
      			kd.setRightOp(k);
      			advance();
-     		} else {
-     			error();
+     			break;
+     		case Token.LKlamm:
+     			advance();
+                k = E();
+                eat(Token.RKlamm);
+                kd = new HochOp();
+     			kd.setRightOp(k);
+     			advance();
+     			break;
+     		case Token.Identifier:
+     			k = new Variable(t.text);
+     			kd = new HochOp();
+     			kd.setRightOp(k);
+     			advance();
+                break;     			
      		}
-     		break;
+   
+     	break;
     	case Token.EOF :
     	case Token.Plus :
     	case Token.Minus :
@@ -236,8 +253,10 @@ public class FuncParser {
     		error();
     		kd = null;
     	}
-    	return kd;
-    }
+    return kd;
+   }
+    
+    	
     private int errcnt = 0;
     void error() {
         ++errcnt;
