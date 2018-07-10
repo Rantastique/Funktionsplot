@@ -10,4 +10,9 @@ public class HochOp extends DyadOp{
 		leftOp.print();
 		rightOp.print();
 	}
+
+	@Override
+	public double calcAt(double x) {
+		return Math.pow(leftOp.calcAt(x), rightOp.calcAt(x));
+	}
 }

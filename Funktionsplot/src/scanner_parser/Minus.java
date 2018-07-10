@@ -12,4 +12,9 @@ public class Minus extends Knoten {
 		System.out.println();
 		op.print();
 	}
+	
+	@Override
+	public double calcAt(double x) {
+		return op.calcAt(x)*(-1);
+	}
 }
