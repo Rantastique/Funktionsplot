@@ -191,6 +191,10 @@ public class FuncParser {
         case Token.Ganzzahl:
         	k = new Gleitkomma(Double.valueOf(t.text));
             advance();
+            if ((kd = H()) != null) {
+            	kd.setLeftOp(k);
+            	k = kd;
+            }
             break;
         case Token.Minus :
         	km = new Minus();
@@ -203,6 +207,10 @@ public class FuncParser {
             advance();
             k = E();
             eat(Token.RKlamm);
+            if ((kd = H()) != null) {
+            	kd.setLeftOp(k);
+            	k = kd;
+            }
             break;
         default:
             error();
