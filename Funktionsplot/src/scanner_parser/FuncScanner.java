@@ -30,6 +30,7 @@ public class FuncScanner {
 					yytext += line.charAt(pos++);
 				}
 				if (line.charAt(pos) == '.') {
+					yytext +='0'; 		// für die Eingabe mit 2 führenden Kommas
 					System.out.println("Error: Illegal character \'" + line.charAt(pos) + "\' at column " + ((pos++)+1));
 				}
 				return new Token(komma?Token.Number:Token.Ganzzahl,yytext);
@@ -46,9 +47,9 @@ public class FuncScanner {
 				case '^' : pos++;
 					       return new Token(Token.Hoch,"^");
 				case '(' : pos++;
-			       		   return new Token(Token.LKlamm,"/");
+			       		   return new Token(Token.LKlamm,"(");
 				case ')' : pos++;
-			       		   return new Token(Token.RKlamm,"^");
+			       		   return new Token(Token.RKlamm,")");
 				case '\0' : return new Token(Token.EOF,"$");
 				case ' ' : pos++;
 						   break;
