@@ -9,6 +9,12 @@ public class Main {
 		String inputLine = input.nextLine();
 		FuncParser.theParser().parse(inputLine);
 		FuncParser.theParser().getWurzel().print();
+		//testcode "berechnen"
+		System.out.println("Variable=");
+		double x = input.nextDouble();
+		double y = FuncParser.theParser().getWurzel().calcAt(x);
+		System.out.println(y);
+		//testcode ende
 		input.close(); 
 	}
 
