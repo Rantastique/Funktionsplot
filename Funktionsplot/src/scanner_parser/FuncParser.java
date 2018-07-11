@@ -1,6 +1,7 @@
 package scanner_parser;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 
 public class FuncParser {
 /*
@@ -175,7 +176,7 @@ public class FuncParser {
         return kd;
     }
     Knoten F() {
-    	DyadOp kd;
+    	DyadOp kd; 
     	Minus km;
     	Knoten k;
         switch (t.tokenId) {
