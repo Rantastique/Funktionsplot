@@ -55,5 +55,11 @@ public class Funktion implements IFunktion{
 	public Funktion ableitung() {
 		return new Funktion(wurzel.ableitung());
 	}
+	
+	//für debugging:
+	public void print()
+	{
+		wurzel.print();
+	}
 
 }

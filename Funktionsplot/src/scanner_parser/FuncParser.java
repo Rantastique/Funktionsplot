@@ -3,6 +3,8 @@ package scanner_parser;
 import java.util.HashMap;
 import java.util.Map;
 
+import funktionsplot.Funktion;
+
 public class FuncParser {
 /*
  * Geklaut von Prof. Dr. Uwe Schmidt (FH Wedel)
@@ -274,11 +276,12 @@ public class FuncParser {
             advance();
         }
     }
-    public void parse(String input) {
+    public Funktion parse(String input) {
     	s = new FuncScanner(input);
         advance();
         wurzel = S();
         System.out.println("Parsing done, " + errcnt + " error(s) found");
+        return new Funktion(wurzel);
     }
  
 }
