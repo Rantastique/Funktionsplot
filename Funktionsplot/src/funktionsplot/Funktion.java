@@ -18,7 +18,7 @@ public class Funktion implements IFunktion{
 	}
 
 	@Override
-	public TreeMap<Double,Double> getValues(double linkeIntervallgrenze, double rechteIntervallgrenze, int schritte) {
+	public TreeMap<Double,Double> berechneWertetabelle(double linkeIntervallgrenze, double rechteIntervallgrenze, int schritte) {
 		TreeMap<Double,Double> plot = new TreeMap<>();
 		double x=linkeIntervallgrenze;
 		double schrittweite=(rechteIntervallgrenze-linkeIntervallgrenze)/schritte;
