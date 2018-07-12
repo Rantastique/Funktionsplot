@@ -15,4 +15,8 @@ public class Variable extends Knoten {
 	public double calcAt(double x) {
 		return x;
 	}
+	@Override
+	public Knoten ableitung() {
+		return new Ganzzahl(1);
+	}
 }

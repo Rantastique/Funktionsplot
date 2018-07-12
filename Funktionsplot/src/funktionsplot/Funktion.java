@@ -6,11 +6,15 @@ import java.util.TreeMap;
 import scanner_parser.Knoten;
 
 public class Funktion implements IFunktion{
-	private Knoten Wurzel;
+	private Knoten wurzel;
 	
+	public Funktion(Knoten wurzel) {
+		this.wurzel = wurzel;
+	}
+
 	@Override
 	public Double calcAt(double x) {
-		return Wurzel.calcAt(x);
+		return wurzel.calcAt(x);
 	}
 
 	@Override
@@ -45,6 +49,11 @@ public class Funktion implements IFunktion{
 			}
 		}
 		return min;
+	}
+
+	@Override
+	public Funktion ableitung() {
+		return new Funktion(wurzel.ableitung());
 	}
 
 }

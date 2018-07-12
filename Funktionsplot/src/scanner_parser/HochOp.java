@@ -1,6 +1,12 @@
 package scanner_parser;
 
 public class HochOp extends DyadOp{
+	public HochOp(Knoten l, Knoten r) {
+		super(l, r);
+	}
+
+	public HochOp() { }
+
 	@Override
 	public void print() {
 		System.out.println("Knoten " + num + " Hoch ");
@@ -14,5 +20,11 @@ public class HochOp extends DyadOp{
 	@Override
 	public double calcAt(double x) {
 		return Math.pow(leftOp.calcAt(x), rightOp.calcAt(x));
+	}
+
+	@Override
+	public Knoten ableitung() {
+		
+		return new MultOp(new AddOp(new MultOp(rightOp.ableitung(), new LogOp(leftOp)), new MultOp(rightOp, new DivOp(leftOp.ableitung(), leftOp))), new HochOp(leftOp, rightOp));
 	}
 }
