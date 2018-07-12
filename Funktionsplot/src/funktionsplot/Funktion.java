@@ -62,4 +62,10 @@ public class Funktion implements IFunktion{
 		wurzel.print();
 	}
 
+	@Override
+	public TreeMap<Integer, Integer> autoplot(double linkeIntervallgrenze, double rechteIntervallgrenze, int breite,
+			int höhe) {
+		HashMap<> werteTabelle = this.berechneWertetabelle(linkeIntervallgrenze, rechteIntervallgrenze, breite)
+	}
+
 }

@@ -25,6 +25,12 @@ public interface IFunktion {
 	public TreeMap<Double,Double> berechneWertetabelle(double linkeIntervallgrenze, double rechteIntervallgrenze, int schritte);
 	
 	/*
+	 * 
+	 */
+	public int[] autoplot(double linkeIntervallgrenze, double rechteIntervallgrenze, int breite, int höhe);
+	
+	
+	/*
 	 * gibt den maximalen Wert einer Wertetabelle zurück
 	 * @param values: TreeMap mit den Funktionswerten
 	 * 
