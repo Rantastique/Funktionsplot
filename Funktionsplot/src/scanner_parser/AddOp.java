@@ -1,6 +1,12 @@
 package scanner_parser;
 
 public class AddOp extends DyadOp {
+	public AddOp(Knoten l, Knoten r) {
+		super(l, r);
+	}
+
+	public AddOp() { }
+
 	@Override
 	public void print() {
 		System.out.println("Knoten " + num + " Add ");
@@ -15,5 +21,10 @@ public class AddOp extends DyadOp {
 	public double calcAt(double x) {
 		
 		return leftOp.calcAt(x)+rightOp.calcAt(x);
+	}
+
+	@Override
+	public Knoten ableitung() {
+		return new AddOp(leftOp.ableitung(), rightOp.ableitung());
 	}
 }

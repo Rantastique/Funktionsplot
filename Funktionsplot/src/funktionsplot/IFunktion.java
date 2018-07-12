@@ -29,7 +29,7 @@ public interface IFunktion {
 	//Vorschläge>:
 	//public double maximumIn(double linkeIntervallsgrenze, double rechteIntervallgrenze);
 	//public double minimumIn(double linkeIntervallsgrenze, double rechteIntervallgrenze);
-	//public Funktion ableitung();
+	public Funktion ableitung();
 	//public double[] nullstellen();
 	//public double[] Extremstellen();
 	//public double[] Wendestellen();

@@ -14,4 +14,9 @@ public class Ganzzahl extends Knoten {
 	public double calcAt(double x) {
 		return wert;
 	}
+	
+	@Override
+	public Knoten ableitung() {
+		return new Ganzzahl(0);
+	}
 }
