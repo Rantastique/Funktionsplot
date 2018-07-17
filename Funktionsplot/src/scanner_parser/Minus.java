@@ -1,15 +1,13 @@
 package scanner_parser;
 
-public class Minus extends Knoten {
-	private Knoten op;
-	public Minus(Knoten k) {
-		this.op = k;
-	}
-	public Minus() { }
+public class Minus extends MonadOp {
 	
-	public void setOp(Knoten op) {
-		this.op = op; 
+	public Minus(Knoten k) {
+		super(k);
 	}
+	public Minus() { 
+		super();
+	} 
 	
 	@Override
 	public void print() {
