@@ -10,4 +10,8 @@ public class Gleitkomma extends Knoten {
 		System.out.println("Knoten " + num + " Double " + wert + "\n");		
 	}
 
+	@Override
+	public double calcAt(double x) {
+		return wert;
+	}
 }
