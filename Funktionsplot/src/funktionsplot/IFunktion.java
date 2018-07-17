@@ -25,6 +25,15 @@ public interface IFunktion {
 	public TreeMap<Double,Double> berechneWertetabelle(double linkeIntervallgrenze, double rechteIntervallgrenze, int schritte);
 	
 	/*
+	 * bildet die funktionswerte eines intervalls auf pixelwerte einer 2D Leinwand gegebener grösse ab
+	 * die y-achse wird automatisch skaliert
+	 * 
+	 * @param linkeIntervallgrenze: linke Grenze des abzubildenden Intervalls
+	 * @param rechteIntervallgrenze: rechte Grenze des abzubildenden Intervalls
+	 * @param breite: breite der Leinwand in pixeln
+	 * @param höhe: höhe der Leinwand in pixeln
+	 * 
+	 * @return: 1D Feld mit y-werten in pixel feld[x] steht für den Pixelwert von f(x)
 	 * 
 	 */
 	public int[] autoplot(double linkeIntervallgrenze, double rechteIntervallgrenze, int breite, int höhe);
