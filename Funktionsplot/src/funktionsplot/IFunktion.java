@@ -25,30 +25,30 @@ public interface IFunktion {
 	public TreeMap<Double,Double> berechneWertetabelle(double linkeIntervallgrenze, double rechteIntervallgrenze, int schritte);
 	
 	/*
-	 * bildet die funktionswerte eines intervalls auf pixelwerte einer 2D Leinwand gegebener grösse ab
+	 * bildet die funktionswerte eines intervalls auf pixelwerte einer 2D Leinwand gegebener grï¿½sse ab
 	 * die y-achse wird automatisch skaliert
 	 * 
 	 * @param linkeIntervallgrenze: linke Grenze des abzubildenden Intervalls
 	 * @param rechteIntervallgrenze: rechte Grenze des abzubildenden Intervalls
 	 * @param breite: breite der Leinwand in pixeln
-	 * @param höhe: höhe der Leinwand in pixeln
+	 * @param hï¿½he: hï¿½he der Leinwand in pixeln
 	 * 
-	 * @return: 1D Feld mit y-werten in pixel - feld[x] steht für den Pixelwert von f(x)
+	 * @return: 1D Feld mit y-werten in pixel - feld[x] steht fï¿½r den Pixelwert von f(x)
 	 * 
 	 */
-	public int[] autoplot(double linkeIntervallgrenze, double rechteIntervallgrenze, int breite, int höhe);
+	public int[] autoplot(double linkeIntervallgrenze, double rechteIntervallgrenze, int breite, int hoehe);
 	
 	
 	/*
-	 * gibt den maximalen Wert einer Wertetabelle zurück
+	 * gibt den maximalen Wert einer Wertetabelle zurï¿½ck
 	 * @param values: TreeMap mit den Funktionswerten
 	 * 
-	 * @return: höchster Wert der TreeMap
+	 * @return: hï¿½chster Wert der TreeMap
 	 */
 	public Double maximumIn(TreeMap<Double, Double> wertetabelle);
 	
 	/*
-	 * gibt den minimalen Wert einer Wertetabelle zurück
+	 * gibt den minimalen Wert einer Wertetabelle zurï¿½ck
 	 * @param values: TreeMap mit den Funktionswerten
 	 * 
 	 * @return: niedrigster Wert der TreeMap
@@ -62,7 +62,7 @@ public interface IFunktion {
 	 */
 	public Funktion ableitung();
 	
-	//Vorschläge>:
+	//Vorschlï¿½ge>:
 	//public double maximumIn(double linkeIntervallsgrenze, double rechteIntervallgrenze);
 	//public double minimumIn(double linkeIntervallsgrenze, double rechteIntervallgrenze);
 	//public double[] nullstellen();

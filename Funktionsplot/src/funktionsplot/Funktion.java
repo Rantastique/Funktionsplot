@@ -56,7 +56,7 @@ public class Funktion implements IFunktion{
 		return new Funktion(wurzel.ableitung());
 	}
 	
-	//für debugging:
+	//fï¿½r debugging:
 	public void print()
 	{
 		wurzel.print();
@@ -64,7 +64,7 @@ public class Funktion implements IFunktion{
 
 	@Override
 	public int[] autoplot(double linkeIntervallgrenze, double rechteIntervallgrenze, int breite,
-			int höhe) {
+			int hoehe) {
 		int[] plot = new int[breite];
 		Double maxplot;
 		Double minplot;
@@ -86,7 +86,7 @@ public class Funktion implements IFunktion{
 		
 		int i = 0;
 		for(Double x : wertetabelle.values()) {
-			plot[i] = (int)(höhe-(((höhe/plotrange)*x))-minplot); //stimmt vielleicht ':D
+			plot[i] = (int)(hoehe-(((hoehe/plotrange)*x))-minplot); //stimmt vielleicht ':D
 			
 			i++;
 		}
