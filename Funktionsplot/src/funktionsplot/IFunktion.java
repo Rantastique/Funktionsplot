@@ -33,7 +33,7 @@ public interface IFunktion {
 	 * @param breite: breite der Leinwand in pixeln
 	 * @param höhe: höhe der Leinwand in pixeln
 	 * 
-	 * @return: 1D Feld mit y-werten in pixel feld[x] steht für den Pixelwert von f(x)
+	 * @return: 1D Feld mit y-werten in pixel - feld[x] steht für den Pixelwert von f(x)
 	 * 
 	 */
 	public int[] autoplot(double linkeIntervallgrenze, double rechteIntervallgrenze, int breite, int höhe);
