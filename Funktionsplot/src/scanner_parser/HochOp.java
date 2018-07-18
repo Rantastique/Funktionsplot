@@ -25,9 +25,9 @@ public class HochOp extends DyadOp{
 	@Override
 	public Knoten ableitung() {
 		
-		//return new MultOp(new AddOp(new MultOp(rightOp.ableitung(), new LogOp(leftOp)), new MultOp(rightOp, new DivOp(leftOp.ableitung(), leftOp))), new HochOp(leftOp, rightOp));
-		HochOp f = new HochOp(leftOp,rightOp); //funktion selbst
-		MultOp produkt = new MultOp(rightOp, new LogOp(leftOp)); //produkt von  e^produkt
-		return new MultOp(f, produkt.ableitung()); //ableitung von e^produkt
+		return new MultOp(new AddOp(new MultOp(rightOp.ableitung(), new LogOp(leftOp)), new MultOp(rightOp, new DivOp(leftOp.ableitung(), leftOp))), new HochOp(leftOp, rightOp));
+		//HochOp f = new HochOp(leftOp,rightOp); //funktion selbst
+		//MultOp produkt = new MultOp(rightOp, new LogOp(leftOp)); //produkt von  e^produkt
+		//return new MultOp(f, produkt.ableitung()); //ableitung von e^produkt
 	}
 }

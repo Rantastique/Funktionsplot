@@ -49,14 +49,12 @@ public class FuncParser {
             advance();
         } else {
             error();
-           // System.out.print("eat!");
         }
     }
     Knoten S() {
         Knoten k = E();
         if (t.tokenId != Token.EOF) {
         	error();
-        	System.out.println("start");
         }
         return k;
     }
