@@ -58,7 +58,7 @@ public class PlotGUI extends JFrame {
 		
 		// Menue konfigurieren
 		menubar = new JMenuBar();
-		menu = new JMenu("Menü");
+		menu = new JMenu("Menue");
 		exit = new JMenuItem("Plotter verlassen");
 		reset = new JMenuItem("Zuruecksetzen");
 		menubar.add(menu);
