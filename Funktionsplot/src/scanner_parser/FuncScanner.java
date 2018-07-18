@@ -18,7 +18,17 @@ public class FuncScanner {
 				   	   (('0' <= line.charAt(pos))&& (line.charAt(pos) <= '9')) ) {
 					yytext += line.charAt(pos++);
 				}
-				return new Token(Token.Identifier,yytext);
+				switch (yytext) {
+				case "sin":
+					return new Token(Token.Sin, yytext);
+				case "cos" :
+					return new Token(Token.Cos, yytext);
+				case "ln":
+					return new Token(Token.Log, yytext); //oder "log"?
+				default:
+					return new Token(Token.Identifier,yytext);
+				}
+					
 			}
 			if ((('0' <= line.charAt(pos))&& (line.charAt(pos) <= '9')) ||
 				('.' == line.charAt(pos))) {			
