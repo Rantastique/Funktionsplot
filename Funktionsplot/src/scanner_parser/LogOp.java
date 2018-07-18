@@ -1,11 +1,12 @@
 package scanner_parser;
 
-public class LogOp extends Knoten {
-	private Knoten op;
+public class LogOp extends MonadOp {
 
 	public LogOp(Knoten k) {
-		this.op = k;
+		super();
 	}
+	
+	public LogOp() {}
 
 	@Override
 	public void print() {

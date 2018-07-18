@@ -53,14 +53,18 @@ public class FuncParser {
     }
     Knoten S() {
         Knoten k = E();
-        if (t.tokenId != Token.EOF)
-            error();
+        if (t.tokenId != Token.EOF) {
+        	error();
+        }
         return k;
     }
     Knoten E() {
     	DyadOp kd;
     	Knoten k;
         switch (t.tokenId) {
+        case Token.Cos:
+        case Token.Sin:
+        case Token.Log:
         case Token.Identifier:
         case Token.Number:
         case Token.Ganzzahl:
@@ -119,6 +123,9 @@ public class FuncParser {
     	Knoten k;
         switch (t.tokenId) {
         case Token.Identifier:
+        case Token.Sin:
+        case Token.Cos:
+        case Token.Log:
         case Token.Number:
         case Token.Ganzzahl:
         case Token.LKlamm:
@@ -179,8 +186,9 @@ public class FuncParser {
     }
     Knoten F() {
     	DyadOp kd; 
-    	Minus km;
+    	MonadOp km;
     	Knoten k;
+
         switch (t.tokenId) {
         case Token.Identifier:
         	k = new Variable(t.text);
@@ -190,6 +198,29 @@ public class FuncParser {
             	k = kd;
             }
             break;
+        case Token.Sin:
+        	km = new Sin();
+        case Token.Cos:
+        	km = new Cos();
+        case Token.Log:
+        	km = new LogOp();
+        	advance();
+        	if (t.tokenId == Token.LKlamm)
+        	{	 advance();
+        		 k = E();
+        		 km.setOp(k);
+        		 k = km;
+                 eat(Token.RKlamm);
+                 if ((kd = H()) != null) {
+                 	kd.setLeftOp(k);
+                 	k = kd;
+                 }
+        	}else {
+        		error();
+        		k=null;
+        	}
+            break;
+        	
         case Token.Number:
         case Token.Ganzzahl:
         	k = new Gleitkomma(Double.valueOf(t.text));
@@ -241,7 +272,6 @@ public class FuncParser {
                 eat(Token.RKlamm);
                 kd = new HochOp();
      			kd.setRightOp(k);
-     			advance();
      			break;
      		case Token.Identifier:
      			k = new Variable(t.text);
