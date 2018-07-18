@@ -60,7 +60,7 @@ public class PlotGUI extends JFrame {
 		menubar = new JMenuBar();
 		menu = new JMenu("Menü");
 		exit = new JMenuItem("Plotter verlassen");
-		reset = new JMenuItem("Zurücksetzen");
+		reset = new JMenuItem("Zuruecksetzen");
 		menubar.add(menu);
 		menu.add(reset);
 		menu.add(exit);
@@ -98,7 +98,7 @@ public class PlotGUI extends JFrame {
 		anzeigenAbleitung = new JButton("Anzeigen");
 		
 		// ComboBoxes
-		String[] farben = {"rot", "blau", "grün", "orange"};
+		String[] farben = {"rot", "blau", "gruen", "orange"};
 		farbauswahlGraph = new JComboBox(farben);
 		farbauswahlAbleitung = new JComboBox(farben);
 		
