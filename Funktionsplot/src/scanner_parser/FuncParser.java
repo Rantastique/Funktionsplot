@@ -199,11 +199,15 @@ public class FuncParser {
             }
             break;
         case Token.Sin:
-        	km = new Sin();
         case Token.Cos:
-        	km = new Cos();
         case Token.Log:
-        	km = new LogOp();
+        	km = null;
+        	if (t.tokenId == Token.Sin)
+        		km = new Sin();
+        	if (t.tokenId == Token.Cos)
+        		km = new Cos();
+        	if (t.tokenId == Token.Log)
+        		km = new LogOp();
         	advance();
         	if (t.tokenId == Token.LKlamm)
         	{	 advance();
