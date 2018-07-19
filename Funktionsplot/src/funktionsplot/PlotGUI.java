@@ -19,6 +19,7 @@ public class PlotGUI extends JFrame {
 	
 	// Elemente deklarieren
 	private JPanel p;
+	private GraphPanel g;
 	private JMenuBar menubar;
 	private JMenu menu;
 	private JMenuItem exit, reset;
@@ -50,11 +51,18 @@ public class PlotGUI extends JFrame {
 	PlotGUI() {
 		
 		// Frame und Panel konfigurieren
-		this.setSize(800, 600);
+		this.setSize(930, 600);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		p=(JPanel) this.getContentPane();
 		p.setLayout(null);
+		
+		// Panel für den Graphen
+		g = new GraphPanel();
+		g.setBounds(400, 20, 500, 500);
+		p.add(g);
+		
+		
 		
 		// Menue konfigurieren
 		menubar = new JMenuBar();
