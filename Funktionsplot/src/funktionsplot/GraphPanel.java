@@ -16,15 +16,18 @@ public class GraphPanel extends JPanel {
 	@Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        // Test
-        g.setColor(Color.CYAN);
-        g.drawLine(20, 20, 100, 100);
-        g.setColor(Color.GREEN);
-        g.drawLine(20, 20, 100, 20);
+        Graphics2D g2 = (Graphics2D) g;
         
-        // ich habe gelsen, das man das irgendwie noch casten sollte, aber kP, bleibt erstmal als Kommentar
-        // Graphics2D g2 = (Graphics2D) g;
-        // g2.setColor(Color.WHITE);
+        // erzeugt schwarzen Rand um das Panel
+        g2.setColor(Color.BLACK);
+        g2.drawRect(0, 0, this.getWidth()-1, this.getHeight()-1);
+        
+        // Tests
+        g2.setColor(Color.CYAN);
+        g2.drawLine(20, 20, 100, 100);
+        g2.setColor(Color.GREEN);
+        g2.drawLine(20, 20, 100, 20);
+        
 	}
 
 }
