@@ -11,11 +11,12 @@ import java.util.List;
 import javax.swing.JPanel;
 
 public class GraphPanel extends JPanel {
-	List<Funktion> funktioen;
-	Boundaries boundaries;
+	List<Funktion> funktionen;
+	private Boundaries boundaries;
 	
 	public GraphPanel() {
 		this.setBackground(Color.WHITE);
+		boundaries = new Boundaries(-30,10,100,-300);
 		
 	}
 	
@@ -42,9 +43,12 @@ public class GraphPanel extends JPanel {
         g2.setColor(Color.BLACK);
         g2.drawRect(0, 0, w-1, h-1);
         
-        // erzeugt Achsen-Rohlinge
-        g2.drawLine(w/2, 0,  w/2, h);
-        g2.drawLine(0, h/2, w, h/2);
+        // erzeugt Achsen
+        int yAxisPos = (int)(-(w/(boundaries.right-boundaries.left))*boundaries.left);
+        g2.drawLine(yAxisPos, 0,  yAxisPos, h);
+        
+        int xAxisPos = (int)((h/(boundaries.top-boundaries.bottom))*boundaries.top);
+        g2.drawLine(0, xAxisPos, w, xAxisPos);
         
         g2.setStroke(raster);
         // erzeugt Raster
@@ -65,8 +69,8 @@ public class GraphPanel extends JPanel {
         g2.setFont(new Font("Bold", Font.BOLD, 18));
         
         
-        g2.drawString("x", w - 30, h/2 + 20);
-        g2.drawString("y", w/ 2 - 20, 20);
+        g2.drawString("x", w - 30, xAxisPos + 20);
+        g2.drawString("y", yAxisPos - 20, 20);
         
 
         
