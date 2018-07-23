@@ -1,10 +1,6 @@
 package funktionsplot;
 
 
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -28,6 +24,8 @@ public class PlotGUI extends JFrame {
 	private JButton plot, intervallAnpassen, berechnen, anzeigenAbleitung, ableitung;
 	private JComboBox farbauswahlGraph, farbauswahlAbleitung;
 	
+	// zum Testen
+	final JLabel lTest;
 	
 	// x-Werte
 	private final int X1 = 20;
@@ -62,8 +60,6 @@ public class PlotGUI extends JFrame {
 		g.setBounds(400, 20, 500, 500);
 		p.add(g);
 		
-		
-		
 		// Menue konfigurieren
 		menubar = new JMenuBar();
 		menu = new JMenu("Menue");
@@ -74,6 +70,11 @@ public class PlotGUI extends JFrame {
 		menu.add(exit);
 		
 		setJMenuBar(menubar);
+		
+		// Test
+		lTest = new JLabel("Hier könnte Ihre Testnachricht stehen");
+		lTest.setBounds(X1, 510, 600, 50);
+		p.add(lTest);
 		
 		// Elemente initialisieren
 		// Label
@@ -150,6 +151,13 @@ public class PlotGUI extends JFrame {
 		farbauswahlGraph.setBounds(X4, 50, W3, H1);
 		farbauswahlAbleitung.setBounds(X4, 450, W3, H1);
 		
+		// ActionListener hinzufuegen
+		plot.addActionListener(e -> plot());
+		intervallAnpassen.addActionListener(e -> anpassen());
+		berechnen.addActionListener(e -> berechnen());
+		anzeigenAbleitung.addActionListener(e -> anzeigen());
+		
+		
 		// Elemente dem Panel hinzufuegen
 		// Label
 		p.add(lTerm);
@@ -182,8 +190,36 @@ public class PlotGUI extends JFrame {
 		
 		// ComboBoxes
 		p.add(farbauswahlGraph);	
-		p.add(farbauswahlAbleitung);		
+		p.add(farbauswahlAbleitung);
+
 	}
 	
+	// Methoden für das Event Handling beim Klicken der Buttons
+
+	private void plot() {
+		String funktion = term.getText();
+		String farbe = farbauswahlGraph.getSelectedItem().toString(); 
+		// für spätere Arbeit empfielt sich getIndex() und dann ein schickes Switch-Statement
+		lTest.setText(String.format("Plot! wurde gedrueckt. Da steht: %s. Wunschfarbe: %s", funktion, farbe));
+	}
+	
+	private void anpassen() {
+		String xVon = xAchseVon.getText();
+		String xBis = xAchseBis.getText();
+		String yVon = yAchseVon.getText();
+		String yBis = yAchseBis.getText();
+		
+		lTest.setText(String.format("Anpassen wurde gedrueckt. Da steht: %s, %s, %s, %s", xVon, xBis, yVon, yBis));
+	}
+	
+	private void berechnen() {
+		lTest.setText("Berechnen wurde gedrueckt");
+	}
+	
+	private void anzeigen() {
+		String farbe = farbauswahlAbleitung.getSelectedItem().toString();
+		lTest.setText("Anzeigen wurde gedrueckt. Wunschfarbe: " + farbe);
+	}
+
 	
 }
