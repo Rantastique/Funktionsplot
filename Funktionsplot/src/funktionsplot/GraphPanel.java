@@ -11,7 +11,9 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.TreeMap;
 
 import javax.swing.JPanel;
 
@@ -21,8 +23,31 @@ public class GraphPanel extends JPanel implements MouseMotionListener, MouseList
 	 */
 	private static final long serialVersionUID = -7250288945960637817L;
 	
+	Graphics2D g2;
 	protected Point mousePrevPos = new Point(0,0);	
-	List<Funktion> funktionen = new ArrayList<Funktion>();	
+	private List<Color> plotcolors = new ArrayList<Color>();
+	private List<Funktion> funktionen = new ArrayList<Funktion>();
+	private List<int[]> plots = new ArrayList<int[]>();
+	public void addFunction(Funktion f) {
+		funktionen.add(f);
+		plot(f);
+		this.repaint();
+	}
+	
+	private void plot(Funktion f) {
+		
+		TreeMap<Double, Double> wertetabelle = f.berechneWertetabelle(boundaries.left, boundaries.right, getWidth());
+		int x = 0;
+		int[] y = new int[getWidth()];
+		for (double value : wertetabelle.values()) {
+			y[x] = (int)(getHeight()-(((getHeight()/(boundaries.right-boundaries.left))*value))+boundaries.bottom);
+			
+			x++;
+		}
+		plots.add(y);
+		plotcolors.add(f.plotColor);
+	}
+
 	private Boundaries boundaries;
 	public void setBoundaries(double left, double right, double top, double bottom) {
 		boundaries = new Boundaries(left, right, top, bottom);
@@ -42,7 +67,7 @@ public class GraphPanel extends JPanel implements MouseMotionListener, MouseList
 		int h = this.getHeight();
 		
         super.paintComponent(g);
-        Graphics2D g2 = (Graphics2D) g;
+        g2 = (Graphics2D) g;
         
         // Strokes definieren
         // fancy Spielerei, kann/muss man evtl der Achsen-Skalierung anpassen
@@ -88,8 +113,13 @@ public class GraphPanel extends JPanel implements MouseMotionListener, MouseList
         g2.drawString("x", w - 30, xAxisPos + 20);
         g2.drawString("y", yAxisPos - 20, 20);
         
-
-        
+        //zeichne Funktionen ein
+        for(int i = 0; i < plots.size(); i++) {
+        	g2.setColor(plotcolors.get(i));
+        	for(int x = 0; x < getWidth(); x++) {
+        		g.drawRect(x, plots.get(i)[x], 1, 1);
+        	}
+        }
 	}
 
 	@Override

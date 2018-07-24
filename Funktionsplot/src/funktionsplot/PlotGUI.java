@@ -1,6 +1,8 @@
 package funktionsplot;
 
 
+import java.awt.Color;
+
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -109,7 +111,7 @@ public class PlotGUI extends JFrame {
 		anzeigenAbleitung = new JButton("Anzeigen");
 		
 		// ComboBoxes
-		String[] farben = {"rot", "blau", "gruen", "orange"};
+		Color[] farben = {Color.red, Color.blue, Color.green, Color.orange};
 		farbauswahlGraph = new JComboBox(farben);
 		farbauswahlAbleitung = new JComboBox(farben);
 		
@@ -204,7 +206,9 @@ public class PlotGUI extends JFrame {
 		// für spätere Arbeit empfielt sich getIndex() und dann ein schickes Switch-Statement
 		lTest.setText(String.format("Plot! wurde gedrueckt. Da steht: %s. Wunschfarbe: %s", funcString, farbe));
 		
-		g.funktionen.add(FuncParser.theParser().parse(funcString));
+		Funktion f = FuncParser.theParser().parse(funcString);
+		f.plotColor = (Color) farbauswahlGraph.getSelectedItem();
+		g.addFunction(f);
 	}
 	
 	private void anpassen() {

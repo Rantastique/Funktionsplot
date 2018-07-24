@@ -1,5 +1,6 @@
 package funktionsplot;
 
+import java.awt.Color;
 import java.util.Map.Entry;
 import java.util.TreeMap;
 
@@ -7,9 +8,11 @@ import scanner_parser.Knoten;
 
 public class Funktion implements IFunktion{
 	private Knoten wurzel;
+	public Color plotColor;
 	
 	public Funktion(Knoten wurzel) {
 		this.wurzel = wurzel;
+		plotColor = Color.BLACK;
 	}
 
 	@Override
