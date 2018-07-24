@@ -1,6 +1,12 @@
 package funktionsplot;
 
 
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
+
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -11,7 +17,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-public class PlotGUI extends JFrame {
+public class PlotGUI extends JFrame implements MouseMotionListener, MouseListener {
 	
 	// Elemente deklarieren
 	private JPanel p;
@@ -57,7 +63,10 @@ public class PlotGUI extends JFrame {
 		
 		// Panel für den Graphen
 		g = new GraphPanel();
-		g.setBounds(400, 20, 500, 500);
+		g.setBounds(400, 20, 500, 500);	
+		// MouseListener um die TextFields für X- und Y-Achse zu aktualisieren
+		g.addMouseListener(this);
+		
 		p.add(g);
 		
 		// Menue konfigurieren
@@ -220,6 +229,64 @@ public class PlotGUI extends JFrame {
 		String farbe = farbauswahlAbleitung.getSelectedItem().toString();
 		lTest.setText("Anzeigen wurde gedrueckt. Wunschfarbe: " + farbe);
 	}
+	
+	// Methoden für den MouseListener
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// Jaja, ich mach das vllt noch hübscher. However: it works.
+		
+		double left = g.boundaries.left;
+		double right = g.boundaries.right;
+		double top = g.boundaries.top;
+		double bottom = g.boundaries.bottom;
+		
+		DecimalFormat df = new DecimalFormat("#.#");
+		df.setRoundingMode(RoundingMode.CEILING);
+		
+		xAchseVon.setText(String.format("%s", df.format(left)));
+		xAchseBis.setText(String.format("%s", df.format(right)));
+		yAchseVon.setText(String.format("%s",df.format(bottom)));
+		yAchseBis.setText(String.format("%s", df.format(top)));
+		
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseDragged(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseMoved(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
 
 	
 }

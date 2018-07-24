@@ -22,7 +22,7 @@ public class GraphPanel extends JPanel implements MouseMotionListener, MouseList
 	
 	protected Point mousePrevPos = new Point(0,0);	
 	List<Funktion> funktionen;	
-	private Boundaries boundaries;
+	public Boundaries boundaries;
 	public void setBoundaries(double left, double right, double top, double bottom) {
 		boundaries = new Boundaries(left, right, top, bottom);
 		this.repaint();
