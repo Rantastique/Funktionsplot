@@ -75,8 +75,8 @@ public class GraphPanel extends JPanel implements MouseMotionListener, MouseList
         g2.setStroke(defaultStroke);
         // Bezeichnungen weiß hinterlegen
         g2.setColor(Color.WHITE);
-        g2.fillRect(w - 30, h/2 + 10, 20, 20);
-        g2.fillRect(w/2 - 20, 10, 20, 20);
+        g2.fillRect(w - 30, xAxisPos + 10, 20, 20);
+        g2.fillRect(yAxisPos - 20, 10, 20, 20);
         
         g2.setColor(Color.DARK_GRAY);
         // Font ändern (fürs erste defaultFont zwischenspeichern)
