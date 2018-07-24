@@ -10,6 +10,7 @@ import java.awt.Stroke;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JPanel;
@@ -21,7 +22,7 @@ public class GraphPanel extends JPanel implements MouseMotionListener, MouseList
 	private static final long serialVersionUID = -7250288945960637817L;
 	
 	protected Point mousePrevPos = new Point(0,0);	
-	List<Funktion> funktionen;	
+	List<Funktion> funktionen = new ArrayList<Funktion>();	
 	private Boundaries boundaries;
 	public void setBoundaries(double left, double right, double top, double bottom) {
 		boundaries = new Boundaries(left, right, top, bottom);

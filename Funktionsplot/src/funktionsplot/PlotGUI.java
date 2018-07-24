@@ -11,6 +11,8 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import scanner_parser.FuncParser;
+
 public class PlotGUI extends JFrame {
 	
 	// Elemente deklarieren
@@ -197,10 +199,12 @@ public class PlotGUI extends JFrame {
 	// Methoden für das Event Handling beim Klicken der Buttons
 
 	private void plot() {
-		String funktion = term.getText();
+		String funcString = term.getText();
 		String farbe = farbauswahlGraph.getSelectedItem().toString(); 
 		// für spätere Arbeit empfielt sich getIndex() und dann ein schickes Switch-Statement
-		lTest.setText(String.format("Plot! wurde gedrueckt. Da steht: %s. Wunschfarbe: %s", funktion, farbe));
+		lTest.setText(String.format("Plot! wurde gedrueckt. Da steht: %s. Wunschfarbe: %s", funcString, farbe));
+		
+		g.funktionen.add(FuncParser.theParser().parse(funcString));
 	}
 	
 	private void anpassen() {
