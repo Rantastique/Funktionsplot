@@ -32,7 +32,7 @@ public class GraphPanel extends JPanel implements MouseMotionListener, MouseList
 		this.setBackground(Color.WHITE);
 		this.addMouseMotionListener(this);
 		this.addMouseListener(this);
-		setBoundaries(-30,10,100,-300);		
+		setBoundaries(-30,30,100,-100);		
 	}
 	
 	@Override
