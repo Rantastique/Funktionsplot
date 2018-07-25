@@ -10,7 +10,7 @@ public class Sin extends MonadOp{
 
 	@Override
 	public double calcAt(double x) {
-		return Math.sin(x) ;
+		return Math.sin(op.calcAt(x));
 	}
 
 	@Override

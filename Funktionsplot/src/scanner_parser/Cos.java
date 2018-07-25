@@ -9,7 +9,7 @@ public class Cos extends MonadOp {
 
 	@Override
 	public double calcAt(double x) {
-		return Math.cos(x) ;
+		return Math.cos(op.calcAt(x)) ;
 	}
 
 	@Override
