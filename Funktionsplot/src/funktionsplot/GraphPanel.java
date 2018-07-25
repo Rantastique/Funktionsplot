@@ -25,10 +25,13 @@ public class GraphPanel extends JPanel implements MouseMotionListener, MouseList
 	
 	Graphics2D g2;
 	protected Point mousePrevPos = new Point(0,0);	
-  public Boundaries boundaries;
+	private Boundaries boundaries;
 	public void setBoundaries(double left, double right, double top, double bottom) {
 		boundaries = new Boundaries(left, right, top, bottom);
 		this.repaint();
+	}
+	public Boundaries getBoundaries() {
+		return this.boundaries;
 	}
   
 	private List<Color> plotcolors = new ArrayList<Color>();
