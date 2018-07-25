@@ -63,8 +63,6 @@ public interface IFunktion {
 	public Funktion ableitung();
 	
 	//Vorschl�ge>:
-	//public double maximumIn(double linkeIntervallsgrenze, double rechteIntervallgrenze);
-	//public double minimumIn(double linkeIntervallsgrenze, double rechteIntervallgrenze);
 	//public double[] nullstellen();
 	//public double[] Extremstellen();
 	//public double[] Wendestellen();

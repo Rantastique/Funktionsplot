@@ -1,6 +1,8 @@
 package funktionsplot;
 
 
+
+import java.awt.Color;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
@@ -17,7 +19,9 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import scanner_parser.FuncParser;
 public class PlotGUI extends JFrame implements MouseMotionListener, MouseListener {
+
 	
 	// Elemente deklarieren
 	private JPanel p;
@@ -116,7 +120,7 @@ public class PlotGUI extends JFrame implements MouseMotionListener, MouseListene
 		anzeigenAbleitung = new JButton("Anzeigen");
 		
 		// ComboBoxes
-		String[] farben = {"rot", "blau", "gruen", "orange"};
+		Color[] farben = {Color.red, Color.blue, Color.green, Color.orange};
 		farbauswahlGraph = new JComboBox(farben);
 		farbauswahlAbleitung = new JComboBox(farben);
 		
@@ -206,10 +210,15 @@ public class PlotGUI extends JFrame implements MouseMotionListener, MouseListene
 	// Methoden für das Event Handling beim Klicken der Buttons
 
 	private void plot() {
-		String funktion = term.getText();
+		String funcString = term.getText();
 		String farbe = farbauswahlGraph.getSelectedItem().toString(); 
 		// für spätere Arbeit empfielt sich getIndex() und dann ein schickes Switch-Statement
-		lTest.setText(String.format("Plot! wurde gedrueckt. Da steht: %s. Wunschfarbe: %s", funktion, farbe));
+		lTest.setText(String.format("Plot! wurde gedrueckt. Da steht: %s. Wunschfarbe: %s", funcString, farbe));
+		if(funcString!="") {
+			Funktion f = FuncParser.theParser().parse(funcString);
+			f.plotColor = (Color) farbauswahlGraph.getSelectedItem();
+			g.addFunction(f);
+		}
 	}
 	
 	private void anpassen() {
