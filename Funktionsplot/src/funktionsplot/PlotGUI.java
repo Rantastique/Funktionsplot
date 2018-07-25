@@ -222,11 +222,16 @@ public class PlotGUI extends JFrame implements MouseMotionListener, MouseListene
 	}
 	
 	private void anpassen() {
-		String xVon = xAchseVon.getText();
-		String xBis = xAchseBis.getText();
-		String yVon = yAchseVon.getText();
-		String yBis = yAchseBis.getText();
+		// aktuellen Inhalt der TextFields abfragen und in double-Werte parsen
+		// TO-DO: evtl Fehlerbehandlung falls String eingegeben wird (derzeit aktualisiert er den Graphen dann einfach nicht, was auch gut ist)
+		double xVon = Double.parseDouble(xAchseVon.getText());
+		double xBis = Double.parseDouble(xAchseBis.getText());
+		double yVon = Double.parseDouble(yAchseVon.getText());
+		double yBis = Double.parseDouble(yAchseBis.getText());
 		
+		// Intervallgrenzen neu setzen
+		g.setBoundaries(xVon, xBis, yBis, yVon);
+			
 		lTest.setText(String.format("Anpassen wurde gedrueckt. Da steht: %s, %s, %s, %s", xVon, xBis, yVon, yBis));
 	}
 	
@@ -255,16 +260,18 @@ public class PlotGUI extends JFrame implements MouseMotionListener, MouseListene
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		// Jaja, ich mach das vllt noch hübscher. However: it works.
+		// Format für Ausgabe der Intervallgrenzen (double) festelegen
+		DecimalFormat df = new DecimalFormat("#.#");
+		// runden
+		df.setRoundingMode(RoundingMode.CEILING);
 		
+		// aktuelle Intervallgrenzen abfragen
 		double left = g.getBoundaries().left;
 		double right = g.getBoundaries().right;
 		double top = g.getBoundaries().top;
 		double bottom = g.getBoundaries().bottom;
 		
-		DecimalFormat df = new DecimalFormat("#.#");
-		df.setRoundingMode(RoundingMode.CEILING);
-		
+		// Intervallgrenzen in die entsprechenden TextFields eintragen
 		xAchseVon.setText(String.format("%s", df.format(left)));
 		xAchseBis.setText(String.format("%s", df.format(right)));
 		yAchseVon.setText(String.format("%s",df.format(bottom)));
