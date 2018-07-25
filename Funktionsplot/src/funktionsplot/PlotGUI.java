@@ -257,10 +257,10 @@ public class PlotGUI extends JFrame implements MouseMotionListener, MouseListene
 	public void mouseReleased(MouseEvent e) {
 		// Jaja, ich mach das vllt noch hübscher. However: it works.
 		
-		double left = g.boundaries.left;
-		double right = g.boundaries.right;
-		double top = g.boundaries.top;
-		double bottom = g.boundaries.bottom;
+		double left = g.getBoundaries().left;
+		double right = g.getBoundaries().right;
+		double top = g.getBoundaries().top;
+		double bottom = g.getBoundaries().bottom;
 		
 		DecimalFormat df = new DecimalFormat("#.#");
 		df.setRoundingMode(RoundingMode.CEILING);
