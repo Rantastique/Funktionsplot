@@ -205,10 +205,11 @@ public class PlotGUI extends JFrame {
 		String farbe = farbauswahlGraph.getSelectedItem().toString(); 
 		// für spätere Arbeit empfielt sich getIndex() und dann ein schickes Switch-Statement
 		lTest.setText(String.format("Plot! wurde gedrueckt. Da steht: %s. Wunschfarbe: %s", funcString, farbe));
-		
-		Funktion f = FuncParser.theParser().parse(funcString);
-		f.plotColor = (Color) farbauswahlGraph.getSelectedItem();
-		g.addFunction(f);
+		if(funcString!="") {
+			Funktion f = FuncParser.theParser().parse(funcString);
+			f.plotColor = (Color) farbauswahlGraph.getSelectedItem();
+			g.addFunction(f);
+		}
 	}
 	
 	private void anpassen() {
