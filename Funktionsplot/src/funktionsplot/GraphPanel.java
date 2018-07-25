@@ -24,7 +24,7 @@ public class GraphPanel extends JPanel implements MouseMotionListener, MouseList
 	private static final long serialVersionUID = -7250288945960637817L;
 	
 	Graphics2D g2;
-	protected Point mousePrevPos = new Point(0,0);	
+	protected Point mousePressPos = new Point(0,0);	
 	private Boundaries boundaries;
 	public void setBoundaries(double left, double right, double top, double bottom) {
 		boundaries = new Boundaries(left, right, top, bottom);
@@ -131,13 +131,15 @@ public class GraphPanel extends JPanel implements MouseMotionListener, MouseList
 
 	@Override
 	public void mouseDragged(MouseEvent e) {
-		double xOffset = ((mousePrevPos.x-e.getX())*(boundaries.right-boundaries.left))/this.getWidth();
-		double yOffset = ((e.getY()-mousePrevPos.y)*(boundaries.top-boundaries.bottom))/this.getHeight();
+		/*
+		double xOffset = ((mousePressPos.x-e.getX())*(boundaries.right-boundaries.left))/this.getWidth();
+		double yOffset = ((e.getY()-mousePressPos.y)*(boundaries.top-boundaries.bottom))/this.getHeight();
 
-		mousePrevPos.x = e.getX();
-		mousePrevPos.y = e.getY();
+		mousePressPos.x = e.getX();
+		mousePressPos.y = e.getY();
 		
 		setBoundaries(boundaries.left+xOffset, boundaries.right+xOffset, boundaries.top+yOffset, boundaries.bottom+yOffset);
+		*/
 
 	}
 
@@ -167,13 +169,22 @@ public class GraphPanel extends JPanel implements MouseMotionListener, MouseList
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		mousePrevPos = new Point(e.getX(), e.getY());;
+		mousePressPos = new Point(e.getX(), e.getY());;
 	}
 
 	@Override
-	public void mouseReleased(MouseEvent arg0) {
-		// TODO Auto-generated method stub
+	public void mouseReleased(MouseEvent e) {
+		plots.clear();
+		plotcolors.clear();
+		double xOffset = ((mousePressPos.x-e.getX())*(boundaries.right-boundaries.left))/this.getWidth();
+		double yOffset = ((e.getY()-mousePressPos.y)*(boundaries.top-boundaries.bottom))/this.getHeight();
 		
+		setBoundaries(boundaries.left+xOffset, boundaries.right+xOffset, boundaries.top+yOffset, boundaries.bottom+yOffset);
+		for(Funktion f : funktionen) {
+			plot(f);
+		}
+		this.repaint();
+				
 	}
 
 
