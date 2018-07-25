@@ -39,8 +39,10 @@ public class GraphPanel extends JPanel implements MouseMotionListener, MouseList
 		TreeMap<Double, Double> wertetabelle = f.berechneWertetabelle(boundaries.left, boundaries.right, getWidth());
 		int x = 0;
 		int[] y = new int[getWidth()];
+		double yStepValue = getHeight()/(boundaries.top-boundaries.bottom);
 		for (double value : wertetabelle.values()) {
-			y[x] = (int)(getHeight()-(((getHeight()/(boundaries.right-boundaries.left))*value))+boundaries.bottom);
+			y[x] = getHeight()-(int)((value-boundaries.bottom)*yStepValue);
+			//y[x] = (int)(getHeight()-(((getHeight()/(boundaries.right-boundaries.left))*value))-boundaries.bottom); //WRONG!
 			
 			x++;
 		}
