@@ -177,18 +177,10 @@ public class GraphPanel extends JPanel implements MouseMotionListener, MouseList
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		/*
-		plots.clear();
-		plotcolors.clear();
-		*/
 		double xShift = -(Offset.x*(boundaries.right-boundaries.left))/this.getWidth();
 		double yShift = (Offset.y*(boundaries.top-boundaries.bottom))/this.getHeight();
 		
 		setBoundaries(boundaries.left+xShift, boundaries.right+xShift, boundaries.top+yShift, boundaries.bottom+yShift);
-		/*
-		for(Funktion f : funktionen) {
-			plot(f);
-		}*/
 		Offset.x=0;
 		Offset.y=0;
 		this.repaint();
