@@ -11,7 +11,6 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.TreeMap;
 
@@ -24,7 +23,8 @@ public class GraphPanel extends JPanel implements MouseMotionListener, MouseList
 	private static final long serialVersionUID = -7250288945960637817L;
 	
 	Graphics2D g2;
-	protected Point mousePrevPos = new Point(0,0);	
+	private Point Offset = new Point(0,0);
+	protected Point mousePressPos = new Point(0,0);	
 	private Boundaries boundaries;
 	public void setBoundaries(double left, double right, double top, double bottom) {
 		boundaries = new Boundaries(left, right, top, bottom);
@@ -42,6 +42,9 @@ public class GraphPanel extends JPanel implements MouseMotionListener, MouseList
 		plot(f);
 		this.repaint();
 	}
+	
+
+	
 	
 	private void plot(Funktion f) {
 		
@@ -93,23 +96,25 @@ public class GraphPanel extends JPanel implements MouseMotionListener, MouseList
         
         // erzeugt Achsen
         int yAxisPos = (int)(-boundaries.left*(w/(boundaries.right-boundaries.left)));
-        g2.drawLine(yAxisPos, 0,  yAxisPos, h);
+        g2.drawLine(yAxisPos+Offset.x, 0,  yAxisPos+Offset.x, h);
         
         int xAxisPos = (int)(boundaries.top*(h/(boundaries.top-boundaries.bottom)));
-        g2.drawLine(0, xAxisPos, w, xAxisPos);
+        g2.drawLine(0, xAxisPos+Offset.y, w, xAxisPos+Offset.y);
         
+        /*
         g2.setStroke(raster);
         // erzeugt Raster
         for (int i = 10; i <= h - 10; i = i + 10) {
         	g2.drawLine(0, i, w, i);
         }
+        */
         
         // Achsenbezeichnung
         g2.setStroke(defaultStroke);
         // Bezeichnungen weiß hinterlegen
         g2.setColor(Color.WHITE);
-        g2.fillRect(w - 30, xAxisPos + 10, 20, 20);
-        g2.fillRect(yAxisPos - 20, 10, 20, 20);
+        g2.fillRect(w - 30, xAxisPos + 10 + Offset.y, 20, 20);
+        g2.fillRect(yAxisPos - 20 + Offset.x, 10, 20, 20);
         
         g2.setColor(Color.DARK_GRAY);
         // Font ändern (fürs erste defaultFont zwischenspeichern)
@@ -117,28 +122,23 @@ public class GraphPanel extends JPanel implements MouseMotionListener, MouseList
         g2.setFont(new Font("Bold", Font.BOLD, 18));
         
         
-        g2.drawString("x", w - 30, xAxisPos + 20);
-        g2.drawString("y", yAxisPos - 20, 20);
+        g2.drawString("x", w - 30, xAxisPos + 20 + Offset.y);
+        g2.drawString("y", yAxisPos - 20 + Offset.x, 20);
         
         //zeichne Funktionen ein
         for(int i = 0; i < plots.size(); i++) {
         	g2.setColor(plotcolors.get(i));
         	for(int x = 0; x < getWidth(); x++) {
-        		g.drawRect(x, plots.get(i)[x], 1, 1);
+        		g.drawRect(x+Offset.x, plots.get(i)[x]+Offset.y, 1, 1);
         	}
         }
 	}
 
 	@Override
 	public void mouseDragged(MouseEvent e) {
-		double xOffset = ((mousePrevPos.x-e.getX())*(boundaries.right-boundaries.left))/this.getWidth();
-		double yOffset = ((e.getY()-mousePrevPos.y)*(boundaries.top-boundaries.bottom))/this.getHeight();
-
-		mousePrevPos.x = e.getX();
-		mousePrevPos.y = e.getY();
-		
-		setBoundaries(boundaries.left+xOffset, boundaries.right+xOffset, boundaries.top+yOffset, boundaries.bottom+yOffset);
-
+		Offset.x = -(mousePressPos.x-e.getX());
+		Offset.y = (e.getY()-mousePressPos.y);
+		this.repaint();
 	}
 
 	@Override
@@ -167,13 +167,24 @@ public class GraphPanel extends JPanel implements MouseMotionListener, MouseList
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		mousePrevPos = new Point(e.getX(), e.getY());;
+		mousePressPos = new Point(e.getX(), e.getY());;
 	}
 
 	@Override
-	public void mouseReleased(MouseEvent arg0) {
-		// TODO Auto-generated method stub
+	public void mouseReleased(MouseEvent e) {
+		plots.clear();
+		plotcolors.clear();
+		double xShift = -(Offset.x*(boundaries.right-boundaries.left))/this.getWidth();
+		double yShift = (Offset.y*(boundaries.top-boundaries.bottom))/this.getHeight();
 		
+		setBoundaries(boundaries.left+xShift, boundaries.right+xShift, boundaries.top+yShift, boundaries.bottom+yShift);
+		for(Funktion f : funktionen) {
+			plot(f);
+		}
+		Offset.x=0;
+		Offset.y=0;
+		this.repaint();
+				
 	}
 
 
