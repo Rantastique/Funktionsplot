@@ -7,11 +7,12 @@ public class FuncScanner {
 	public FuncScanner(String line) {
 		this.line = line + '\0';
 	}
-	public Token nextToken() {
+	public Token nextToken()throws Exception {
 		yytext = new String();
-		while (pos < line.length()) { 		
+		while (pos < line.length()){ 		
 			if ((('A' <= line.charAt(pos))&& (line.charAt(pos) <= 'Z')) ||
-				(('a' <= line.charAt(pos))&& (line.charAt(pos) <= 'z'))	) {
+				(('a' <= line.charAt(pos))&& (line.charAt(pos) <= 'z'))	) 
+			{
 				yytext += line.charAt(pos++);
 				while ((('A' <= line.charAt(pos))&& (line.charAt(pos) <= 'Z')) ||
 					   (('a' <= line.charAt(pos))&& (line.charAt(pos) <= 'z')) ||
@@ -24,14 +25,20 @@ public class FuncScanner {
 				case "cos" :
 					return new Token(Token.Cos, yytext);
 				case "ln":
-					return new Token(Token.Log, yytext); //oder "log"?
-				default:
+				case "log":
+					return new Token(Token.Log, yytext); 
+				case "x":
 					return new Token(Token.Identifier,yytext);
+				default:
+					//return new Token(Token.Identifier,yytext);
+					throw new Exception();
+					
 				}
 					
 			}
 			if ((('0' <= line.charAt(pos))&& (line.charAt(pos) <= '9')) ||
-				('.' == line.charAt(pos))) {			
+				('.' == line.charAt(pos))) 
+			{			
 				boolean komma = line.charAt(pos)=='.';
 				yytext += line.charAt(pos++);
 				while ((('0' <= line.charAt(pos))&& (line.charAt(pos) <= '9')) ||
@@ -64,7 +71,8 @@ public class FuncScanner {
 				case ' ' : pos++;
 						   break;
 				default:
-					System.out.println("Error: Illegal character \'" + line.charAt(pos) + "\'at column " + ((pos++)+1));
+					throw new Exception();
+					//System.out.println("Error: Illegal character \'" + line.charAt(pos) + "\'at column " + ((pos++)+1));
 			}
 		}
 		return null; // weil der Java-Editor abgrundtief dämlich ist
