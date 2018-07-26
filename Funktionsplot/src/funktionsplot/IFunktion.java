@@ -63,7 +63,7 @@ public interface IFunktion {
 	public Funktion ableitung();
 	
 	//Vorschl�ge>:
-	//public double[] nullstellen();
+	public TreeMap<Double,Double> nullstellen(double linkeIntervallgrenze, double rechteIntervallgrenze, int schritte);
 	//public double[] Extremstellen();
 	//public double[] Wendestellen();
 	//public double globalMax();

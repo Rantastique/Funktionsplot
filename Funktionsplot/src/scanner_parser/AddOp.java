@@ -19,8 +19,7 @@ public class AddOp extends DyadOp {
 
 	@Override
 	public double calcAt(double x) {
-		
-		return leftOp.calcAt(x)+rightOp.calcAt(x);
+			return leftOp.calcAt(x)+rightOp.calcAt(x);
 	}
 
 	@Override

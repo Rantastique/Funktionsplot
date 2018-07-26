@@ -68,6 +68,12 @@ public class GraphPanel extends JPanel implements MouseMotionListener, MouseList
 	//Berechnung der Pixelwerte einer Funkntion
 	private void plot(Funktion f) {		
 		TreeMap<Double, Double> wertetabelle = f.berechneWertetabelle(boundaries.left, boundaries.right, getWidth());
+		
+		//zum Debugging von der Funktion Nullstellen
+		f.nullstellen(boundaries.left, boundaries.right, getWidth());
+		//
+		
+		
 		int x = 0;
 		int[] y = new int[getWidth()];
 		double yStepValue = getHeight()/(boundaries.top-boundaries.bottom);

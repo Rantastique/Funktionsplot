@@ -3,6 +3,8 @@ package scanner_parser;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.swing.JOptionPane;
+
 import funktionsplot.Funktion;
 
 public class FuncParser {
@@ -42,7 +44,12 @@ public class FuncParser {
     private FuncParser() {}
     
     void advance() {
-       t = s.nextToken();
+       //try {
+		t = s.nextToken();
+	//} catch (Exception e) {
+	//	e.printStackTrace();
+	//	JOptionPane.showMessageDialog(null, "Falsche Eingabe", " ", JOptionPane.INFORMATION_MESSAGE);
+	//}
     }
     void eat(int token) {
         if ( token == t.tokenId ) {
