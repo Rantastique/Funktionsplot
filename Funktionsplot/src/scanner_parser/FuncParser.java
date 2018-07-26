@@ -303,12 +303,19 @@ public class FuncParser {
     
     	
     private int errcnt = 0;
+    private StringBuffer errorbuffer = new StringBuffer();
+    
     void error() {
         ++errcnt;
+        errorbuffer.append("\nparse error, illegal symbol \"" + t.text + "\"");
         System.out.println("parse error, illegal symbol \"" + t.text + "\"");
         if ( t.tokenId != Token.EOF ) {
             advance();
         }
+    }
+    
+    public StringBuffer getErrMsg() {
+    	return errorbuffer;
     }
     
     public int getErrcnt() {

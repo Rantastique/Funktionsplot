@@ -214,6 +214,7 @@ public class PlotGUI extends JFrame implements MouseMotionListener, MouseListene
 		String funcString = term.getText();
 		String farbe = farbauswahlGraph.getSelectedItem().toString();
 		Color farbauswahl = Color.BLACK; // um Variable zu initialisieren
+		
 		switch (farbe) {
 		case "schwarz": 
 			farbauswahl = Color.BLACK;
@@ -241,7 +242,7 @@ public class PlotGUI extends JFrame implements MouseMotionListener, MouseListene
 				g.addFunction(f);
 				return;
 			}
-			String msg = "Fehler bei der Eingabe!";
+			String msg = "Fehler bei der Eingabe!" + FuncParser.theParser().getErrMsg();
 			JOptionPane.showMessageDialog(this.getParent(), msg, "Eingabefehler", JOptionPane.ERROR_MESSAGE);
 			return;
 		}
