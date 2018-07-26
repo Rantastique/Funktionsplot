@@ -50,18 +50,29 @@ public class GraphPanel extends JPanel implements MouseMotionListener, MouseList
 		this.repaint();
 	}
 	
-
+	//Umrechnung Funktionswerte->Pixel
+	private Point koordinatesToPixel(double x, double y) {
+		return new Point(xToPixel(x),yToPixel(y));
+	}
 	
+	///Umrechnung x-Wert->Pixel-x-Wert
+	private int xToPixel(double x) {
+		return (int)((x-boundaries.left)*(getWidth()/(boundaries.right-boundaries.left)));
+	}
 	
-	private void plot(Funktion f) {
-		
+	//umrechnung y-Wert->Pixel-y-Wert
+	private int yToPixel(double y) {
+		return (int)(getHeight()-(y-boundaries.bottom)*(getHeight()/(boundaries.top-boundaries.bottom)));
+	}
+	
+	//Berechnung der Pixelwerte einer Funkntion
+	private void plot(Funktion f) {		
 		TreeMap<Double, Double> wertetabelle = f.berechneWertetabelle(boundaries.left, boundaries.right, getWidth());
 		int x = 0;
 		int[] y = new int[getWidth()];
 		double yStepValue = getHeight()/(boundaries.top-boundaries.bottom);
 		for (double value : wertetabelle.values()) {
 			y[x] = getHeight()-(int)((value-boundaries.bottom)*yStepValue);
-			//y[x] = (int)(getHeight()-(((getHeight()/(boundaries.right-boundaries.left))*value))-boundaries.bottom); //WRONG!
 			
 			x++;
 		}
@@ -103,10 +114,12 @@ public class GraphPanel extends JPanel implements MouseMotionListener, MouseList
         g2.drawRect(0, 0, w-1, h-1);
         
         // erzeugt Achsen
-        int yAxisPos = (int)(-boundaries.left*(w/(boundaries.right-boundaries.left)));
+        //int yAxisPos = (int)(-boundaries.left*(w/(boundaries.right-boundaries.left)));
+        int yAxisPos = xToPixel(0);
         g2.drawLine(yAxisPos+Offset.x, 0,  yAxisPos+Offset.x, h);
         
-        int xAxisPos = (int)(boundaries.top*(h/(boundaries.top-boundaries.bottom)));
+        int xAxisPos = yToPixel(0);
+        		//(int)(boundaries.top*(h/(boundaries.top-boundaries.bottom)));
         g2.drawLine(0, xAxisPos+Offset.y, w, xAxisPos+Offset.y);
         
         /*
