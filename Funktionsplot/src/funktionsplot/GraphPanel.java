@@ -72,7 +72,7 @@ public class GraphPanel extends JPanel implements MouseMotionListener, MouseList
 		int[] y = new int[getWidth()];
 		double yStepValue = getHeight()/(boundaries.top-boundaries.bottom);
 		for (double value : wertetabelle.values()) {
-			y[x] = getHeight()-(int)((value-boundaries.bottom)*yStepValue);
+			y[x] = yToPixel(value);
 			
 			x++;
 		}
@@ -114,13 +114,9 @@ public class GraphPanel extends JPanel implements MouseMotionListener, MouseList
         g2.drawRect(0, 0, w-1, h-1);
         
         // erzeugt Achsen
-        //int yAxisPos = (int)(-boundaries.left*(w/(boundaries.right-boundaries.left)));
-        int yAxisPos = xToPixel(0);
-        g2.drawLine(yAxisPos+Offset.x, 0,  yAxisPos+Offset.x, h);
+        g2.drawLine(xToPixel(0)+Offset.x, 0,  xToPixel(0)+Offset.x, h);
         
-        int xAxisPos = yToPixel(0);
-        		//(int)(boundaries.top*(h/(boundaries.top-boundaries.bottom)));
-        g2.drawLine(0, xAxisPos+Offset.y, w, xAxisPos+Offset.y);
+        g2.drawLine(0, yToPixel(0)+Offset.y, w, yToPixel(0)+Offset.y);
         
         /*
         g2.setStroke(raster);
@@ -130,22 +126,6 @@ public class GraphPanel extends JPanel implements MouseMotionListener, MouseList
         }
         */
         
-        // Achsenbezeichnung
-        g2.setStroke(defaultStroke);
-        // Bezeichnungen weiß hinterlegen
-        g2.setColor(Color.WHITE);
-        g2.fillRect(w - 30, xAxisPos + 10 + Offset.y, 20, 20);
-        g2.fillRect(yAxisPos - 20 + Offset.x, 10, 20, 20);
-        
-        g2.setColor(Color.DARK_GRAY);
-        // Font ändern (fürs erste defaultFont zwischenspeichern)
-        Font defaultFont = g2.getFont();
-        g2.setFont(new Font("Bold", Font.BOLD, 18));
-        
-        
-        g2.drawString("x", w - 30, xAxisPos + 20 + Offset.y);
-        g2.drawString("y", yAxisPos - 20 + Offset.x, 20);
-        
         //zeichne Funktionen ein
         for(int i = 0; i < plots.size(); i++) {
         	g2.setColor(plotcolors.get(i));
@@ -153,6 +133,22 @@ public class GraphPanel extends JPanel implements MouseMotionListener, MouseList
         		g.drawRect(x+Offset.x, plots.get(i)[x]+Offset.y, 1, 1);
         	}
         }
+        
+        // Achsenbezeichnung
+        g2.setStroke(defaultStroke);
+        // Bezeichnungen weiß hinterlegen
+        g2.setColor(Color.WHITE);
+        g2.fillRect(w - 30, yToPixel(0) + 10 + Offset.y, 20, 20);
+        g2.fillRect(xToPixel(0) - 20 + Offset.x, 10, 20, 20);
+        
+        g2.setColor(Color.DARK_GRAY);
+        // Font ändern (fürs erste defaultFont zwischenspeichern)
+        Font defaultFont = g2.getFont();
+        g2.setFont(new Font("Bold", Font.BOLD, 18));
+        
+        
+        g2.drawString("x", w - 30, yToPixel(0) + 20 + Offset.y);
+        g2.drawString("y", xToPixel(0) - 20 + Offset.x, 20);
 	}
 
 	@Override
