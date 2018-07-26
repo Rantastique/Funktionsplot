@@ -16,6 +16,7 @@ import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -120,7 +121,8 @@ public class PlotGUI extends JFrame implements MouseMotionListener, MouseListene
 		anzeigenAbleitung = new JButton("Anzeigen");
 		
 		// ComboBoxes
-		Color[] farben = {Color.red, Color.blue, Color.green, Color.orange};
+		String[] farben = {"schwarz", "rot", "gruen", "blau", "orange"};
+		//Color[] farben = {Color.red, Color.blue, Color.green, Color.orange};
 		farbauswahlGraph = new JComboBox(farben);
 		farbauswahlAbleitung = new JComboBox(farben);
 		
@@ -211,28 +213,52 @@ public class PlotGUI extends JFrame implements MouseMotionListener, MouseListene
 
 	private void plot() {
 		String funcString = term.getText();
-		String farbe = farbauswahlGraph.getSelectedItem().toString(); 
-		// für spätere Arbeit empfielt sich getIndex() und dann ein schickes Switch-Statement
+		String farbe = farbauswahlGraph.getSelectedItem().toString();
+		Color farbauswahl = Color.BLACK; // um Variable zu initialisieren
+		switch (farbe) {
+		case "schwarz": 
+			farbauswahl = Color.BLACK;
+			break;
+		case "rot": 
+			farbauswahl = Color.RED;
+			break;
+		case "gruen": 
+			farbauswahl = Color.GREEN;
+			break;
+		case "blau":
+			farbauswahl = Color.BLUE;
+			break;
+		case "orange":
+			farbauswahl = Color.ORANGE;
+			break;
+		}
+		
 		lTest.setText(String.format("Plot! wurde gedrueckt. Da steht: %s. Wunschfarbe: %s", funcString, farbe));
 		if(funcString!="") {
 			Funktion f = FuncParser.theParser().parse(funcString);
-			f.plotColor = (Color) farbauswahlGraph.getSelectedItem();
+			f.plotColor = farbauswahl;
 			g.addFunction(f);
 		}
 	}
 	
 	private void anpassen() {
 		// aktuellen Inhalt der TextFields abfragen und in double-Werte parsen
-		// TO-DO: evtl Fehlerbehandlung falls String eingegeben wird (derzeit aktualisiert er den Graphen dann einfach nicht, was auch gut ist)
-		double xVon = Double.parseDouble(xAchseVon.getText());
-		double xBis = Double.parseDouble(xAchseBis.getText());
-		double yVon = Double.parseDouble(yAchseVon.getText());
-		double yBis = Double.parseDouble(yAchseBis.getText());
-		
-		// Intervallgrenzen neu setzen
-		g.setBoundaries(xVon, xBis, yBis, yVon);
+		try {
+			double xVon = Double.parseDouble(xAchseVon.getText());
+			double xBis = Double.parseDouble(xAchseBis.getText());
+			double yVon = Double.parseDouble(yAchseVon.getText());
+			double yBis = Double.parseDouble(yAchseBis.getText());
 			
-		lTest.setText(String.format("Anpassen wurde gedrueckt. Da steht: %s, %s, %s, %s", xVon, xBis, yVon, yBis));
+			// Intervallgrenzen neu setzen
+			g.setBoundaries(xVon, xBis, yBis, yVon);
+				
+			lTest.setText(String.format("Anpassen wurde gedrueckt. Da steht: %s, %s, %s, %s", xVon, xBis, yVon, yBis));
+		}
+		// Fehlerbehandlung bei Parsing-Fehler
+		catch(NumberFormatException e ) {
+			String msg = "Bitte Intervallgrenze im Format #.## angeben";
+			JOptionPane.showMessageDialog(this.getParent(), msg, "Eingabefehler", JOptionPane.ERROR_MESSAGE);			
+		}	
 	}
 	
 	private void berechnen() {
