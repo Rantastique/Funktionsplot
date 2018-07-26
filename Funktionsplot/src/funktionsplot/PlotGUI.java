@@ -206,7 +206,6 @@ public class PlotGUI extends JFrame implements MouseMotionListener, MouseListene
 		// ComboBoxes
 		p.add(farbauswahlGraph);	
 		p.add(farbauswahlAbleitung);
-
 	}
 	
 	// Methoden für das Event Handling beim Klicken der Buttons
@@ -234,11 +233,20 @@ public class PlotGUI extends JFrame implements MouseMotionListener, MouseListene
 		}
 		
 		lTest.setText(String.format("Plot! wurde gedrueckt. Da steht: %s. Wunschfarbe: %s", funcString, farbe));
-		if(funcString!="") {
+		
+		if(!funcString.isEmpty()) {
 			Funktion f = FuncParser.theParser().parse(funcString);
-			f.plotColor = farbauswahl;
-			g.addFunction(f);
+			if (FuncParser.theParser().getErrcnt() == 0) {
+				f.plotColor = farbauswahl;
+				g.addFunction(f);
+				return;
+			}
+			String msg = "Fehler bei der Eingabe!";
+			JOptionPane.showMessageDialog(this.getParent(), msg, "Eingabefehler", JOptionPane.ERROR_MESSAGE);
+			return;
 		}
+		String msg = "Das Eingabefeld ist leer.";
+		JOptionPane.showMessageDialog(this.getParent(), msg, "Eingabefehler", JOptionPane.ERROR_MESSAGE);
 	}
 	
 	private void anpassen() {
