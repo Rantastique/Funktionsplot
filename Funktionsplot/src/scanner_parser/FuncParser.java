@@ -8,7 +8,7 @@ import funktionsplot.Funktion;
 public class FuncParser {
 /*
  * Geklaut von Prof. Dr. Uwe Schmidt (FH Wedel)
- * aus seinem Foliensatz für "Compilerbau"
+ * aus seinem Foliensatz fï¿½r "Compilerbau"
  */
 	private static FuncParser theparser = new FuncParser(); 
     private FuncScanner s;
@@ -310,6 +310,11 @@ public class FuncParser {
             advance();
         }
     }
+    
+    public int getErrcnt() {
+    	return errcnt;
+    }
+    
     public Funktion parse(String input) {
     	s = new FuncScanner(input);
         advance();
