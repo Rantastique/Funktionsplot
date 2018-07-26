@@ -194,15 +194,15 @@ public class GraphPanel extends JPanel implements MouseMotionListener, MouseList
 		double zoomFactor = 1.5;
 		double width = boundaries.right-boundaries.left;
 		double height = boundaries.top-boundaries.bottom;
-		double xDirection = e.getX()/getWidth();
-		double yDirection = e.getY()/getHeight();
+		double xDirection = (double)e.getX()/getWidth();
+		double yDirection = (double)e.getY()/getHeight();
 		if(e.getWheelRotation()==-1) {			
-			setBoundaries(boundaries.left-((width*zoomFactor-width)/2), boundaries.right+((width*zoomFactor-width)/2),
-					boundaries.top+((height*zoomFactor-height)/2), boundaries.bottom-((height*zoomFactor-height)/2));
+			setBoundaries(boundaries.left-((width*zoomFactor-width)*(xDirection)), boundaries.right+((width*zoomFactor-width)*(1-xDirection)),
+					boundaries.top+((height*zoomFactor-height)*(yDirection)), boundaries.bottom-((height*zoomFactor-height)*(1-yDirection)));
 		}
 		else {
-			setBoundaries(boundaries.left-(width/zoomFactor-width)/2, boundaries.right+(width/zoomFactor-width)/2,
-					boundaries.top+(height/zoomFactor-height)/2, boundaries.bottom-(height/zoomFactor-height)/2);
+			setBoundaries(boundaries.left-(width/zoomFactor-width)*(xDirection), boundaries.right+(width/zoomFactor-width)*(1-xDirection),
+					boundaries.top+(height/zoomFactor-height)*(yDirection), boundaries.bottom-(height/zoomFactor-height)*(1-yDirection));
 		}
 	}
 
