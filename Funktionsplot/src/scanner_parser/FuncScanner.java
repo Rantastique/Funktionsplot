@@ -7,7 +7,8 @@ public class FuncScanner {
 	public FuncScanner(String line) {
 		this.line = line + '\0';
 	}
-	public Token nextToken()throws Exception {
+	public Token nextToken()//throws Exception
+	{
 		yytext = new String();
 		while (pos < line.length()){ 		
 			if ((('A' <= line.charAt(pos))&& (line.charAt(pos) <= 'Z')) ||
@@ -30,9 +31,7 @@ public class FuncScanner {
 				case "x":
 					return new Token(Token.Identifier,yytext);
 				default:
-					//return new Token(Token.Identifier,yytext);
-					throw new Exception();
-					
+					//throw new Exception();
 				}
 					
 			}
@@ -71,7 +70,7 @@ public class FuncScanner {
 				case ' ' : pos++;
 						   break;
 				default:
-					throw new Exception();
+					//throw new Exception();
 					//System.out.println("Error: Illegal character \'" + line.charAt(pos) + "\'at column " + ((pos++)+1));
 			}
 		}
