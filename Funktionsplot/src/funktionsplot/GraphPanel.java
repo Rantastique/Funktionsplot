@@ -50,6 +50,13 @@ public class GraphPanel extends JPanel implements MouseMotionListener, MouseList
 		this.repaint();
 	}
 	
+	public void reset() {
+		funktionen.clear();
+		plotcolors.clear();
+		plots.clear();
+		repaint();
+	}
+	
 	//Umrechnung Funktionswerte->Pixel
 	private Point koordinatesToPixel(double x, double y) {
 		return new Point(xToPixel(x),yToPixel(y));
