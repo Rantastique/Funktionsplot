@@ -206,6 +206,8 @@ public class GraphPanel extends JPanel implements MouseMotionListener, MouseList
         g2.drawString("y", xToPixel(0) - 20 + Offset.x, 20);
 	}
 
+	//MouselListener-Methoden:
+	
 	@Override
 	public void mouseDragged(MouseEvent e) {
 		Offset.x = -(mousePressPos.x-e.getX());
