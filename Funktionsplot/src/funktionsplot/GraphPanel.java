@@ -196,8 +196,15 @@ public class GraphPanel extends JPanel implements MouseMotionListener, MouseList
         //zeichne Funktionen ein
         for(int i = 0; i < plots.size(); i++) {
         	g2.setColor(plotcolors.get(i));
+        	int[] plot=plots.get(i);
         	for(int x = 0; x < getWidth(); x++) {
-        		g.drawRect(x+Offset.x, plots.get(i)[x]+Offset.y, 1, 1);
+        		if(x==0)
+        		{
+            		g.drawRect(x+Offset.x, plot[x]+Offset.y, 1, 1);
+        		}
+        		else {
+        			g.drawLine(x+Offset.x, plot[x-1]+Offset.y, x+Offset.x, plot[x]+Offset.y);
+        		}
         	}
         }
         
