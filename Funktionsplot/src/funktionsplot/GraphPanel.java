@@ -128,7 +128,7 @@ public class GraphPanel extends JPanel implements MouseMotionListener, MouseList
         
         // erzeugt Achsen
         g2.drawLine(xToPixel(0)+Offset.x, 0,  xToPixel(0)+Offset.x, h);
-        System.out.println(xToPixel(0)+Offset.x + "  " + 0 + "  " + xToPixel(0)+Offset.x + "  " + h);
+        
         
         g2.drawLine(0, yToPixel(0)+Offset.y, w, yToPixel(0)+Offset.y);
          
