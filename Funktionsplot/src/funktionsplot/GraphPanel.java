@@ -85,12 +85,15 @@ public class GraphPanel extends JPanel implements MouseMotionListener, MouseList
 		return (int)(getHeight()-(y-boundaries.bottom)*(getHeight()/(boundaries.top-boundaries.bottom)));
 	}
 	
+	//passt vor dem plotten die y-Achsenskalierung den minima und maxima der im Intervall an
 	public void autoPlot(Funktion f) {
 		TreeMap<Double, Double> wertetabelle = f.berechneWertetabelle(boundaries.left, boundaries.right, getWidth());
 		double max = f.maximumIn(wertetabelle);
 		double min = f.minimumIn(wertetabelle);
-		System.out.println(max);
-		System.out.println(min);
+
+		double minplot = min - (max-min)/5;
+		double maxplot = max + (max-min)/5;
+		setBoundaries(boundaries.left, boundaries.right, maxplot, minplot);
 	}
 	
 	//Berechnung der Pixelwerte einer Funkntion
