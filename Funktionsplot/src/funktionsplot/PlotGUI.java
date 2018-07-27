@@ -8,6 +8,7 @@ import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.text.ParseException;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -21,6 +22,15 @@ import javax.swing.JTextField;
 
 import scanner_parser.FuncParser;
 public class PlotGUI extends JFrame implements MouseMotionListener, MouseListener {
+	// Utilties deklarieren
+	// DecimalFormat für Formatieren von Dezimalenzahlen 
+	// (für double-Werte gebraucht, weil länderabhängige Verwendung von . oder , als Trennzeichen)
+	DecimalFormat df;
+	DecimalFormatSymbols dfs;
+	// Farben für Design
+	Color hintergrund;
+	Color schrift;
+	Color schriftDunkel;
 
 	// Elemente deklarieren
 	private JPanel p;
@@ -54,20 +64,25 @@ public class PlotGUI extends JFrame implements MouseMotionListener, MouseListene
 	private final int H1 = 20;
 	private final int H2 = 40;
 	
-	DecimalFormat df = new DecimalFormat("#.#", DecimalFormatSymbols.getInstance());
-	// runden
-	DecimalFormatSymbols dfs = df.getDecimalFormatSymbols();
-	
 	PlotGUI() {
+		// Dezimal-Format konfigurieren
+		df = new DecimalFormat("#.#", DecimalFormatSymbols.getInstance());
+		dfs = df.getDecimalFormatSymbols();
 
 	    dfs.setDecimalSeparator(',');
 	    df.setDecimalFormatSymbols(dfs);
+	    
+	    // Farben definieren
+	    hintergrund = new Color(255, 153, 66);
+	    schrift = new Color(2, 68, 71);
+	    schriftDunkel = new Color(118, 56, 3);
 		
 		// Frame und Panel konfigurieren
 		this.setSize(930, 600);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		p=(JPanel) this.getContentPane();
+		p.setBackground(hintergrund);
 		p.setLayout(null);
 		
 		// Panel für den Graphen
@@ -79,8 +94,8 @@ public class PlotGUI extends JFrame implements MouseMotionListener, MouseListene
 		p.add(g);
 		
 		// Menue konfigurieren
-		menubar = new JMenuBar();
-		menu = new JMenu("Menue");
+		menubar = new PlotMenubar();
+		menu = new PlotMenu("Menue");
 		exit = new JMenuItem("Plotter verlassen");
 		reset = new JMenuItem("Zuruecksetzen");
 		
@@ -114,10 +129,10 @@ public class PlotGUI extends JFrame implements MouseMotionListener, MouseListene
 		schnittY = new JTextField(1);
 		
 		// Buttons
-		plot = new JButton("Plot!");
-		intervallAnpassen = new JButton("Anpassen");
-		berechnen = new JButton("Berechnen");
-		anzeigenAbleitung = new JButton("Anzeigen");
+		plot = new RoundedCornerButton("Plot");
+		intervallAnpassen = new RoundedCornerButton("Anpassen");
+		berechnen = new RoundedCornerButton("Berechnen");
+		anzeigenAbleitung = new RoundedCornerButton("Anzeigen");
 		
 		// ComboBoxes
 		String[] farben = {"schwarz", "rot", "gruen", "blau", "orange"};
@@ -125,10 +140,43 @@ public class PlotGUI extends JFrame implements MouseMotionListener, MouseListene
 		farbauswahlGraph = new JComboBox(farben);
 		farbauswahlAbleitung = new JComboBox(farben);
 		
-		// Elemente positionieren im GridLayout
+		// Elemente einfaerben
+		// Menue
+		exit.setForeground(schriftDunkel);
+		reset.setForeground(schriftDunkel);
+
+		// Label
+		lTerm.setForeground(schrift);
+		lFarbeGraph.setForeground(schrift);
+		lIntervall.setForeground(schrift);
+		lXAchseVon.setForeground(schrift);
+		lXAchseBis.setForeground(schrift);
+		lYAchseVon.setForeground(schrift);
+		lYAchseBis.setForeground(schrift);
+		lSchnittpunkte.setForeground(schrift);
+		lNullstellen.setForeground(schrift);
+		lSchnittY.setForeground(schrift);
+		lAbleitung.setForeground(schrift);
+		lFarbeAbleitung.setForeground(schrift);
 		
-		// Linke Seite
+		// Textfields
+		lTerm.setForeground(schrift);
+		lFarbeGraph.setForeground(schrift);
+		lIntervall.setForeground(schrift);
+		lXAchseVon.setForeground(schrift);
+		lXAchseBis.setForeground(schrift);
+		lYAchseVon.setForeground(schrift);
+		lYAchseBis.setForeground(schrift);
+		lSchnittpunkte.setForeground(schrift);
+		lNullstellen.setForeground(schrift);
+		lSchnittY.setForeground(schrift);
+		lAbleitung.setForeground(schrift);
+		lFarbeAbleitung.setForeground(schrift);
 		
+		// ComboBoxes
+		farbauswahlGraph.setForeground(schrift);
+		farbauswahlGraph.setForeground(schrift);
+
 		// Elemente positionieren 
 		// Label
 		lTerm.setBounds(X1, 20, W2, H1);
@@ -177,6 +225,12 @@ public class PlotGUI extends JFrame implements MouseMotionListener, MouseListene
 		
 		
 		// Elemente dem Panel hinzufuegen
+		// Menue
+		menubar.add(menu);
+		menu.add(reset);
+		menu.add(exit);
+		setJMenuBar(menubar);
+		
 		// Label
 		p.add(lTerm);
 		p.add(lFarbeGraph);
@@ -210,12 +264,6 @@ public class PlotGUI extends JFrame implements MouseMotionListener, MouseListene
 		p.add(farbauswahlGraph);	
 		p.add(farbauswahlAbleitung);
 		
-		// Menue
-		menubar.add(menu);
-		menu.add(reset);
-		menu.add(exit);
-		
-		setJMenuBar(menubar);
 	}
 	
 	// Methoden für das Event Handling beim Klicken der Buttons
