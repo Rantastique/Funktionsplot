@@ -44,7 +44,7 @@ public class GraphPanel extends JPanel implements MouseMotionListener, MouseList
 	
 	public void addFunction(Funktion f) {
 		funktionen.add(f);
-		plot(f);
+		autoPlot(f);
 		this.repaint();
 	}
 
@@ -83,6 +83,14 @@ public class GraphPanel extends JPanel implements MouseMotionListener, MouseList
 	//umrechnung y-Wert->Pixel-y-Wert
 	private int yToPixel(double y) {
 		return (int)(getHeight()-(y-boundaries.bottom)*(getHeight()/(boundaries.top-boundaries.bottom)));
+	}
+	
+	public void autoPlot(Funktion f) {
+		TreeMap<Double, Double> wertetabelle = f.berechneWertetabelle(boundaries.left, boundaries.right, getWidth());
+		double max = f.maximumIn(wertetabelle);
+		double min = f.minimumIn(wertetabelle);
+		System.out.println(max);
+		System.out.println(min);
 	}
 	
 	//Berechnung der Pixelwerte einer Funkntion
