@@ -8,6 +8,7 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -297,7 +298,7 @@ public class PlotGUI extends JFrame implements MouseMotionListener, MouseListene
 	@Override
 	public void mouseReleased(MouseEvent e) {
 		// Format für Ausgabe der Intervallgrenzen (double) festelegen
-		DecimalFormat df = new DecimalFormat("#.#");
+		DecimalFormat df = new DecimalFormat("#.#", DecimalFormatSymbols.getInstance());
 		// runden
 		df.setRoundingMode(RoundingMode.CEILING);
 		
