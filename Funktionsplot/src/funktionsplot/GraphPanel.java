@@ -132,43 +132,62 @@ public class GraphPanel extends JPanel implements MouseMotionListener, MouseList
         
         g2.drawLine(0, yToPixel(0)+Offset.y, w, yToPixel(0)+Offset.y);
          
-        // Markierung von Einheiten
-        //X-Achse
-        int stepX = (int) Math.round((boundaries.right - boundaries.left)/20);
-        int skalX = 0;
-        // positive X-Achse
-        while(skalX <= boundaries.right) {
-        	g2.drawLine(xToPixel(skalX), yToPixel(0)- 3, xToPixel(skalX), yToPixel(0) + 3);
-        	if (skalX != 0) // eine null reicht (negative x-achse)
-        		g2.drawString(Integer.toString(skalX),xToPixel(skalX)- 4 ,yToPixel(0)+ 15);
-        	skalX += stepX;
+        //Markierungen x-Achse
+        double schrittweite = 1;
+        double intervallbreite = boundaries.right-boundaries.left;
+        if(intervallbreite >= 20) {
+        	while(intervallbreite/schrittweite>20) {
+        		schrittweite*=10;
+        	}
         }
-        // negative X-Achse
-        skalX= 0;
-        while(skalX >= boundaries.left) {
-        	g2.drawLine(xToPixel(skalX), yToPixel(0)- 3, xToPixel(skalX), yToPixel(0) + 3);
-        	g2.drawString(Integer.toString(skalX),xToPixel(skalX)- 8 ,yToPixel(0)+ 15);
-        	skalX -= stepX;
+        else {
+        	while((intervallbreite/schrittweite)<2) {
+        		schrittweite/=10;
+        	}
         }
-       
-        // Y-Achse
-        int stepY = (int) Math.round((boundaries.top - boundaries.bottom)/20);
-        int skalY = 0;
-        //positive Y-Achse
-        while(skalY <= boundaries.top) {
-        	g2.drawLine(xToPixel(0)-3, yToPixel(skalY), xToPixel(0)+3, yToPixel(skalY));
-        	if (skalY != 0) // eine null reicht
-        		g2.drawString(Integer.toString(skalY),xToPixel(0)-18 ,yToPixel(skalY)+8);
-        	skalY += stepY;
+    	if (intervallbreite/schrittweite<5) {
+    		schrittweite/=2;
+    	}		
+        Double xStrich=(double) 0;
+        while(xStrich<boundaries.right) {
+        	xStrich+=schrittweite;
+        	g2.drawLine(xToPixel(xStrich)+Offset.x, yToPixel(0)-3+Offset.y, xToPixel(xStrich)+Offset.x, yToPixel(0)+3+Offset.y);
+        	g2.drawString(xStrich.toString(), xToPixel(xStrich)- 4 +Offset.x, yToPixel(0)+ 15+Offset.y);
+        }
+        xStrich=(double) 0;
+        while(xStrich>boundaries.left) {
+        	xStrich-=schrittweite;
+        	g2.drawLine(xToPixel(xStrich)+Offset.x, yToPixel(0)-3+Offset.y, xToPixel(xStrich)+Offset.x, yToPixel(0)+3+Offset.y);
+        	g2.drawString(xStrich.toString(), xToPixel(xStrich)- 4 +Offset.x, yToPixel(0)+ 15+Offset.y);
         }
         
-      //negative Y-Achse
-        skalY = 0;
-        while(skalY >= boundaries.bottom) {
-        	g2.drawLine(xToPixel(0)-3, yToPixel(skalY), xToPixel(0)+3, yToPixel(skalY));
-        	if (skalY != 0) // eine null reicht
-        		g2.drawString(Integer.toString(skalY),xToPixel(0)-22 ,yToPixel(skalY)+8);
-        	skalY -= stepY;
+        //Markierungen Y-Achse
+        schrittweite = 1;
+        double intervallhoehe = boundaries.top-boundaries.bottom;
+        if(intervallhoehe >= 20) {
+        	while(intervallhoehe/schrittweite>20) {
+        		schrittweite*=10;
+        	}
+        }
+        else {
+        	while((intervallhoehe/schrittweite)<2) {
+        		schrittweite/=10;
+        	}
+        }
+    	if (intervallhoehe/schrittweite<5) {
+    		schrittweite/=2;
+    	}		
+        Double yStrich=(double) 0;
+        while(yStrich<boundaries.top) {
+        	yStrich+=schrittweite;
+        	g2.drawLine(xToPixel(0)+3+Offset.x, yToPixel(yStrich)+Offset.y,xToPixel(0)-3+Offset.x,yToPixel(yStrich)+Offset.y);
+        	g2.drawString(yStrich.toString(), xToPixel(0)+15+Offset.x, yToPixel(yStrich)-4+Offset.y);
+        }
+        yStrich=(double) 0;
+        while(yStrich>boundaries.bottom) {
+        	yStrich-=schrittweite;
+        	g2.drawLine(xToPixel(0)+3+Offset.x, yToPixel(yStrich)+Offset.y,xToPixel(0)-3+Offset.x,yToPixel(yStrich)+Offset.y);
+        	g2.drawString(yStrich.toString(), xToPixel(0)+15+Offset.x, yToPixel(yStrich)-4+Offset.y);
         }
         
         /*
