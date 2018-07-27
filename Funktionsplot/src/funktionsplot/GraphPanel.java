@@ -79,7 +79,7 @@ public class GraphPanel extends JPanel implements MouseMotionListener, MouseList
 		double yStepValue = getHeight()/(boundaries.top-boundaries.bottom);
 		for (double value : wertetabelle.values()) {
 			y[x] = yToPixel(value);
-			
+
 			x++;
 		}
 		plots.add(y);
@@ -121,8 +121,48 @@ public class GraphPanel extends JPanel implements MouseMotionListener, MouseList
         
         // erzeugt Achsen
         g2.drawLine(xToPixel(0)+Offset.x, 0,  xToPixel(0)+Offset.x, h);
+        System.out.println(xToPixel(0)+Offset.x + "  " + 0 + "  " + xToPixel(0)+Offset.x + "  " + h);
         
         g2.drawLine(0, yToPixel(0)+Offset.y, w, yToPixel(0)+Offset.y);
+         
+        // Markierung von Einheiten
+        //X-Achse
+        int stepX = (int) Math.round((boundaries.right - boundaries.left)/20);
+        int skalX = 0;
+        // positive X-Achse
+        while(skalX <= boundaries.right) {
+        	g2.drawLine(xToPixel(skalX), yToPixel(0)- 3, xToPixel(skalX), yToPixel(0) + 3);
+        	if (skalX != 0) // eine null reicht (negative x-achse)
+        		g2.drawString(Integer.toString(skalX),xToPixel(skalX)- 4 ,yToPixel(0)+ 15);
+        	skalX += stepX;
+        }
+        // negative X-Achse
+        skalX= 0;
+        while(skalX >= boundaries.left) {
+        	g2.drawLine(xToPixel(skalX), yToPixel(0)- 3, xToPixel(skalX), yToPixel(0) + 3);
+        	g2.drawString(Integer.toString(skalX),xToPixel(skalX)- 8 ,yToPixel(0)+ 15);
+        	skalX -= stepX;
+        }
+       
+        // Y-Achse
+        int stepY = (int) Math.round((boundaries.top - boundaries.bottom)/20);
+        int skalY = 0;
+        //positive Y-Achse
+        while(skalY <= boundaries.top) {
+        	g2.drawLine(xToPixel(0)-3, yToPixel(skalY), xToPixel(0)+3, yToPixel(skalY));
+        	if (skalY != 0) // eine null reicht
+        		g2.drawString(Integer.toString(skalY),xToPixel(0)-18 ,yToPixel(skalY)+8);
+        	skalY += stepY;
+        }
+        
+      //negative Y-Achse
+        skalY = 0;
+        while(skalY >= boundaries.bottom) {
+        	g2.drawLine(xToPixel(0)-3, yToPixel(skalY), xToPixel(0)+3, yToPixel(skalY));
+        	if (skalY != 0) // eine null reicht
+        		g2.drawString(Integer.toString(skalY),xToPixel(0)-22 ,yToPixel(skalY)+8);
+        	skalY -= stepY;
+        }
         
         /*
         g2.setStroke(raster);
