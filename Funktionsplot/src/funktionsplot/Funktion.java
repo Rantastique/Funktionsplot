@@ -52,7 +52,7 @@ public class Funktion implements IFunktion{
 	public Double minimumIn(TreeMap<Double, Double> values) {
 		Double min = null;
 		for (Entry<Double, Double> entry : values.entrySet()) {
-			if( min==null || entry.getValue()>min) {
+			if( min==null || entry.getValue()<min) {
 				min = entry.getValue();
 			}
 		}
