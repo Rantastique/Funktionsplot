@@ -1,7 +1,5 @@
 package funktionsplot;
 
-
-
 import java.awt.Color;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -85,11 +83,6 @@ public class PlotGUI extends JFrame implements MouseMotionListener, MouseListene
 		menu = new JMenu("Menue");
 		exit = new JMenuItem("Plotter verlassen");
 		reset = new JMenuItem("Zuruecksetzen");
-		menubar.add(menu);
-		menu.add(reset);
-		menu.add(exit);
-		
-		setJMenuBar(menubar);
 		
 		// Test
 		lTest = new JLabel("Hier könnte Ihre Testnachricht stehen");
@@ -171,6 +164,12 @@ public class PlotGUI extends JFrame implements MouseMotionListener, MouseListene
 		farbauswahlAbleitung.setBounds(X4, 450, W3, H1);
 		
 		// ActionListener hinzufuegen
+		
+		// Menue
+		exit.addActionListener(e -> exit());
+		reset.addActionListener(e -> reset());
+		
+		// Buttons
 		plot.addActionListener(e -> plot());
 		intervallAnpassen.addActionListener(e -> anpassen());
 		berechnen.addActionListener(e -> berechnen());
@@ -210,9 +209,48 @@ public class PlotGUI extends JFrame implements MouseMotionListener, MouseListene
 		// ComboBoxes
 		p.add(farbauswahlGraph);	
 		p.add(farbauswahlAbleitung);
+		
+		// Menue
+		menubar.add(menu);
+		menu.add(reset);
+		menu.add(exit);
+		
+		setJMenuBar(menubar);
 	}
 	
 	// Methoden für das Event Handling beim Klicken der Buttons
+	
+	private void exit() {
+		String msg = "Wollen Sie den Plotter wirklich verlassen?";
+		String[] optionen = {"Ja", "Nein", "Abbrechen"}; 
+		int n = JOptionPane.showOptionDialog(this.getParent(), msg, "Plotter verlassen?", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, optionen, optionen[0] );
+		switch(n) {
+		case JOptionPane.YES_OPTION:
+			System.exit(0);
+			break;
+		case JOptionPane.NO_OPTION:
+			return;
+		case JOptionPane.CANCEL_OPTION:
+			return;
+			
+		}
+	}
+	
+	private void reset() {
+		String msg = "Wollen Sie den aktuellen Graphen?";
+		String[] optionen = {"Ja", "Nein", "Abbrechen"}; 
+		int n = JOptionPane.showOptionDialog(this.getParent(), msg, "Graph zuruecksetzen?", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, optionen, optionen[0] );
+		switch(n) {
+		case JOptionPane.YES_OPTION:
+			g.reset();
+			break;
+		case JOptionPane.NO_OPTION:
+			return;
+		case JOptionPane.CANCEL_OPTION:
+			return;
+			
+		}
+	}
 
 	private void plot() {
 		String funcString = term.getText();
