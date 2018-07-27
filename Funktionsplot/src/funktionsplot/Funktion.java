@@ -71,39 +71,6 @@ public class Funktion implements IFunktion{
 	}
 
 	@Override
-	public int[] autoplot(double linkeIntervallgrenze, double rechteIntervallgrenze, int breite,
-			int hoehe) {
-		int[] plot = new int[breite];
-		Double maxplot;
-		Double minplot;
-		TreeMap<Double,Double> wertetabelle = this.berechneWertetabelle(linkeIntervallgrenze, rechteIntervallgrenze, breite);
-		Double max = maximumIn(wertetabelle);
-		Double min = minimumIn(wertetabelle);
-		
-		//finde geeignete skalierung der y-achse
-		if(max.isNaN()||min.isNaN()) { //if (max == infinity or min == infinity) //TODO: check if infinity===NaN
-			//TODO: find good values for min and max
-			maxplot=10.0;
-			minplot=-10.0;
-		}
-		else {
-			maxplot=max+(Math.abs(max-min)/20);
-			minplot=min-(Math.abs(max-min)/20);
-		}
-		double plotrange = Math.abs(maxplot-minplot);
-		
-		int i = 0;
-		for(Double x : wertetabelle.values()) {
-			plot[i] = (int)(hoehe-(((hoehe/plotrange)*x))-minplot); //stimmt vielleicht ':D
-			
-			i++;
-		}
-		
-		
-		return plot;
-	}
-
-	@Override
 	public TreeMap<Double,Double> nullstellen(double linkeIntervallgrenze, double rechteIntervallgrenze, int schritte) {
 		
 		TreeMap<Double, Double> WT = berechneWertetabelle(linkeIntervallgrenze, rechteIntervallgrenze, schritte);
