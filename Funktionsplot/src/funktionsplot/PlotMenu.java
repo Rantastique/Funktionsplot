@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 import java.awt.font.FontRenderContext;
 import java.awt.geom.Rectangle2D;
 
@@ -35,6 +36,15 @@ public class PlotMenu extends JMenu {
         g2d.setColor(hintergrund);
         g2d.fillRect(0, 0, getWidth(), getHeight());
         
+     // Anti-aliased lines and text
+     		 g2d.setRenderingHint(
+     				 RenderingHints.KEY_ANTIALIASING,
+     				 RenderingHints.VALUE_ANTIALIAS_ON);
+     		 g2d.setRenderingHint(
+     				 RenderingHints.KEY_TEXT_ANTIALIASING,
+     				 RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+
+        
         // Determine the label size so can center it
  		 FontRenderContext frc = new FontRenderContext(null, false, false);
  		 Rectangle2D r = getFont().getStringBounds(getText(), frc);
@@ -44,7 +54,6 @@ public class PlotMenu extends JMenu {
  		 
  		 // Farbe für Text setzen
  		 g2d.setColor(schrift);
- 		 g2d.setFont(new Font("Bold", Font.BOLD, 14));
  		 // Draw the text in the center
  		 g2d.drawString(getText(),xMargin,
  	     (float)getFont().getSize()+yMargin);
