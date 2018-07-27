@@ -243,6 +243,11 @@ public class PlotGUI extends JFrame implements MouseMotionListener, MouseListene
 		switch(n) {
 		case JOptionPane.YES_OPTION:
 			g.reset();
+			term.setText(null);
+			farbauswahlGraph.setSelectedIndex(0);
+			nullstellen.setText(null);
+			schnittY.setText(null);
+			farbauswahlAbleitung.setSelectedIndex(0);
 			break;
 		case JOptionPane.NO_OPTION:
 			return;
