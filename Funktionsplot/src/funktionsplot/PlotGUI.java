@@ -6,9 +6,9 @@ import java.awt.Color;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
-import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
+import java.text.ParseException;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -23,12 +23,7 @@ import javax.swing.JTextField;
 
 import scanner_parser.FuncParser;
 public class PlotGUI extends JFrame implements MouseMotionListener, MouseListener {
-	
-	DecimalFormat df = new DecimalFormat("#.#", DecimalFormatSymbols.getInstance());
-	// runden
-	
 
-	
 	// Elemente deklarieren
 	private JPanel p;
 	private GraphPanel g;
@@ -61,8 +56,14 @@ public class PlotGUI extends JFrame implements MouseMotionListener, MouseListene
 	private final int H1 = 20;
 	private final int H2 = 40;
 	
+	DecimalFormat df = new DecimalFormat("#.#", DecimalFormatSymbols.getInstance());
+	// runden
+	DecimalFormatSymbols dfs = df.getDecimalFormatSymbols();
 	
 	PlotGUI() {
+
+	    dfs.setDecimalSeparator(',');
+	    df.setDecimalFormatSymbols(dfs);
 		
 		// Frame und Panel konfigurieren
 		this.setSize(930, 600);
@@ -130,8 +131,6 @@ public class PlotGUI extends JFrame implements MouseMotionListener, MouseListene
 		//Color[] farben = {Color.red, Color.blue, Color.green, Color.orange};
 		farbauswahlGraph = new JComboBox(farben);
 		farbauswahlAbleitung = new JComboBox(farben);
-		
-		
 		
 		// Elemente positionieren im GridLayout
 		
@@ -257,25 +256,25 @@ public class PlotGUI extends JFrame implements MouseMotionListener, MouseListene
 	}
 	
 	private void anpassen() {
-		// aktuellen Inhalt der TextFields abfragen und in double-Werte parsen
+		
 		try {
-			double xVon = Double.parseDouble(xAchseVon.getText());
-			double xBis = Double.parseDouble(xAchseBis.getText());
-			double yVon = Double.parseDouble(yAchseVon.getText());
-			double yBis = Double.parseDouble(yAchseBis.getText());
+			double xVon = df.parse(xAchseVon.getText()).doubleValue();
+			double xBis = df.parse(xAchseBis.getText()).doubleValue();
+			double yVon = df.parse(yAchseVon.getText()).doubleValue();
+			double yBis = df.parse(yAchseBis.getText()).doubleValue();
 			
-			// Intervallgrenzen neu setzen
 			g.setBoundaries(xVon, xBis, yBis, yVon);
-				
 			lTest.setText(String.format("Anpassen wurde gedrueckt. Da steht: %s, %s, %s, %s", xVon, xBis, yVon, yBis));
-		}
-		// Fehlerbehandlung bei Parsing-Fehler
-		catch(NumberFormatException e ) {
-			String msg = "Bitte Intervallgrenze im Format #.## angeben";
+			
+		} catch (ParseException e1) {
+			// TODO Auto-generated catch block
+			String msg = "Bitte Intervallgrenze im Format #,# angeben";
 			JOptionPane.showMessageDialog(this.getParent(), msg, "Eingabefehler", JOptionPane.ERROR_MESSAGE);			
-		}	
+		}
+		
 	}
-	
+
+
 	private void berechnen() {
 		lTest.setText("Berechnen wurde gedrueckt");
 	}
@@ -302,7 +301,6 @@ public class PlotGUI extends JFrame implements MouseMotionListener, MouseListene
 	@Override
 	public void mouseReleased(MouseEvent e) {
 		// Format für Ausgabe der Intervallgrenzen (double) festelegen
-		
 		
 		// aktuelle Intervallgrenzen abfragen
 		double left = g.getBoundaries().left;
@@ -342,6 +340,4 @@ public class PlotGUI extends JFrame implements MouseMotionListener, MouseListene
 		
 	}
 
-
-	
 }
