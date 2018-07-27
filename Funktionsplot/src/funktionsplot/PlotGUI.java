@@ -23,6 +23,10 @@ import javax.swing.JTextField;
 
 import scanner_parser.FuncParser;
 public class PlotGUI extends JFrame implements MouseMotionListener, MouseListener {
+	
+	DecimalFormat df = new DecimalFormat("#.#", DecimalFormatSymbols.getInstance());
+	// runden
+	
 
 	
 	// Elemente deklarieren
@@ -298,9 +302,7 @@ public class PlotGUI extends JFrame implements MouseMotionListener, MouseListene
 	@Override
 	public void mouseReleased(MouseEvent e) {
 		// Format für Ausgabe der Intervallgrenzen (double) festelegen
-		DecimalFormat df = new DecimalFormat("#.#", DecimalFormatSymbols.getInstance());
-		// runden
-		df.setRoundingMode(RoundingMode.CEILING);
+		
 		
 		// aktuelle Intervallgrenzen abfragen
 		double left = g.getBoundaries().left;
