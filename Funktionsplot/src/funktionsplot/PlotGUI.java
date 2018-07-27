@@ -283,6 +283,7 @@ public class PlotGUI extends JFrame implements MouseMotionListener, MouseListene
 		lTest.setText(String.format("Plot! wurde gedrueckt. Da steht: %s. Wunschfarbe: %s", funcString, farbe));
 		
 		if(!funcString.isEmpty()) {
+			FuncParser.theParser().resetErrcnt();
 			g.reset();
 			Funktion f = FuncParser.theParser().parse(funcString);
 			if (FuncParser.theParser().getErrcnt() == 0) {

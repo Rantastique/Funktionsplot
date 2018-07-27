@@ -329,6 +329,10 @@ public class FuncParser {
     	return errcnt;
     }
     
+    public void resetErrcnt() {
+    	errcnt = 0;
+    }
+    
     public Funktion parse(String input) {
     	s = new FuncScanner(input);
         advance();
