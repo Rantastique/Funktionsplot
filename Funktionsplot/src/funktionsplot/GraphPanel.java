@@ -24,10 +24,30 @@ public class GraphPanel extends JPanel implements MouseMotionListener, MouseList
 	 */
 	private static final long serialVersionUID = -7250288945960637817L;
 	
-	Graphics2D g2;
 	private Point Offset = new Point(0,0);
-	protected Point mousePressPos = new Point(0,0);	
-	private Boundaries boundaries;
+	private Point mousePressPos = new Point(0,0);	
+	private Boundaries boundaries;  
+	private List<Color> plotcolors = new ArrayList<Color>();
+	private List<Funktion> funktionen = new ArrayList<Funktion>();
+	private List<int[]> plots = new ArrayList<int[]>();
+	
+	//Konstruktor
+	public GraphPanel() {
+		this.setBackground(Color.WHITE);
+		this.addMouseMotionListener(this);
+		this.addMouseListener(this);
+		this.addMouseWheelListener(this);
+		setBoundaries(-30,30,100,-100);		
+	}
+	
+	//getter&setter:
+	
+	public void addFunction(Funktion f) {
+		funktionen.add(f);
+		plot(f);
+		this.repaint();
+	}
+
 	public void setBoundaries(double left, double right, double top, double bottom) {
 		boundaries = new Boundaries(left, right, top, bottom);
 		plots.clear();
@@ -37,19 +57,12 @@ public class GraphPanel extends JPanel implements MouseMotionListener, MouseList
 		}		
 		this.repaint();
 	}
+	
 	public Boundaries getBoundaries() {
 		return this.boundaries;
 	}
-  
-	private List<Color> plotcolors = new ArrayList<Color>();
-	private List<Funktion> funktionen = new ArrayList<Funktion>();
-	private List<int[]> plots = new ArrayList<int[]>();
-	public void addFunction(Funktion f) {
-		funktionen.add(f);
-		plot(f);
-		this.repaint();
-	}
 	
+	//reset everything
 	public void reset() {
 		funktionen.clear();
 		plotcolors.clear();
@@ -94,42 +107,21 @@ public class GraphPanel extends JPanel implements MouseMotionListener, MouseList
 	}
 
 
-	
-	public GraphPanel() {
-		this.setBackground(Color.WHITE);
-		this.addMouseMotionListener(this);
-		this.addMouseListener(this);
-		this.addMouseWheelListener(this);
-		setBoundaries(-30,30,100,-100);		
-	}
-	
+	//Alles zeichnen -> aufruf �ber this.repaint();
 	@Override
     protected void paintComponent(Graphics g) {
 		int w = this.getWidth();
 		int h = this.getHeight();
 		
         super.paintComponent(g);
-        g2 = (Graphics2D) g;
-        
-        // Strokes definieren
-        // fancy Spielerei, kann/muss man evtl der Achsen-Skalierung anpassen
-        // Array für gepunkteten Stroke definieren (1 Pixel Farbe, 10 Pixel "durchsichtig")
-        float[] werte = {1f, 9f};
-        // "normalen" Stroke zwischenspeichern (derzeit nicht gebraucht, aber man weiß ja nie)
-        Stroke defaultStroke = g2.getStroke();
-        // Stroke für Rasterlinie erstellen
-        // Inspiration: http://www.java2s.com/Tutorials/Java/Graphics/Graphics_Settings/Use_dashed_stroke_to_draw_dashed_line_in_Java.htm
-        BasicStroke raster = new BasicStroke(1, BasicStroke.CAP_BUTT, BasicStroke.JOIN_ROUND, 0.0f, werte, 0.0f);
-            
-        
+        Graphics2D g2 = (Graphics2D) g;
+           
         // erzeugt schwarzen Rand um das Panel
         g2.setColor(Color.BLACK);
         g2.drawRect(0, 0, w-1, h-1);
         
         // erzeugt Achsen
-        g2.drawLine(xToPixel(0)+Offset.x, 0,  xToPixel(0)+Offset.x, h);
-        
-        
+        g2.drawLine(xToPixel(0)+Offset.x, 0,  xToPixel(0)+Offset.x, h);        
         g2.drawLine(0, yToPixel(0)+Offset.y, w, yToPixel(0)+Offset.y);
          
         //Markierungen x-Achse
@@ -190,14 +182,6 @@ public class GraphPanel extends JPanel implements MouseMotionListener, MouseList
         	g2.drawString(yStrich.toString(), xToPixel(0)+15+Offset.x, yToPixel(yStrich)-4+Offset.y);
         }
         
-        /*
-        g2.setStroke(raster);
-        // erzeugt Raster
-        for (int i = 10; i <= h - 10; i = i + 10) {
-        	g2.drawLine(0, i, w, i);
-        }
-        */
-        
         //zeichne Funktionen ein
         for(int i = 0; i < plots.size(); i++) {
         	g2.setColor(plotcolors.get(i));
@@ -207,7 +191,6 @@ public class GraphPanel extends JPanel implements MouseMotionListener, MouseList
         }
         
         // Achsenbezeichnung
-        g2.setStroke(defaultStroke);
         // Bezeichnungen weiß hinterlegen
         g2.setColor(Color.WHITE);
         g2.fillRect(w - 30, yToPixel(0) + 10 + Offset.y, 20, 20);
@@ -223,6 +206,8 @@ public class GraphPanel extends JPanel implements MouseMotionListener, MouseList
         g2.drawString("y", xToPixel(0) - 20 + Offset.x, 20);
 	}
 
+	//MouselListener-Methoden:
+	
 	@Override
 	public void mouseDragged(MouseEvent e) {
 		Offset.x = -(mousePressPos.x-e.getX());
