@@ -119,8 +119,7 @@ public class GraphPanel extends JPanel implements MouseMotionListener, MouseList
 		
 		int x = 0;
 		int[] y = new int[getWidth()];
-		double yStepValue = getHeight()/(boundaries.top-boundaries.bottom);
-		for (double value : wertetabelle.values()) {
+		for (Double value : wertetabelle.values()) {
 			y[x] = yToPixel(value);
 
 			x++;
