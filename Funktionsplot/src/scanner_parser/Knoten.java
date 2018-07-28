@@ -7,4 +7,5 @@ public abstract class Knoten {
 	public abstract void print();
 	public abstract double calcAt(double x);
 	public abstract Knoten ableitung();
+	public abstract Knoten copy();
 }

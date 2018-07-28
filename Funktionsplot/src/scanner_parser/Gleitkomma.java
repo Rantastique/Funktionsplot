@@ -19,4 +19,9 @@ public class Gleitkomma extends Knoten {
 	public Knoten ableitung() {
 		return new Ganzzahl(0);
 	}
+
+	@Override
+	public Knoten copy() {
+		return new Gleitkomma(wert);
+	}
 }
