@@ -95,11 +95,11 @@ public class GraphPanel extends JPanel implements MouseMotionListener, MouseList
 			max+=2;
 		}
 		System.out.println(min);
-		if(min.isInfinite()) {
+		if(min.isNaN()) {
 			System.out.println("min ist infinite");
 			min = (double) -10;
 		}
-		if(max.isInfinite()) {
+		if(max.isNaN()) {
 			max = (double) 10;
 		}
 
