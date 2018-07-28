@@ -9,13 +9,13 @@ public class Sin extends MonadOp{
 	}
 
 	@Override
-	public double calcAt(double x) {
+	public Double calcAt(double x) {
 		return Math.sin(op.calcAt(x));
 	}
 
 	@Override
 	public Knoten ableitung() {
-		return new MultOp(new Cos(op), op.ableitung());
+		return new MultOp(new Cos(op.copy()), op.ableitung());
 	}
 
 	@Override
@@ -27,4 +27,8 @@ public class Sin extends MonadOp{
 		
 	}
 
+	@Override
+	public Knoten copy() {
+		return new Sin(op.copy());
+	}
 }

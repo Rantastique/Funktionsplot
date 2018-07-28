@@ -4,17 +4,17 @@ public class Cos extends MonadOp {
 
 	public Cos() {}
 	public Cos(Knoten k) {
-		super();
+		super(k);
 	}
 
 	@Override
-	public double calcAt(double x) {
+	public Double calcAt(double x) {
 		return Math.cos(op.calcAt(x)) ;
 	}
 
 	@Override
 	public Knoten ableitung() {
-		return new Minus(new MultOp(new Sin(op), op.ableitung()));
+		return new Minus(new MultOp(new Sin(op.copy()), op.ableitung()));
 	}
 
 	@Override
@@ -24,5 +24,10 @@ public class Cos extends MonadOp {
 		System.out.println();
 		op.print();
 		
+	}
+	
+	@Override
+	public Knoten copy() {
+		return new Cos(op.copy());
 	}
 }

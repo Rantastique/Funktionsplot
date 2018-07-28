@@ -18,16 +18,22 @@ public class HochOp extends DyadOp{
 	}
 
 	@Override
-	public double calcAt(double x) {
+	public Double calcAt(double x) {
 		return Math.pow(leftOp.calcAt(x), rightOp.calcAt(x));
 	}
 
 	@Override
 	public Knoten ableitung() {
 		
-		return new MultOp(new AddOp(new MultOp(rightOp.ableitung(), new LogOp(leftOp)), new MultOp(rightOp, new DivOp(leftOp.ableitung(), leftOp))), new HochOp(leftOp, rightOp));
+		return new MultOp(new AddOp(new MultOp(rightOp.ableitung(), new LogOp(leftOp.copy())),
+				new MultOp(rightOp.copy(), new DivOp(leftOp.ableitung(),leftOp.copy()))), new HochOp(leftOp.copy(), rightOp.copy()));
 		//HochOp f = new HochOp(leftOp,rightOp); //funktion selbst
 		//MultOp produkt = new MultOp(rightOp, new LogOp(leftOp)); //produkt von  e^produkt
 		//return new MultOp(f, produkt.ableitung()); //ableitung von e^produkt
+	}
+	
+	@Override
+	public Knoten copy() {
+		return new HochOp(leftOp.copy(),rightOp.copy());
 	}
 }

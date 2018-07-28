@@ -12,11 +12,16 @@ public class Variable extends Knoten {
 	}
 	
 	@Override
-	public double calcAt(double x) {
+	public Double calcAt(double x) {
 		return x;
 	}
 	@Override
 	public Knoten ableitung() {
 		return new Ganzzahl(1);
+	}	
+
+	@Override
+	public Knoten copy() {
+		return new Variable(name);
 	}
 }

@@ -11,12 +11,17 @@ public class Gleitkomma extends Knoten {
 	}
 
 	@Override
-	public double calcAt(double x) {
+	public Double calcAt(double x) {
 		return wert;
 	}
 	
 	@Override
 	public Knoten ableitung() {
 		return new Ganzzahl(0);
+	}
+
+	@Override
+	public Knoten copy() {
+		return new Gleitkomma(wert);
 	}
 }

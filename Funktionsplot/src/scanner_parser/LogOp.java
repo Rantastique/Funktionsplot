@@ -3,7 +3,7 @@ package scanner_parser;
 public class LogOp extends MonadOp {
 
 	public LogOp(Knoten k) {
-		super();
+		super(k);
 	}
 	
 	public LogOp() {}
@@ -17,13 +17,18 @@ public class LogOp extends MonadOp {
 	}
 
 	@Override
-	public double calcAt(double x) {
-		return Math.log(op.calcAt(x));
+	public Double calcAt(double x) {
+		return (double) Math.log(op.calcAt(x));
 	}
 
 	@Override
 	public Knoten ableitung() {
-		return new DivOp(op.ableitung(), op);
+		return new DivOp(op.ableitung(), op.copy());
+	} 
+	
+	@Override
+	public Knoten copy() {
+		return new LogOp(op.copy());
 	}
 
 }

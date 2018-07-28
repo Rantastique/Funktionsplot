@@ -11,12 +11,17 @@ public class Ganzzahl extends Knoten {
 	}
 	
 	@Override
-	public double calcAt(double x) {
-		return wert;
+	public Double calcAt(double x) {
+		return (double) wert;
 	}
 	
 	@Override
 	public Knoten ableitung() {
 		return new Ganzzahl(0);
+	}
+	
+	@Override
+	public Knoten copy() {
+		return new Ganzzahl(wert);
 	}
 }

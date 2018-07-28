@@ -18,12 +18,17 @@ public class SubOp extends DyadOp {
 	}
 	
 	@Override
-	public double calcAt(double x) {
+	public Double calcAt(double x) {
 		return leftOp.calcAt(x)-rightOp.calcAt(x);
 	}
 
 	@Override
 	public Knoten ableitung() {
 		return new SubOp(leftOp.ableitung(),rightOp.ableitung());
+	}
+	
+	@Override
+	public Knoten copy() {
+		return new SubOp(leftOp.copy(),rightOp.copy());
 	}
 }

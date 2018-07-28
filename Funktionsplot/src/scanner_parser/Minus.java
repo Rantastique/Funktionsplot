@@ -18,12 +18,17 @@ public class Minus extends MonadOp {
 	}
 	
 	@Override
-	public double calcAt(double x) {
+	public Double calcAt(double x) {
 		return op.calcAt(x)*(-1);
 	}
 	
 	@Override
 	public Knoten ableitung() {
 		return new Minus(op.ableitung());
+	}
+
+	@Override
+	public Knoten copy() {
+		return new Minus(op.copy());
 	}
 }
