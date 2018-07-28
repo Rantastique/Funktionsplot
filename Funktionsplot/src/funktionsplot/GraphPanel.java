@@ -115,7 +115,7 @@ public class GraphPanel extends JPanel implements MouseMotionListener, MouseList
 		//zum Debugging von der Funktion Nullstellen
 		f.nullstellen(boundaries.left, boundaries.right, getWidth());
 		//
-		
+		f.Extremstellen(boundaries.left, boundaries.right, getWidth());
 		
 		int x = 0;
 		int[] y = new int[getWidth()];

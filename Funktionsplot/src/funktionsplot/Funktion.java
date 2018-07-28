@@ -88,12 +88,12 @@ public class Funktion implements IFunktion{
 						
 		
 		for (Map.Entry<Double, Double> entry: WT.entrySet()) {
-			System.out.println(entry.getValue());
+			//System.out.println(entry.getValue());
 			if (Math.abs(entry.getValue()) < abweichung) {	// wenn der Punkt sich im bereich der NST befindet
-				System.out.println("gelandet!");
+				//System.out.println("gelandet!");
 				if(linksX == 0) {				// wenn der Punkt der erste im Intervall ist - > 
 					linksX = entry.getKey();	// - > linke Grenze setzen
-					System.out.println("linke Grenze gesetzt bei x = " + entry.getKey());
+					//System.out.println("linke Grenze gesetzt bei x = " + entry.getKey());
 				}
 				rechtsX = entry.getKey();		// immer die rechte Grenze setzen
 			}else{								// wenn der Punkt sich (noch/schon) nicht im Intervall befindet
@@ -160,5 +160,11 @@ public class Funktion implements IFunktion{
         }
         
 		return NST;
+	}
+
+	@Override
+	public TreeMap<Double, Double> Extremstellen(double linkeIntervallgrenze, double rechteIntervallgrenze,	int schritte) {
+		System.out.println("Das sind die NST von der Ableitung, also die Extremwerte: ");
+		return ableitung().nullstellen(linkeIntervallgrenze,rechteIntervallgrenze, schritte );
 	}
 }
