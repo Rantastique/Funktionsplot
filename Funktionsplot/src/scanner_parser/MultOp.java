@@ -19,13 +19,22 @@ public class MultOp extends DyadOp{
 
 	@Override
 	public double calcAt(double x) {
+		if(leftOp.calcAt(x)==0||rightOp.calcAt(x)==0)
+		{
+			return 0;
+		}
 		return leftOp.calcAt(x)*rightOp.calcAt(x);
 	}
 
 	@Override
 	public Knoten ableitung() {
-		MultOp mult1 = new MultOp(leftOp.ableitung(), rightOp);
-		MultOp mult2 = new MultOp(leftOp, rightOp.ableitung());
+		MultOp mult1 = new MultOp(leftOp.ableitung(), rightOp.copy());
+		MultOp mult2 = new MultOp(leftOp.copy(), rightOp.ableitung());
 		return new AddOp(mult1, mult2);
+	}
+	
+	@Override
+	public Knoten copy() {
+		return new MultOp(leftOp.copy(),rightOp.copy());
 	}
 }

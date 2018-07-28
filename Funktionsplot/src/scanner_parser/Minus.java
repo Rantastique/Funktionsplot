@@ -26,4 +26,9 @@ public class Minus extends MonadOp {
 	public Knoten ableitung() {
 		return new Minus(op.ableitung());
 	}
+
+	@Override
+	public Knoten copy() {
+		return new Minus(op.copy());
+	}
 }

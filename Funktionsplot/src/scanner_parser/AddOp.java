@@ -26,4 +26,9 @@ public class AddOp extends DyadOp {
 	public Knoten ableitung() {
 		return new AddOp(leftOp.ableitung(), rightOp.ableitung());
 	}
+
+	@Override
+	public Knoten copy() {
+		return new AddOp(leftOp.copy(),rightOp.copy());
+	}
 }

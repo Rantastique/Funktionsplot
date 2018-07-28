@@ -26,4 +26,9 @@ public class SubOp extends DyadOp {
 	public Knoten ableitung() {
 		return new SubOp(leftOp.ableitung(),rightOp.ableitung());
 	}
+	
+	@Override
+	public Knoten copy() {
+		return new SubOp(leftOp.copy(),rightOp.copy());
+	}
 }

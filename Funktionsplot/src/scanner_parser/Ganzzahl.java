@@ -19,4 +19,9 @@ public class Ganzzahl extends Knoten {
 	public Knoten ableitung() {
 		return new Ganzzahl(0);
 	}
+	
+	@Override
+	public Knoten copy() {
+		return new Ganzzahl(wert);
+	}
 }

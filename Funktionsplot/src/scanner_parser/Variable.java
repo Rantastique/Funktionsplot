@@ -18,5 +18,10 @@ public class Variable extends Knoten {
 	@Override
 	public Knoten ableitung() {
 		return new Ganzzahl(1);
+	}	
+
+	@Override
+	public Knoten copy() {
+		return new Variable(name);
 	}
 }
