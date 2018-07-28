@@ -90,6 +90,10 @@ public class GraphPanel extends JPanel implements MouseMotionListener, MouseList
 		TreeMap<Double, Double> wertetabelle = f.berechneWertetabelle(boundaries.left, boundaries.right, getWidth());
 		double max = f.maximumIn(wertetabelle);
 		double min = f.minimumIn(wertetabelle);
+		if(min==max) {
+			min-=2;
+			max+=2;
+		}
 
 		double minplot = min - (max-min)/5;
 		double maxplot = max + (max-min)/5;
