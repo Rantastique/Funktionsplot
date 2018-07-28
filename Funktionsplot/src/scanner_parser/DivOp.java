@@ -20,6 +20,15 @@ public class DivOp extends DyadOp{
 
 	@Override
 	public Double calcAt(double x) {
+		Double leftValue=leftOp.calcAt(x);
+		if(leftValue==0)
+		{
+			return (double)0;
+		}
+		Double rightValue = rightOp.calcAt(x);
+		if(rightValue==0) {
+			return Double.NaN;
+		}
 		return leftOp.calcAt(x)/rightOp.calcAt(x);
 	}
 
