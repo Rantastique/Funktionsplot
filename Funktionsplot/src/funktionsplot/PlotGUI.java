@@ -373,9 +373,13 @@ public class PlotGUI extends JFrame implements MouseMotionListener, MouseListene
 		lTest.setText("Berechnen wurde gedrueckt");
 	}
 	
+	//Ableitungsbutton
 	private void anzeigen() {
+		System.out.println("anzeigen()");
 		String farbe = farbauswahlAbleitung.getSelectedItem().toString();
 		lTest.setText("Anzeigen wurde gedrueckt. Wunschfarbe: " + farbe);
+		
+		g.zeigeAbleitung();
 	}
 	
 	public void showBoundaries() {

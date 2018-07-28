@@ -116,6 +116,13 @@ public class GraphPanel extends JPanel implements MouseMotionListener, MouseList
 		plots.add(y);
 		plotcolors.add(f.plotColor);
 	}
+	
+	public void zeigeAbleitung() {
+		System.out.println("zeigeAbleitung()");
+		if (!funktionen.isEmpty()) {
+			addFunction(funktionen.get(0).ableitung());
+		}
+	}
 
 
 	//Alles zeichnen -> aufruf über this.repaint();
