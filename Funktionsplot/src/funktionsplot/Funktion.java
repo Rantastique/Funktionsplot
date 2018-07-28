@@ -29,7 +29,7 @@ public class Funktion implements IFunktion{
 	public TreeMap<Double,Double> berechneWertetabelle(double linkeIntervallgrenze, double rechteIntervallgrenze, int schritte) {
 		TreeMap<Double,Double> plot = new TreeMap<>();
 		double x=linkeIntervallgrenze;
-		double schrittweite=(rechteIntervallgrenze-linkeIntervallgrenze)/schritte;
+		double schrittweite=(rechteIntervallgrenze-linkeIntervallgrenze)/schritte*1.0;
 		for (int i=0; i< schritte; i++) {
 			plot.put(x, this.calcAt(x));
 			x+=schrittweite;
@@ -73,20 +73,38 @@ public class Funktion implements IFunktion{
 	@Override
 	public TreeMap<Double,Double> nullstellen(double linkeIntervallgrenze, double rechteIntervallgrenze, int schritte) {
 		
-		TreeMap<Double, Double> WT = berechneWertetabelle(linkeIntervallgrenze, rechteIntervallgrenze, schritte);
+		TreeMap<Double, Double> WT = berechneWertetabelle(linkeIntervallgrenze, rechteIntervallgrenze, schritte*2);
 		TreeMap<Double, Double> NST = new TreeMap<Double, Double>();
+		TreeMap<Double, Double> hilfWT = new TreeMap<Double, Double>();
 		
 		double altKey = WT.firstKey();
 		double altValue = WT.get(WT.firstKey());
-		double abweichung = 0.0001;
+		double abweichung = 0.00041; // getestet (optimale Abweichung für Parabeln mit Verschiebung)
+		double abweichung2 = 0.0000007; // auch getestet (aber nicht bewiesen)
+		double schrittweite=(rechteIntervallgrenze-linkeIntervallgrenze)/schritte*1.0;
 
 		for (Map.Entry<Double, Double> entry: WT.entrySet()) {
-			if (Math.abs(entry.getValue()) < abweichung) 
+			System.out.println(entry.getValue());
+			
+			//Berührungspunkte
+			if (Math.abs(entry.getValue()) < abweichung)
 			{
-				NST.put(entry.getKey(), entry.getValue());				
+				System.out.println("gelandet");
+				hilfWT = berechneWertetabelle(entry.getKey()-schrittweite, entry.getKey() + schrittweite, 50 ); //um genaure Stelle zu finden
+				
+				System.out.println("/innere Wertetabelle - x-Bereich: von " + (entry.getKey()-schrittweite) + " bis " + (entry.getKey() + schrittweite) + " /");
+				for (Map.Entry<Double, Double> entry2: hilfWT.entrySet()) {
+					System.out.println(entry2.getValue());
+					if (Math.abs(entry2.getValue()) < abweichung2) {
+						NST.put((double) Math.round(entry2.getKey()*10)/10, entry2.getValue()); //nach 10el runden um mehrere Nullstellen zu vermeiden
+						System.out.println("add: " + entry2.getValue());
+					}
+				}
+				
+				System.out.println("ENDE DER INNEREN WERTETABELLE");
+									
 			}else 
 			{
-				//if(altValue*entry.getValue()<0) 
 				if(altValue<0 && entry.getValue()>0 || altValue>0 && entry.getValue()<0)
 				{
 					System.out.println("Nullstellenbereich: " + altKey +": " + this.calcAt(altKey) + " - " +entry.getKey()+": " + this.calcAt(entry.getKey()));
@@ -105,7 +123,7 @@ public class Funktion implements IFunktion{
 						mitte = (links+rechts)/2.0;
 					}while(Math.abs(this.calcAt(mitte)) > abweichung);
 					
-					NST.put(mitte, this.calcAt(mitte));
+					NST.put((double) (Math.round(mitte*1000))/1000, this.calcAt(mitte));
 					
 				}
 			}
