@@ -112,15 +112,40 @@ public class Funktion implements IFunktion{
 		
 		double altKey = WT.firstKey();
 		double altValue = WT.get(WT.firstKey());
-		double abweichung = 0.00041; // getestet (optimale Abweichung für Parabeln mit Verschiebung)
-		double abweichung2 = 0.0000007; // auch getestet (aber nicht bewiesen)
+		double abweichung = 0.0005; // getestet (optimale Abweichung für Parabeln mit Verschiebung)
+		//double abweichung2 = 0.0000007; // auch getestet (aber nicht bewiesen)
 		double schrittweite=(rechteIntervallgrenze-linkeIntervallgrenze)/schritte*1.0;
 
 		for (Map.Entry<Double, Double> entry: WT.entrySet()) {
 			System.out.println(entry.getValue());
 			
-			//Berührungspunkte
-			if (Math.abs(entry.getValue()) < abweichung)
+			//Berührungspunkte 
+			if (Math.abs(entry.getValue()) < abweichung) {
+				Funktion ableitung = ableitung();
+				hilfWT = ableitung.berechneWertetabelle(altKey - schrittweite, entry.getKey()+5*schrittweite, schritte);
+				// prüfen, ob Intervall groß genug ist und ein Vorzeichenwechsel vorkommt
+				if((hilfWT.get(hilfWT.firstKey())>0 && hilfWT.get(hilfWT.lastKey())<0) || (hilfWT.firstKey()<0 && hilfWT.get(hilfWT.lastKey())>0 )){
+					
+					double links = altKey;
+					double rechts = entry.getKey() + 5*schritte;
+					double mitte;
+					
+					do {
+						mitte = (links+rechts)/2.0;
+						//System.out.println(links + " - "+ this.calcAt(links)+ "       " + mitte + " - " + this.calcAt(mitte)+ "       " + rechts + " - " + this.calcAt(rechts));
+						if(((ableitung.calcAt(mitte)) > 0 && (ableitung.calcAt(links) < ableitung.calcAt(rechts))) || ((ableitung.calcAt(mitte) < 0) &&  (ableitung.calcAt(links) > ableitung.calcAt(rechts)))) {
+							rechts = mitte;
+						}else {
+							links = mitte;
+						}
+						mitte = (links+rechts)/2.0;
+					}while(Math.abs(ableitung.calcAt(mitte)) > abweichung);
+					
+					NST.put((double) (Math.round(mitte*1000))/1000, ableitung.calcAt(mitte));
+				}
+			
+			}
+				/**
 			{
 				System.out.println("gelandet");
 				hilfWT = berechneWertetabelle(entry.getKey()-schrittweite, entry.getKey() + schrittweite, 50 ); //um genaure Stelle zu finden
@@ -136,8 +161,8 @@ public class Funktion implements IFunktion{
 				
 				System.out.println("ENDE DER INNEREN WERTETABELLE");
 									
-			}else 
-			{
+			} **/
+			else{
 				if(altValue<0 && entry.getValue()>0 || altValue>0 && entry.getValue()<0)
 				{
 					System.out.println("Nullstellenbereich: " + altKey +": " + this.calcAt(altKey) + " - " +entry.getKey()+": " + this.calcAt(entry.getKey()));
