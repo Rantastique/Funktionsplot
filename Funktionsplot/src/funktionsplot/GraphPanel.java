@@ -136,7 +136,7 @@ public class GraphPanel extends JPanel implements MouseMotionListener, MouseList
 			f.plotColor = color;
 			f.print();
 			
-			//addFunction(f);
+			addFunction(f);
 		}
 	}
 
