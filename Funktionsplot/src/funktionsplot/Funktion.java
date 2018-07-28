@@ -29,7 +29,7 @@ public class Funktion implements IFunktion{
 	public TreeMap<Double,Double> berechneWertetabelle(double linkeIntervallgrenze, double rechteIntervallgrenze, int schritte) {
 		TreeMap<Double,Double> plot = new TreeMap<>();
 		double x=linkeIntervallgrenze;
-		double schrittweite=(rechteIntervallgrenze-linkeIntervallgrenze)/schritte*1.0;
+		double schrittweite=(rechteIntervallgrenze-linkeIntervallgrenze)/schritte;
 		for (int i=0; i< schritte; i++) {
 			plot.put(x, this.calcAt(x));
 			x+=schrittweite;
@@ -80,10 +80,10 @@ public class Funktion implements IFunktion{
 		
 		TreeMap<Double, Double> WT = berechneWertetabelle(linkeIntervallgrenze, rechteIntervallgrenze, schritte*2);
 		TreeMap<Double, Double> NST = new TreeMap<Double, Double>();
-		// Da die Abweichung nur für die Berührungspunkte passt, und nicht für die normale Schnittpunkte
+		// Da die Abweichung nur fï¿½r die Berï¿½hrungspunkte passt, und nicht fï¿½r die normale Schnittpunkte
 				// sollte es noch ein Verfahren geben, das zuerst den Vorzeichenwechsel findet und dann in diesem Bereich die Nullstelle
 				
-				double oldKey = WT.firstKey(); // für VZW-Suche
+				double oldKey = WT.firstKey(); // fï¿½r VZW-Suche
 				double oldValue = WT.get(WT.firstKey());
 						
 		
@@ -113,7 +113,7 @@ public class Funktion implements IFunktion{
 							minX = entry2.getKey();
 						}
 					}
-					// Nullstelle zur Liste hinzufügen:
+					// Nullstelle zur Liste hinzufï¿½gen:
 					if( minX != values.firstKey())
 						NST.put((double) (Math.round(minX*100)/100.0), minY);
 					
@@ -123,7 +123,7 @@ public class Funktion implements IFunktion{
 			    }
 			}
 			
-			// für normale Scnittpunkte (x^(ungeradeZahl) passen auch rein, theoretisch kann zur Doppelnullstellen führen)
+			// fï¿½r normale Scnittpunkte (x^(ungeradeZahl) passen auch rein, theoretisch kann zur Doppelnullstellen fï¿½hren)
 			
 			//letzte Bedingung : Abweichung um die Pollstellen auszuschliessen
 			if((oldValue<=0 && entry.getValue()>0 || oldValue>=0 && entry.getValue()<0) && Math.abs(oldValue) < 10000) { 
@@ -140,8 +140,8 @@ public class Funktion implements IFunktion{
 						minXX = entry2.getKey();
 					}
 				}
-				// Nullstelle zur Liste hinzufügen:
-				 if( minXX != values.firstKey())  // ohne Ränder (wegen Exponentialfunktionen)
+				// Nullstelle zur Liste hinzufï¿½gen:
+				 if( minXX != values.firstKey())  // ohne Rï¿½nder (wegen Exponentialfunktionen)
 					 NST.put((double) (Math.round(minXX*100)/100.0), minYY);
 			}
 			
@@ -160,5 +160,5 @@ public class Funktion implements IFunktion{
         }
         
 		return NST;
-	}	
+	}
 }
