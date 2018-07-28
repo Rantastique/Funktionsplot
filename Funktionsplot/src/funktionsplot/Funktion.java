@@ -80,20 +80,27 @@ public class Funktion implements IFunktion{
 		double altKey = WT.firstKey();
 		double altValue = WT.get(WT.firstKey());
 		double abweichung = 0.0005; // getestet (optimale Abweichung für Parabeln mit Verschiebung)
-		//double abweichung2 = 0.0000007; // auch getestet (aber nicht bewiesen)
+		double abweichung2 = 0.000007; // auch getestet (aber nicht bewiesen)
 		double schrittweite=(rechteIntervallgrenze-linkeIntervallgrenze)/schritte*1.0;
 
-		for (Map.Entry<Double, Double> entry: WT.entrySet()) {
+		for (Map.Entry<Double, Double> entry: WT.entrySet()) 
+		{
 			System.out.println(entry.getValue());
 			
 			//Berührungspunkte 
-			if (Math.abs(entry.getValue()) < abweichung) {
+			if (Math.abs(entry.getValue()) < abweichung) 
+			{
+				System.out.println("gelandet");
 				Funktion ableitung = ableitung();
 				hilfWT = ableitung.berechneWertetabelle(altKey - schrittweite, entry.getKey()+5*schrittweite, schritte);
 				// prüfen, ob Intervall groß genug ist und ein Vorzeichenwechsel vorkommt
-				if((hilfWT.get(hilfWT.firstKey())>0 && hilfWT.get(hilfWT.lastKey())<0) || (hilfWT.firstKey()<0 && hilfWT.get(hilfWT.lastKey())>0 )){
+				System.out.println("Vorzeichenwechsel? (Ableitung) zwischen: " + hilfWT.get(hilfWT.firstKey()) + " und " + hilfWT.get(hilfWT.lastKey()));
+				if(  ((hilfWT.get(hilfWT.firstKey())>0) && (hilfWT.get(hilfWT.lastKey())<0)) || ((hilfWT.firstKey()<0 && hilfWT.get(hilfWT.lastKey())>0 ))   )
+				{
 					
-					double links = altKey;
+					System.out.println("Vorzeichenwechsel! (Ableitung) zwischen: " + hilfWT.get(hilfWT.firstKey()) + " und " + hilfWT.get(hilfWT.lastKey()));
+					
+					double links = altKey - schrittweite;
 					double rechts = entry.getKey() + 5*schritte;
 					double mitte;
 					
@@ -106,9 +113,10 @@ public class Funktion implements IFunktion{
 							links = mitte;
 						}
 						mitte = (links+rechts)/2.0;
-					}while(Math.abs(ableitung.calcAt(mitte)) > abweichung);
+					}while(Math.abs(ableitung.calcAt(mitte)) > abweichung2);
 					
-					NST.put((double) (Math.round(mitte*1000))/1000, ableitung.calcAt(mitte));
+					NST.put((double) (Math.round(mitte*10))/10, ableitung.calcAt(mitte));
+					System.out.println("put : " + (double) (Math.round(mitte*10))/10);
 				}
 			
 			}
@@ -129,7 +137,6 @@ public class Funktion implements IFunktion{
 				System.out.println("ENDE DER INNEREN WERTETABELLE");
 									
 			} **/
-			else{
 				if(altValue<0 && entry.getValue()>0 || altValue>0 && entry.getValue()<0)
 				{
 					System.out.println("Nullstellenbereich: " + altKey +": " + this.calcAt(altKey) + " - " +entry.getKey()+": " + this.calcAt(entry.getKey()));
@@ -148,13 +155,15 @@ public class Funktion implements IFunktion{
 						mitte = (links+rechts)/2.0;
 					}while(Math.abs(this.calcAt(mitte)) > abweichung);
 					
-					NST.put((double) (Math.round(mitte*1000))/1000, this.calcAt(mitte));
+					NST.put((double) (Math.round(mitte*10))/10, this.calcAt(mitte));
+					System.out.println("put : " + (double)(Math.round(mitte*10))/10);
 					
 				}
-			}
+			
 			altKey = entry.getKey();
-			altValue = entry.getValue();			
+			altValue = entry.getValue();	
 		}
+		
 		//Zur Kontrolle:
         System.out.println("Nullstellen:");
 		System.out.println();
@@ -167,4 +176,5 @@ public class Funktion implements IFunktion{
 		return NST;
 	}
 
+	
 }
