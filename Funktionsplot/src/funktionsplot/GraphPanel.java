@@ -228,8 +228,19 @@ public class GraphPanel extends JPanel implements MouseMotionListener, MouseList
 	
 	@Override
 	public void mouseDragged(MouseEvent e) {
+		//probeweise boundaries beim draggen updaten
+		//aufräumen falls es so bleiben soll
 		Offset.x = -(mousePressPos.x-e.getX());
 		Offset.y = (e.getY()-mousePressPos.y);
+		
+		double xShift = -(Offset.x*(boundaries.right-boundaries.left))/this.getWidth();
+		double yShift = (Offset.y*(boundaries.top-boundaries.bottom))/this.getHeight();
+		
+		setBoundaries(boundaries.left+xShift, boundaries.right+xShift, boundaries.top+yShift, boundaries.bottom+yShift);
+		mousePressPos.x=e.getX();
+		mousePressPos.y=e.getY();
+		Offset.x=0;
+		Offset.y=0;
 		this.repaint();
 	}
 

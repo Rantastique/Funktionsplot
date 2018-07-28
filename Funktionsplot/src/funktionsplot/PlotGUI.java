@@ -90,6 +90,7 @@ public class PlotGUI extends JFrame implements MouseMotionListener, MouseListene
 		g.setBounds(400, 20, 500, 500);	
 		// MouseListener um die TextFields für X- und Y-Achse zu aktualisieren
 		g.addMouseListener(this);
+		g.addMouseMotionListener(this);
 		
 		p.add(g);
 		
@@ -335,6 +336,7 @@ public class PlotGUI extends JFrame implements MouseMotionListener, MouseListene
 			g.reset();
 			Funktion f = FuncParser.theParser().parse(funcString);
 			if (FuncParser.theParser().getErrcnt() == 0) {
+				showBoundaries();
 				f.plotColor = farbauswahl;
 				g.addFunction(f);
 				return;
@@ -376,6 +378,20 @@ public class PlotGUI extends JFrame implements MouseMotionListener, MouseListene
 		lTest.setText("Anzeigen wurde gedrueckt. Wunschfarbe: " + farbe);
 	}
 	
+	public void showBoundaries() {
+		// aktuelle Intervallgrenzen abfragen
+		double left = g.getBoundaries().left;
+		double right = g.getBoundaries().right;
+		double top = g.getBoundaries().top;
+		double bottom = g.getBoundaries().bottom;
+		
+		// Intervallgrenzen in die entsprechenden TextFields eintragen
+		xAchseVon.setText(String.format("%s", df.format(left)));
+		xAchseBis.setText(String.format("%s", df.format(right)));
+		yAchseVon.setText(String.format("%s",df.format(bottom)));
+		yAchseBis.setText(String.format("%s", df.format(top)));
+	}
+	
 	// Methoden für den MouseListener
 
 	@Override
@@ -392,19 +408,7 @@ public class PlotGUI extends JFrame implements MouseMotionListener, MouseListene
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		// Format für Ausgabe der Intervallgrenzen (double) festelegen
-		
-		// aktuelle Intervallgrenzen abfragen
-		double left = g.getBoundaries().left;
-		double right = g.getBoundaries().right;
-		double top = g.getBoundaries().top;
-		double bottom = g.getBoundaries().bottom;
-		
-		// Intervallgrenzen in die entsprechenden TextFields eintragen
-		xAchseVon.setText(String.format("%s", df.format(left)));
-		xAchseBis.setText(String.format("%s", df.format(right)));
-		yAchseVon.setText(String.format("%s",df.format(bottom)));
-		yAchseBis.setText(String.format("%s", df.format(top)));
+		showBoundaries();
 		
 	}
 
@@ -422,7 +426,7 @@ public class PlotGUI extends JFrame implements MouseMotionListener, MouseListene
 
 	@Override
 	public void mouseDragged(MouseEvent e) {
-		// TODO Auto-generated method stub
+		showBoundaries();
 		
 	}
 
