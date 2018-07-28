@@ -18,7 +18,7 @@ public class Minus extends MonadOp {
 	}
 	
 	@Override
-	public double calcAt(double x) {
+	public Double calcAt(double x) {
 		return op.calcAt(x)*(-1);
 	}
 	

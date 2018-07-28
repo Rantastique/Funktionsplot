@@ -12,7 +12,7 @@ public class Variable extends Knoten {
 	}
 	
 	@Override
-	public double calcAt(double x) {
+	public Double calcAt(double x) {
 		return x;
 	}
 	@Override
