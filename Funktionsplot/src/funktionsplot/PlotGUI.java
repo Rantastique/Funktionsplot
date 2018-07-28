@@ -378,8 +378,27 @@ public class PlotGUI extends JFrame implements MouseMotionListener, MouseListene
 		System.out.println("anzeigen()");
 		String farbe = farbauswahlAbleitung.getSelectedItem().toString();
 		lTest.setText("Anzeigen wurde gedrueckt. Wunschfarbe: " + farbe);
+		Color farbauswahl = Color.BLACK; // um Variable zu initialisieren
 		
-		g.zeigeAbleitung();
+		switch (farbe) {
+		case "schwarz": 
+			farbauswahl = Color.BLACK;
+			break;
+		case "rot": 
+			farbauswahl = Color.RED;
+			break;
+		case "gruen": 
+			farbauswahl = Color.GREEN;
+			break;
+		case "blau":
+			farbauswahl = Color.BLUE;
+			break;
+		case "orange":
+			farbauswahl = Color.ORANGE;
+			break;
+		}
+		
+		g.zeigeAbleitung(farbauswahl);
 	}
 	
 	public void showBoundaries() {
