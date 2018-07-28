@@ -17,8 +17,8 @@ public class LogOp extends MonadOp {
 	}
 
 	@Override
-	public double calcAt(double x) {
-		return Math.log(op.calcAt(x));
+	public Double calcAt(double x) {
+		return (double) Math.log(op.calcAt(x));
 	}
 
 	@Override

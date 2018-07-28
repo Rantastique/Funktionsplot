@@ -11,7 +11,7 @@ public class Gleitkomma extends Knoten {
 	}
 
 	@Override
-	public double calcAt(double x) {
+	public Double calcAt(double x) {
 		return wert;
 	}
 	

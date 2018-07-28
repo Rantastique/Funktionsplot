@@ -19,7 +19,7 @@ public class DivOp extends DyadOp{
 	}
 
 	@Override
-	public double calcAt(double x) {
+	public Double calcAt(double x) {
 		return leftOp.calcAt(x)/rightOp.calcAt(x);
 	}
 

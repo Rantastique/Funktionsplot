@@ -11,8 +11,8 @@ public class Ganzzahl extends Knoten {
 	}
 	
 	@Override
-	public double calcAt(double x) {
-		return wert;
+	public Double calcAt(double x) {
+		return (double) wert;
 	}
 	
 	@Override

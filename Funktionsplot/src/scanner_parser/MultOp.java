@@ -18,10 +18,10 @@ public class MultOp extends DyadOp{
 	}
 
 	@Override
-	public double calcAt(double x) {
+	public Double calcAt(double x) {
 		if(leftOp.calcAt(x)==0||rightOp.calcAt(x)==0)
 		{
-			return 0;
+			return (double) 0;
 		}
 		return leftOp.calcAt(x)*rightOp.calcAt(x);
 	}

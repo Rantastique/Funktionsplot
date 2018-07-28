@@ -88,11 +88,19 @@ public class GraphPanel extends JPanel implements MouseMotionListener, MouseList
 	//passt vor dem plotten die y-Achsenskalierung den minima und maxima der im Intervall an
 	public void autoPlot(Funktion f) {
 		TreeMap<Double, Double> wertetabelle = f.berechneWertetabelle(boundaries.left, boundaries.right, getWidth());
-		double max = f.maximumIn(wertetabelle);
-		double min = f.minimumIn(wertetabelle);
+		Double max = f.maximumIn(wertetabelle);
+		Double min = f.minimumIn(wertetabelle);
 		if(min==max) {
 			min-=2;
 			max+=2;
+		}
+		System.out.println(min);
+		if(min.isInfinite()) {
+			System.out.println("min ist infinite");
+			min = (double) -10;
+		}
+		if(max.isInfinite()) {
+			max = (double) 10;
 		}
 
 		double minplot = min - (max-min)/5;
