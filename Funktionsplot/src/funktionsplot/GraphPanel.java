@@ -167,8 +167,30 @@ public class GraphPanel extends JPanel implements MouseMotionListener, MouseList
         g2.drawRect(0, 0, w-1, h-1);
         
         // erzeugt Achsen
-        g2.drawLine(xToPixel(0), 0,  xToPixel(0), h);        
-        g2.drawLine(0, yToPixel(0), w, yToPixel(0));
+        int xAchsePos=yToPixel(0);
+        int yAchsePos=xToPixel(0);
+        int xAchseZifferAbst = 20;
+        int yAchseZifferAbst = 15;
+        if(yAchsePos<0) {
+        	yAchsePos=0;
+        }
+        if(yAchsePos>getWidth()) {
+        	yAchsePos=getWidth();
+        }
+        if(yAchsePos>getWidth()-40) {
+        	yAchseZifferAbst = -40;
+        }
+        if(xAchsePos<0) {
+        	xAchsePos=0;
+        }
+        if(xAchsePos>getHeight()) {
+        	xAchsePos=getHeight();
+        }
+        if(xAchsePos>getHeight()-30) {
+        	xAchseZifferAbst = -20;
+        }
+        g2.drawLine(yAchsePos, 0,  yAchsePos, h);        
+        g2.drawLine(0, xAchsePos, w, xAchsePos);
          
         //Markierungen x-Achse
         double schrittweite = 1;
@@ -189,14 +211,14 @@ public class GraphPanel extends JPanel implements MouseMotionListener, MouseList
         Double xStrich=(double) 0;
         while(xStrich<boundaries.right) {
         	xStrich+=schrittweite;
-        	g2.drawLine(xToPixel(xStrich), yToPixel(0)-3, xToPixel(xStrich), yToPixel(0)+3 );
-        	g2.drawString(xStrich.toString(), xToPixel(xStrich)- 4  , yToPixel(0)+ 15 );
+        	g2.drawLine(xToPixel(xStrich), xAchsePos-3, xToPixel(xStrich), xAchsePos+3 );
+        	g2.drawString(xStrich.toString(), xToPixel(xStrich)- 4  , xAchsePos + xAchseZifferAbst );
         }
         xStrich=(double) 0;
         while(xStrich>boundaries.left) {
         	xStrich-=schrittweite;
-        	g2.drawLine(xToPixel(xStrich) , yToPixel(0)-3 , xToPixel(xStrich) , yToPixel(0)+3 );
-        	g2.drawString(xStrich.toString(), xToPixel(xStrich)- 4  , yToPixel(0)+ 15 );
+        	g2.drawLine(xToPixel(xStrich), xAchsePos-3, xToPixel(xStrich), xAchsePos+3 );
+        	g2.drawString(xStrich.toString(), xToPixel(xStrich)- 4  , xAchsePos + xAchseZifferAbst );
         }
         
         //Markierungen Y-Achse
@@ -218,14 +240,14 @@ public class GraphPanel extends JPanel implements MouseMotionListener, MouseList
         Double yStrich=(double) 0;
         while(yStrich<boundaries.top) {
         	yStrich+=schrittweite;
-        	g2.drawLine(xToPixel(0)+3, yToPixel(yStrich),xToPixel(0)-3,yToPixel(yStrich));
-        	g2.drawString(yStrich.toString(), xToPixel(0)+15, yToPixel(yStrich)-4);
+        	g2.drawLine(yAchsePos+3, yToPixel(yStrich),yAchsePos-3,yToPixel(yStrich));
+        	g2.drawString(yStrich.toString(), yAchsePos+yAchseZifferAbst, yToPixel(yStrich)-4);
         }
         yStrich=(double) 0;
         while(yStrich>boundaries.bottom) {
         	yStrich-=schrittweite;
-        	g2.drawLine(xToPixel(0)+3, yToPixel(yStrich),xToPixel(0)-3,yToPixel(yStrich));
-        	g2.drawString(yStrich.toString(), xToPixel(0)+15, yToPixel(yStrich)-4);
+        	g2.drawLine(yAchsePos+3, yToPixel(yStrich),yAchsePos-3,yToPixel(yStrich));
+        	g2.drawString(yStrich.toString(), yAchsePos+yAchseZifferAbst, yToPixel(yStrich)-4);
         }
         
         //zeichne Funktionen ein
@@ -265,8 +287,8 @@ public class GraphPanel extends JPanel implements MouseMotionListener, MouseList
         // Achsenbezeichnung
         // Bezeichnungen weiß hinterlegen
         g2.setColor(Color.WHITE);
-        g2.fillRect(w - 30, yToPixel(0) + 10, 20, 20);
-        g2.fillRect(xToPixel(0) - 20, 10, 20, 20);
+        g2.fillRect(w - 30, xAchsePos+xAchseZifferAbst-12, 20, 20);
+        g2.fillRect(yAchsePos+yAchseZifferAbst, 10, 20, 20);
         
         g2.setColor(Color.DARK_GRAY);
         // Font ändern (fürs erste defaultFont zwischenspeichern)
@@ -274,8 +296,8 @@ public class GraphPanel extends JPanel implements MouseMotionListener, MouseList
         g2.setFont(new Font("Bold", Font.BOLD, 18));
         
         
-        g2.drawString("x", w - 30, yToPixel(0) + 20);
-        g2.drawString("y", xToPixel(0) - 20, 20);
+        g2.drawString("x", w - 30, xAchsePos+xAchseZifferAbst);
+        g2.drawString("y", yAchsePos+yAchseZifferAbst, 20);
 	}
 
 	//MouselListener-Methoden:
