@@ -9,8 +9,10 @@ import java.awt.event.MouseWheelListener;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.text.ParseException;
+import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
+import javax.swing.BoundedRangeModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -20,6 +22,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import scanner_parser.FuncParser;
@@ -65,6 +68,7 @@ public class PlotGUI extends JFrame implements MouseMotionListener, MouseListene
 	// height
 	private final int H1 = 20;
 	private final int H2 = 40;
+	private final int H3 = 60;
 	
 	PlotGUI() {
 		// Dezimal-Format konfigurieren
@@ -163,8 +167,8 @@ public class PlotGUI extends JFrame implements MouseMotionListener, MouseListene
 		lAbleitung.setForeground(schrift);
 		lFarbeAbleitung.setForeground(schrift);
 		
-		// Textfields
-		lTerm.setForeground(schrift);
+		// Textfields // DEBUGGEN
+		term.setForeground(schrift);
 		lFarbeGraph.setForeground(schrift);
 		lIntervall.setForeground(schrift);
 		lXAchseVon.setForeground(schrift);
@@ -374,10 +378,23 @@ public class PlotGUI extends JFrame implements MouseMotionListener, MouseListene
 		
 	}
 
-
 	private void berechnen() {
 		lTest.setText("Berechnen wurde gedrueckt");
-		g.findeNullstellen();
+
+		ArrayList<Double> nst = g.getNst();
+		if (g.hasNst()) {
+			StringBuffer buffer = new StringBuffer();
+			if (nst.size() > 1) {
+				for (int i = 0; i < nst.size() - 1; i++) {
+					buffer.append(Double.toString(nst.get(i)) + ", ");
+				}
+			}
+			buffer.append(Double.toString(nst.get(nst.size()-1)));
+			nullstellen.setText(buffer.toString());
+		}
+		else {
+			nullstellen.setText("keine Nullstellen vorhanden");
+		}
 		g.repaint();
 	}
 	
