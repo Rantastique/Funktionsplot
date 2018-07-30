@@ -26,7 +26,6 @@ public class GraphPanel extends JPanel implements MouseMotionListener, MouseList
 	 */
 	private static final long serialVersionUID = -7250288945960637817L;
 	
-	private Point Offset = new Point(0,0);
 	private Point mousePressPos = new Point(0,0);	
 	private Boundaries boundaries;  
 	private List<Color> plotcolors = new ArrayList<Color>();
@@ -168,19 +167,19 @@ public class GraphPanel extends JPanel implements MouseMotionListener, MouseList
         g2.drawRect(0, 0, w-1, h-1);
         
         // erzeugt Achsen
-        g2.drawLine(xToPixel(0)+Offset.x, 0,  xToPixel(0)+Offset.x, h);        
-        g2.drawLine(0, yToPixel(0)+Offset.y, w, yToPixel(0)+Offset.y);
+        g2.drawLine(xToPixel(0), 0,  xToPixel(0), h);        
+        g2.drawLine(0, yToPixel(0), w, yToPixel(0));
          
         //Markierungen x-Achse
         double schrittweite = 1;
         double intervallbreite = boundaries.right-boundaries.left;
-        if(intervallbreite >= 20) {
-        	while(intervallbreite/schrittweite>20) {
+        if(intervallbreite >= 15) {
+        	while(intervallbreite/schrittweite>15) {
         		schrittweite*=10;
         	}
         }
         else {
-        	while((intervallbreite/schrittweite)<2) {
+        	while((intervallbreite/schrittweite)<1.5) {
         		schrittweite/=10;
         	}
         }
@@ -190,26 +189,26 @@ public class GraphPanel extends JPanel implements MouseMotionListener, MouseList
         Double xStrich=(double) 0;
         while(xStrich<boundaries.right) {
         	xStrich+=schrittweite;
-        	g2.drawLine(xToPixel(xStrich)+Offset.x, yToPixel(0)-3+Offset.y, xToPixel(xStrich)+Offset.x, yToPixel(0)+3+Offset.y);
-        	g2.drawString(xStrich.toString(), xToPixel(xStrich)- 4 +Offset.x, yToPixel(0)+ 15+Offset.y);
+        	g2.drawLine(xToPixel(xStrich), yToPixel(0)-3, xToPixel(xStrich), yToPixel(0)+3 );
+        	g2.drawString(xStrich.toString(), xToPixel(xStrich)- 4  , yToPixel(0)+ 15 );
         }
         xStrich=(double) 0;
         while(xStrich>boundaries.left) {
         	xStrich-=schrittweite;
-        	g2.drawLine(xToPixel(xStrich)+Offset.x, yToPixel(0)-3+Offset.y, xToPixel(xStrich)+Offset.x, yToPixel(0)+3+Offset.y);
-        	g2.drawString(xStrich.toString(), xToPixel(xStrich)- 4 +Offset.x, yToPixel(0)+ 15+Offset.y);
+        	g2.drawLine(xToPixel(xStrich) , yToPixel(0)-3 , xToPixel(xStrich) , yToPixel(0)+3 );
+        	g2.drawString(xStrich.toString(), xToPixel(xStrich)- 4  , yToPixel(0)+ 15 );
         }
         
         //Markierungen Y-Achse
         schrittweite = 1;
         double intervallhoehe = boundaries.top-boundaries.bottom;
-        if(intervallhoehe >= 20) {
-        	while(intervallhoehe/schrittweite>20) {
+        if(intervallhoehe >= 15) {
+        	while(intervallhoehe/schrittweite>15) {
         		schrittweite*=10;
         	}
         }
         else {
-        	while((intervallhoehe/schrittweite)<2) {
+        	while((intervallhoehe/schrittweite)<1.5) {
         		schrittweite/=10;
         	}
         }
@@ -219,14 +218,14 @@ public class GraphPanel extends JPanel implements MouseMotionListener, MouseList
         Double yStrich=(double) 0;
         while(yStrich<boundaries.top) {
         	yStrich+=schrittweite;
-        	g2.drawLine(xToPixel(0)+3+Offset.x, yToPixel(yStrich)+Offset.y,xToPixel(0)-3+Offset.x,yToPixel(yStrich)+Offset.y);
-        	g2.drawString(yStrich.toString(), xToPixel(0)+15+Offset.x, yToPixel(yStrich)-4+Offset.y);
+        	g2.drawLine(xToPixel(0)+3, yToPixel(yStrich),xToPixel(0)-3,yToPixel(yStrich));
+        	g2.drawString(yStrich.toString(), xToPixel(0)+15, yToPixel(yStrich)-4);
         }
         yStrich=(double) 0;
         while(yStrich>boundaries.bottom) {
         	yStrich-=schrittweite;
-        	g2.drawLine(xToPixel(0)+3+Offset.x, yToPixel(yStrich)+Offset.y,xToPixel(0)-3+Offset.x,yToPixel(yStrich)+Offset.y);
-        	g2.drawString(yStrich.toString(), xToPixel(0)+15+Offset.x, yToPixel(yStrich)-4+Offset.y);
+        	g2.drawLine(xToPixel(0)+3, yToPixel(yStrich),xToPixel(0)-3,yToPixel(yStrich));
+        	g2.drawString(yStrich.toString(), xToPixel(0)+15, yToPixel(yStrich)-4);
         }
         
         //zeichne Funktionen ein
@@ -236,10 +235,10 @@ public class GraphPanel extends JPanel implements MouseMotionListener, MouseList
         	for(int x = 0; x < getWidth(); x++) {
         		if(x==0)
         		{
-            		g.drawRect(x+Offset.x, plot[x]+Offset.y, 1, 1);
+            		g.drawRect(x, plot[x], 1, 1);
         		}
         		else {
-        			g.drawLine(x+Offset.x, plot[x-1]+Offset.y, x+Offset.x, plot[x]+Offset.y);
+        			g.drawLine(x, plot[x-1], x, plot[x]);
         		}
         	}
         }
@@ -266,8 +265,8 @@ public class GraphPanel extends JPanel implements MouseMotionListener, MouseList
         // Achsenbezeichnung
         // Bezeichnungen weiß hinterlegen
         g2.setColor(Color.WHITE);
-        g2.fillRect(w - 30, yToPixel(0) + 10 + Offset.y, 20, 20);
-        g2.fillRect(xToPixel(0) - 20 + Offset.x, 10, 20, 20);
+        g2.fillRect(w - 30, yToPixel(0) + 10, 20, 20);
+        g2.fillRect(xToPixel(0) - 20, 10, 20, 20);
         
         g2.setColor(Color.DARK_GRAY);
         // Font ändern (fürs erste defaultFont zwischenspeichern)
@@ -275,8 +274,8 @@ public class GraphPanel extends JPanel implements MouseMotionListener, MouseList
         g2.setFont(new Font("Bold", Font.BOLD, 18));
         
         
-        g2.drawString("x", w - 30, yToPixel(0) + 20 + Offset.y);
-        g2.drawString("y", xToPixel(0) - 20 + Offset.x, 20);
+        g2.drawString("x", w - 30, yToPixel(0) + 20);
+        g2.drawString("y", xToPixel(0) - 20, 20);
 	}
 
 	//MouselListener-Methoden:
@@ -285,6 +284,7 @@ public class GraphPanel extends JPanel implements MouseMotionListener, MouseList
 	public void mouseDragged(MouseEvent e) {
 		//probeweise boundaries beim draggen updaten
 		//aufr�umen falls es so bleiben soll
+		Point Offset = new Point(0,0);
 		Offset.x = -(mousePressPos.x-e.getX());
 		Offset.y = (e.getY()-mousePressPos.y);
 		
@@ -330,13 +330,6 @@ public class GraphPanel extends JPanel implements MouseMotionListener, MouseList
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		double xShift = -(Offset.x*(boundaries.right-boundaries.left))/this.getWidth();
-		double yShift = (Offset.y*(boundaries.top-boundaries.bottom))/this.getHeight();
-		
-		setBoundaries(boundaries.left+xShift, boundaries.right+xShift, boundaries.top+yShift, boundaries.bottom+yShift);
-		Offset.x=0;
-		Offset.y=0;
-		this.repaint();
 				
 	}
 	@Override

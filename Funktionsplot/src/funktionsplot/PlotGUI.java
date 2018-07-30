@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.awt.event.MouseWheelEvent;
+import java.awt.event.MouseWheelListener;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.text.ParseException;
@@ -21,7 +23,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import scanner_parser.FuncParser;
-public class PlotGUI extends JFrame implements MouseMotionListener, MouseListener {
+public class PlotGUI extends JFrame implements MouseMotionListener, MouseListener, MouseWheelListener {
 	// Utilties deklarieren
 	// DecimalFormat für Formatieren von Dezimalenzahlen 
 	// (für double-Werte gebraucht, weil länderabhängige Verwendung von . oder , als Trennzeichen)
@@ -91,6 +93,7 @@ public class PlotGUI extends JFrame implements MouseMotionListener, MouseListene
 		// MouseListener um die TextFields für X- und Y-Achse zu aktualisieren
 		g.addMouseListener(this);
 		g.addMouseMotionListener(this);
+		g.addMouseWheelListener(this);
 		
 		p.add(g);
 		
@@ -339,6 +342,7 @@ public class PlotGUI extends JFrame implements MouseMotionListener, MouseListene
 				showBoundaries();
 				f.plotColor = farbauswahl;
 				g.addFunction(f);
+				showBoundaries();
 				return;
 			}
 			String msg = "Fehler bei der Eingabe!" + FuncParser.theParser().getErrMsg();
@@ -347,6 +351,8 @@ public class PlotGUI extends JFrame implements MouseMotionListener, MouseListene
 		}
 		String msg = "Das Eingabefeld ist leer.";
 		JOptionPane.showMessageDialog(this.getParent(), msg, "Eingabefehler", JOptionPane.ERROR_MESSAGE);
+		
+		
 	}
 	
 	private void anpassen() {
@@ -458,6 +464,12 @@ public class PlotGUI extends JFrame implements MouseMotionListener, MouseListene
 	@Override
 	public void mouseMoved(MouseEvent e) {
 		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseWheelMoved(MouseWheelEvent arg0) {
+		showBoundaries();
 		
 	}
 
