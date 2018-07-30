@@ -167,8 +167,22 @@ public class GraphPanel extends JPanel implements MouseMotionListener, MouseList
         g2.drawRect(0, 0, w-1, h-1);
         
         // erzeugt Achsen
-        g2.drawLine(xToPixel(0), 0,  xToPixel(0), h);        
-        g2.drawLine(0, yToPixel(0), w, yToPixel(0));
+        int xAchsePos=yToPixel(0);
+        int yAchsePos=xToPixel(0);
+        if(xToPixel(0)<0) {
+        	yAchsePos=0;
+        }
+        if(xToPixel(0)>getWidth()) {
+        	yAchsePos=getWidth();
+        }
+        if(yToPixel(0)<0) {
+        	xAchsePos=0;
+        }
+        if(yToPixel(0)>getHeight()) {
+        	xAchsePos=getHeight();
+        }
+        g2.drawLine(yAchsePos, 0,  yAchsePos, h);        
+        g2.drawLine(0, xAchsePos, w, xAchsePos);
          
         //Markierungen x-Achse
         double schrittweite = 1;
@@ -189,14 +203,14 @@ public class GraphPanel extends JPanel implements MouseMotionListener, MouseList
         Double xStrich=(double) 0;
         while(xStrich<boundaries.right) {
         	xStrich+=schrittweite;
-        	g2.drawLine(xToPixel(xStrich), yToPixel(0)-3, xToPixel(xStrich), yToPixel(0)+3 );
-        	g2.drawString(xStrich.toString(), xToPixel(xStrich)- 4  , yToPixel(0)+ 15 );
+        	g2.drawLine(xToPixel(xStrich), xAchsePos-3, xToPixel(xStrich), xAchsePos+3 );
+        	g2.drawString(xStrich.toString(), xToPixel(xStrich)- 4  , xAchsePos + 15 );
         }
         xStrich=(double) 0;
         while(xStrich>boundaries.left) {
         	xStrich-=schrittweite;
-        	g2.drawLine(xToPixel(xStrich) , yToPixel(0)-3 , xToPixel(xStrich) , yToPixel(0)+3 );
-        	g2.drawString(xStrich.toString(), xToPixel(xStrich)- 4  , yToPixel(0)+ 15 );
+        	g2.drawLine(xToPixel(xStrich), xAchsePos-3, xToPixel(xStrich), xAchsePos+3 );
+        	g2.drawString(xStrich.toString(), xToPixel(xStrich)- 4  , xAchsePos + 15 );
         }
         
         //Markierungen Y-Achse
@@ -218,14 +232,14 @@ public class GraphPanel extends JPanel implements MouseMotionListener, MouseList
         Double yStrich=(double) 0;
         while(yStrich<boundaries.top) {
         	yStrich+=schrittweite;
-        	g2.drawLine(xToPixel(0)+3, yToPixel(yStrich),xToPixel(0)-3,yToPixel(yStrich));
-        	g2.drawString(yStrich.toString(), xToPixel(0)+15, yToPixel(yStrich)-4);
+        	g2.drawLine(yAchsePos+3, yToPixel(yStrich),yAchsePos-3,yToPixel(yStrich));
+        	g2.drawString(yStrich.toString(), yAchsePos+15, yToPixel(yStrich)-4);
         }
         yStrich=(double) 0;
         while(yStrich>boundaries.bottom) {
         	yStrich-=schrittweite;
-        	g2.drawLine(xToPixel(0)+3, yToPixel(yStrich),xToPixel(0)-3,yToPixel(yStrich));
-        	g2.drawString(yStrich.toString(), xToPixel(0)+15, yToPixel(yStrich)-4);
+        	g2.drawLine(yAchsePos+3, yToPixel(yStrich),yAchsePos-3,yToPixel(yStrich));
+        	g2.drawString(yStrich.toString(), yAchsePos+15, yToPixel(yStrich)-4);
         }
         
         //zeichne Funktionen ein
