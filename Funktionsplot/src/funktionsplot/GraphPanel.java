@@ -160,13 +160,13 @@ public class GraphPanel extends JPanel implements MouseMotionListener, MouseList
         //Markierungen x-Achse
         double schrittweite = 1;
         double intervallbreite = boundaries.right-boundaries.left;
-        if(intervallbreite >= 20) {
-        	while(intervallbreite/schrittweite>20) {
+        if(intervallbreite >= 15) {
+        	while(intervallbreite/schrittweite>15) {
         		schrittweite*=10;
         	}
         }
         else {
-        	while((intervallbreite/schrittweite)<2) {
+        	while((intervallbreite/schrittweite)<1.5) {
         		schrittweite/=10;
         	}
         }
@@ -189,13 +189,13 @@ public class GraphPanel extends JPanel implements MouseMotionListener, MouseList
         //Markierungen Y-Achse
         schrittweite = 1;
         double intervallhoehe = boundaries.top-boundaries.bottom;
-        if(intervallhoehe >= 20) {
-        	while(intervallhoehe/schrittweite>20) {
+        if(intervallhoehe >= 15) {
+        	while(intervallhoehe/schrittweite>15) {
         		schrittweite*=10;
         	}
         }
         else {
-        	while((intervallhoehe/schrittweite)<2) {
+        	while((intervallhoehe/schrittweite)<1.5) {
         		schrittweite/=10;
         	}
         }
