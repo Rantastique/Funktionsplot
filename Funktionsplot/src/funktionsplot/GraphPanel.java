@@ -248,13 +248,13 @@ public class GraphPanel extends JPanel implements MouseMotionListener, MouseList
 			findeNullstellen();
         	Iterator<Map.Entry<Double, Double>> it = nullstellen.entrySet().iterator();
              int xPix = 0;
-             int yPix = yToPixel(0) + Offset.y;
+             int yPix = yToPixel(0);
              Color oldColor = g.getColor();
              g.setColor(Color.RED);
              
              while(it.hasNext()){
              	 Map.Entry<Double, Double> en = it.next();
-             	 xPix = xToPixel(en.getKey()) + Offset.x;
+             	 xPix = xToPixel(en.getKey());
              	 //g.drawLine(xPix, yPix+5, xPix, yPix-5);
              	 g.drawRect(xPix-1, yPix -5, 2, 10);
              	 g.drawString(en.getKey().toString(), xPix-8, yPix-15 );
