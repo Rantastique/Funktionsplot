@@ -339,6 +339,7 @@ public class PlotGUI extends JFrame implements MouseMotionListener, MouseListene
 				showBoundaries();
 				f.plotColor = farbauswahl;
 				g.addFunction(f);
+				showBoundaries();
 				return;
 			}
 			String msg = "Fehler bei der Eingabe!" + FuncParser.theParser().getErrMsg();
@@ -347,6 +348,8 @@ public class PlotGUI extends JFrame implements MouseMotionListener, MouseListene
 		}
 		String msg = "Das Eingabefeld ist leer.";
 		JOptionPane.showMessageDialog(this.getParent(), msg, "Eingabefehler", JOptionPane.ERROR_MESSAGE);
+		
+		
 	}
 	
 	private void anpassen() {
