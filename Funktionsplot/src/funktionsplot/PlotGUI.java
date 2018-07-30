@@ -371,6 +371,8 @@ public class PlotGUI extends JFrame implements MouseMotionListener, MouseListene
 
 	private void berechnen() {
 		lTest.setText("Berechnen wurde gedrueckt");
+		g.findeNullstellen();
+		g.repaint();
 	}
 	
 	//Ableitungsbutton

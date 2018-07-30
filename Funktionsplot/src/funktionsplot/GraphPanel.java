@@ -13,7 +13,9 @@ import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.TreeMap;
 
 import javax.swing.JPanel;
@@ -30,6 +32,8 @@ public class GraphPanel extends JPanel implements MouseMotionListener, MouseList
 	private List<Color> plotcolors = new ArrayList<Color>();
 	private List<Funktion> funktionen = new ArrayList<Funktion>();
 	private List<int[]> plots = new ArrayList<int[]>();
+	private TreeMap<Double, Double> nullstellen = new TreeMap<Double,Double>();
+	private boolean nst = false;
 	
 	//Konstruktor
 	public GraphPanel() {
@@ -67,6 +71,8 @@ public class GraphPanel extends JPanel implements MouseMotionListener, MouseList
 		funktionen.clear();
 		plotcolors.clear();
 		plots.clear();
+		nullstellen.clear();
+		nst = false;
 		repaint();
 	}
 	
@@ -126,6 +132,13 @@ public class GraphPanel extends JPanel implements MouseMotionListener, MouseList
 		}
 		plots.add(y);
 		plotcolors.add(f.plotColor);
+	}
+	
+	public void findeNullstellen() {
+		if(!funktionen.isEmpty()) {
+			nullstellen = funktionen.get(0).nullstellen(boundaries.left, boundaries.right, getWidth());
+			nst = true;
+		}
 	}
 	
 	public void zeigeAbleitung(Color color) {
@@ -229,6 +242,25 @@ public class GraphPanel extends JPanel implements MouseMotionListener, MouseList
         			g.drawLine(x+Offset.x, plot[x-1]+Offset.y, x+Offset.x, plot[x]+Offset.y);
         		}
         	}
+        }
+        
+        //Berechnet neu die Nullstellen, und zeichnet sie, falls nst ==true (der Knopf gedrückt)
+        if(nst == true) {
+			findeNullstellen();
+        	Iterator<Map.Entry<Double, Double>> it = nullstellen.entrySet().iterator();
+             int xPix = 0;
+             int yPix = yToPixel(0) + Offset.y;
+             Color oldColor = g.getColor();
+             g.setColor(Color.RED);
+             
+             while(it.hasNext()){
+             	 Map.Entry<Double, Double> en = it.next();
+             	 xPix = xToPixel(en.getKey()) + Offset.x;
+             	 //g.drawLine(xPix, yPix+5, xPix, yPix-5);
+             	 g.drawRect(xPix-1, yPix -5, 2, 10);
+             	 g.drawString(en.getKey().toString(), xPix-8, yPix-15 );
+             }
+             g.setColor(oldColor);
         }
         
         // Achsenbezeichnung

@@ -76,7 +76,7 @@ public class Funktion implements IFunktion{
 		double linksX = 0; //Intervall, wo sich die Nullstelle befindet
 		double rechtsX = 0;
 		
-		double abweichung = 0.0005;
+		double abweichung = 0.0006;
 		
 		TreeMap<Double, Double> WT = berechneWertetabelle(linkeIntervallgrenze, rechteIntervallgrenze, schritte*2);
 		TreeMap<Double, Double> NST = new TreeMap<Double, Double>();
@@ -102,7 +102,7 @@ public class Funktion implements IFunktion{
 				if(linksX != 0 && rechtsX != 0) {	// (NST im Intervall noch nicht gesucht)
 					
 					// such Minimum von abs im Intervall --- > Nullstelle
-					
+					//System.out.println(" absolutes minimum im intervall suchen: " + linksX + " und "  + rechtsX );
 					Double minY = null;
 					Double minX = null;
 					TreeMap<Double, Double> values = berechneWertetabelle(linksX, rechtsX, schritte);
@@ -114,7 +114,7 @@ public class Funktion implements IFunktion{
 						}
 					}
 					// Nullstelle zur Liste hinzuf�gen:
-					if( minX != values.firstKey())
+					if( minX != linkeIntervallgrenze)
 						NST.put((double) (Math.round(minX*100)/100.0), minY);
 					
 					// Intervall ist abgearbeitet:
@@ -164,7 +164,7 @@ public class Funktion implements IFunktion{
 
 	@Override
 	public TreeMap<Double, Double> Extremstellen(double linkeIntervallgrenze, double rechteIntervallgrenze,	int schritte) {
-		System.out.println("Das sind die NST von der Ableitung, also die Extremwerte: ");
-		return ableitung().nullstellen(linkeIntervallgrenze,rechteIntervallgrenze, schritte );
+		//System.out.println("Das sind die NST von der Ableitung, also die Extremwerte: ");
+		return null; //ableitung().nullstellen(linkeIntervallgrenze,rechteIntervallgrenze, schritte );
 	}
 }
