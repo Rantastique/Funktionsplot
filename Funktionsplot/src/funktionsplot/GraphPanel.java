@@ -136,8 +136,19 @@ public class GraphPanel extends JPanel implements MouseMotionListener, MouseList
 	public void findeNullstellen() {
 		if(!funktionen.isEmpty()) {
 			nullstellen = funktionen.get(0).nullstellen(boundaries.left, boundaries.right, getWidth());
-			nst = true;
+			if (!nullstellen.isEmpty()) {
+				nst = true;
+			}	
 		}
+	}
+	
+	
+	// "getter" fÃ¼r den nst-boolean, um ihn in der Klasse PlotGUI abzufragen
+	public boolean hasNst() {
+		if (nst == true) {
+			return true;
+		}
+		return false;
 	}
 	
 	public void zeigeAbleitung(Color color) {
@@ -153,7 +164,7 @@ public class GraphPanel extends JPanel implements MouseMotionListener, MouseList
 	}
 
 
-	//Alles zeichnen -> aufruf über this.repaint();
+	//Alles zeichnen -> aufruf ï¿½ber this.repaint();
 	@Override
     protected void paintComponent(Graphics g) {
 		int w = this.getWidth();
@@ -265,7 +276,7 @@ public class GraphPanel extends JPanel implements MouseMotionListener, MouseList
         	}
         }
         
-        //Berechnet neu die Nullstellen, und zeichnet sie, falls nst ==true (der Knopf gedrückt)
+        //Berechnet neu die Nullstellen, und zeichnet sie, falls nst ==true (der Knopf gedrï¿½ckt)
         if(nst == true) {
 			findeNullstellen();
         	Iterator<Map.Entry<Double, Double>> it = nullstellen.entrySet().iterator();
@@ -305,7 +316,7 @@ public class GraphPanel extends JPanel implements MouseMotionListener, MouseList
 	@Override
 	public void mouseDragged(MouseEvent e) {
 		//probeweise boundaries beim draggen updaten
-		//aufräumen falls es so bleiben soll
+		//aufrï¿½umen falls es so bleiben soll
 		Point Offset = new Point(0,0);
 		Offset.x = -(mousePressPos.x-e.getX());
 		Offset.y = (e.getY()-mousePressPos.y);
@@ -369,6 +380,22 @@ public class GraphPanel extends JPanel implements MouseMotionListener, MouseList
 			setBoundaries(boundaries.left-(width/zoomFactor-width)*(xDirection), boundaries.right+(width/zoomFactor-width)*(1-xDirection),
 					boundaries.top+(height/zoomFactor-height)*(yDirection), boundaries.bottom-(height/zoomFactor-height)*(1-yDirection));
 		}
+	}
+	
+	public ArrayList<Double> getNst() {
+		findeNullstellen();
+    	Iterator<Map.Entry<Double, Double>> it = nullstellen.entrySet().iterator();
+    	ArrayList<Double> nst = new ArrayList<>();
+         
+         while(it.hasNext()){
+         	 Map.Entry<Double, Double> en = it.next();
+         	 nst.add(en.getKey());
+         	 System.out.println("NST:" + en.getKey() + "\n");
+         }
+         for (int i = 0; i < nst.size(); i++) {
+        	 System.out.println(nst.get(i) + "\n");
+         }
+         return nst;
 	}
 
 
