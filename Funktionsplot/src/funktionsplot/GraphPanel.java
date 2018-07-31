@@ -76,11 +76,6 @@ public class GraphPanel extends JPanel implements MouseMotionListener, MouseList
 		repaint();
 	}
 	
-	//Umrechnung Funktionswerte->Pixel
-	private Point koordinatesToPixel(double x, double y) {
-		return new Point(xToPixel(x),yToPixel(y));
-	}
-	
 	///Umrechnung x-Wert->Pixel-x-Wert
 	private int xToPixel(double x) {
 		return (int)((x-boundaries.left)*(getWidth()/(boundaries.right-boundaries.left)));
@@ -301,8 +296,6 @@ public class GraphPanel extends JPanel implements MouseMotionListener, MouseList
         g2.fillRect(yAchsePos+yAchseZifferAbst, 10, 20, 20);
         
         g2.setColor(Color.DARK_GRAY);
-        // Font ändern (fürs erste defaultFont zwischenspeichern)
-        Font defaultFont = g2.getFont();
         g2.setFont(new Font("Bold", Font.BOLD, 18));
         
         

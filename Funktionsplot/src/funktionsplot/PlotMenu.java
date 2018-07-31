@@ -12,6 +12,11 @@ import javax.swing.JMenu;
 
 public class PlotMenu extends JMenu {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6963593375192301738L;
+
 	public PlotMenu(String title) {
 		   super(title);
 		   init();

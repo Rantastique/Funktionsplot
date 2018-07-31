@@ -27,6 +27,10 @@ import javax.swing.JTextField;
 
 import scanner_parser.FuncParser;
 public class PlotGUI extends JFrame implements MouseMotionListener, MouseListener, MouseWheelListener {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3834256902728876215L;
 	// Utilties deklarieren
 	// DecimalFormat für Formatieren von Dezimalenzahlen 
 	// (für double-Werte gebraucht, weil länderabhängige Verwendung von . oder , als Trennzeichen)
@@ -45,8 +49,8 @@ public class PlotGUI extends JFrame implements MouseMotionListener, MouseListene
 	private JMenuItem exit, reset;
 	private JLabel lTerm, lFarbeGraph, lIntervall, lXAchseVon, lXAchseBis, lYAchseVon, lYAchseBis, lSchnittpunkte,  lNullstellen, lSchnittY, lAbleitung, lFarbeAbleitung;
 	private JTextField term, xAchseVon, xAchseBis, yAchseVon, yAchseBis, nullstellen, schnittY;
-	private JButton plot, intervallAnpassen, berechnen, anzeigenAbleitung, ableitung;
-	private JComboBox farbauswahlGraph, farbauswahlAbleitung;
+	private JButton plot, intervallAnpassen, berechnen, anzeigenAbleitung;
+	private JComboBox<String> farbauswahlGraph, farbauswahlAbleitung;
 	
 	// zum Testen
 	final JLabel lTest;
@@ -144,7 +148,6 @@ public class PlotGUI extends JFrame implements MouseMotionListener, MouseListene
 		
 		// ComboBoxes
 		String[] farben = {"schwarz", "rot", "gruen", "blau", "orange"};
-		//Color[] farben = {Color.red, Color.blue, Color.green, Color.orange};
 		farbauswahlGraph = new JComboBox(farben);
 		farbauswahlAbleitung = new JComboBox(farben);
 		
