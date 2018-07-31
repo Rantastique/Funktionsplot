@@ -150,13 +150,13 @@ public class Funktion implements IFunktion{
 		}
 		
 		//Zur Kontrolle:
-        System.out.println("Nullstellen:");
-		System.out.println();
+        //System.out.println("Nullstellen:");
+		//System.out.println();
 		
 		Iterator<Map.Entry<Double, Double> > it2 = NST.entrySet().iterator();
         while(it2.hasNext()){
             Map.Entry<Double, Double> en = it2.next();
-            System.out.println(  en.getKey() + "\" - \"" + en.getValue()  );
+            //System.out.println(  en.getKey() + "\" - \"" + en.getValue()  );
         }
         
 		return NST;
