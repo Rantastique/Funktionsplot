@@ -71,7 +71,7 @@ public class GraphPanel extends JPanel implements MouseMotionListener, MouseList
 		plots.clear();
 		nullstellen.clear();
 		nst = false;
-		repaint();
+		setBoundaries(-30,30,100,-100);	
 	}
 	
 	///Umrechnung x-Wert->Pixel-x-Wert
