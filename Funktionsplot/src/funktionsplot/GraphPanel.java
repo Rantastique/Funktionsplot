@@ -279,7 +279,7 @@ public class GraphPanel extends JPanel implements MouseMotionListener, MouseList
         	}
         }
         
-        //Berechnet neu die Nullstellen, und zeichnet sie, falls nst ==true (der Knopf gedr�ckt)
+        //Berechnet neu die Nullstellen, und zeichnet sie, falls nst ==true (der Knopf gedrueckt)
         if(nst == true) {
 			findeNullstellen();
         	Iterator<Map.Entry<Double, Double>> it = nullstellen.entrySet().iterator();
@@ -292,7 +292,7 @@ public class GraphPanel extends JPanel implements MouseMotionListener, MouseList
              	 Map.Entry<Double, Double> en = it.next();
              	 xPix = xToPixel(en.getKey());
              	 //g.drawLine(xPix, yPix+5, xPix, yPix-5);
-             	 g.drawRect(xPix-1, yPix -5, 2, 10);
+             	 g.fill3DRect(xPix-1, yPix -5, 2, 10, true);
              	 g.drawString(en.getKey().toString(), xPix-8, yPix-15 );
              }
              g.setColor(oldColor);
