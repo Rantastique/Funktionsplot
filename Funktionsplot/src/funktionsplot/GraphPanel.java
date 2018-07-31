@@ -193,61 +193,63 @@ public class GraphPanel extends JPanel implements MouseMotionListener, MouseList
         g2.drawLine(0, xAchsePos, w, xAchsePos);
          
         //Markierungen x-Achse
-        double schrittweite = 1;
+        double schrittwZaehler = 1;
+        double schrittwNenner = 1; //workaround um Double-Ungenauigkeiten beim aufaddieren zu umgehen
         double intervallbreite = boundaries.right-boundaries.left;
         if(intervallbreite >= 15) {
-        	while(intervallbreite/schrittweite>15) {
-        		schrittweite*=10;
+        	while(intervallbreite/schrittwZaehler>15) {
+        		schrittwZaehler*=10;
         	}
         }
         else {
-        	while((intervallbreite/schrittweite)<1.5) {
-        		schrittweite/=10;
+        	while((intervallbreite*schrittwNenner)<1.5) {
+        		schrittwNenner*=10;
         	}
         }
-    	if (intervallbreite/schrittweite<5) {
-    		schrittweite/=2;
+    	if (intervallbreite/(schrittwZaehler/schrittwNenner)<5) {
+    		schrittwZaehler/=2;
     	}		
-        Double xStrich=(double) 0;
-        while(xStrich<boundaries.right) {
-        	xStrich+=schrittweite;
-        	g2.drawLine(xToPixel(xStrich), xAchsePos-3, xToPixel(xStrich), xAchsePos+3 );
-        	g2.drawString(xStrich.toString(), xToPixel(xStrich)- 4  , xAchsePos + xAchseZifferAbst );
+        Double xStrich = (double) 0;
+        while(xStrich/schrittwNenner<boundaries.right) {
+        	xStrich+=schrittwZaehler;
+        	g2.drawLine(xToPixel(xStrich/schrittwNenner), xAchsePos-3, xToPixel(xStrich/schrittwNenner), xAchsePos+3 );
+        	g2.drawString(((Double)(xStrich/schrittwNenner)).toString(), xToPixel(xStrich/schrittwNenner)- 4  , xAchsePos + xAchseZifferAbst );
         }
-        xStrich=(double) 0;
-        while(xStrich>boundaries.left) {
-        	xStrich-=schrittweite;
-        	g2.drawLine(xToPixel(xStrich), xAchsePos-3, xToPixel(xStrich), xAchsePos+3 );
-        	g2.drawString(xStrich.toString(), xToPixel(xStrich)- 4  , xAchsePos + xAchseZifferAbst );
+        xStrich= (double) 0;
+        while(xStrich/schrittwNenner>boundaries.left) {
+        	xStrich-=schrittwZaehler;
+        	g2.drawLine(xToPixel(xStrich/schrittwNenner), xAchsePos-3, xToPixel(xStrich/schrittwNenner), xAchsePos+3 );
+        	g2.drawString(((Double)(xStrich/schrittwNenner)).toString(), xToPixel(xStrich/schrittwNenner)- 4  , xAchsePos + xAchseZifferAbst );
         }
         
         //Markierungen Y-Achse
-        schrittweite = 1;
+        schrittwZaehler = 1;
+        schrittwNenner = 1;
         double intervallhoehe = boundaries.top-boundaries.bottom;
         if(intervallhoehe >= 15) {
-        	while(intervallhoehe/schrittweite>15) {
-        		schrittweite*=10;
+        	while(intervallhoehe/schrittwZaehler>15) {
+        		schrittwZaehler*=10;
         	}
         }
         else {
-        	while((intervallhoehe/schrittweite)<1.5) {
-        		schrittweite/=10;
+        	while((intervallhoehe*schrittwNenner)<1.5) {
+        		schrittwNenner*=10;
         	}
         }
-    	if (intervallhoehe/schrittweite<5) {
-    		schrittweite/=2;
+    	if (intervallhoehe/schrittwZaehler<5) {
+    		schrittwZaehler/=2;
     	}		
         Double yStrich=(double) 0;
-        while(yStrich<boundaries.top) {
-        	yStrich+=schrittweite;
-        	g2.drawLine(yAchsePos+3, yToPixel(yStrich),yAchsePos-3,yToPixel(yStrich));
-        	g2.drawString(yStrich.toString(), yAchsePos+yAchseZifferAbst, yToPixel(yStrich)-4);
+        while(yStrich/schrittwNenner<boundaries.top) {
+        	yStrich+=schrittwZaehler;
+        	g2.drawLine(yAchsePos+3, yToPixel(yStrich/schrittwNenner),yAchsePos-3,yToPixel(yStrich/schrittwNenner));
+        	g2.drawString(((Double)(yStrich/schrittwNenner)).toString(), yAchsePos+yAchseZifferAbst, yToPixel(yStrich/schrittwNenner)-4);
         }
         yStrich=(double) 0;
-        while(yStrich>boundaries.bottom) {
-        	yStrich-=schrittweite;
-        	g2.drawLine(yAchsePos+3, yToPixel(yStrich),yAchsePos-3,yToPixel(yStrich));
-        	g2.drawString(yStrich.toString(), yAchsePos+yAchseZifferAbst, yToPixel(yStrich)-4);
+        while(yStrich/schrittwNenner>boundaries.bottom) {
+        	yStrich-=schrittwZaehler;
+        	g2.drawLine(yAchsePos+3, yToPixel(yStrich/schrittwNenner),yAchsePos-3,yToPixel(yStrich/schrittwNenner));
+        	g2.drawString(((Double)(yStrich/schrittwNenner)).toString(), yAchsePos+yAchseZifferAbst, yToPixel(yStrich/schrittwNenner)-4);
         }
         
         //zeichne Funktionen ein
