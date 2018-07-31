@@ -1,0 +1,13 @@
+Bekannte Bugs:
+
+Bug:
+Bei ungünstiger Intervallwahl (zu großes Intervall) ist die Darstellung des Graphens nicht mehr akkurat
+(besonders bei trigonometrischen Funktionen).
+Bsp:
+xAchse von: -200 bis: 200
+->button Anpassen
+f(x)=sin(x)
+->button Plot
+Workaround:
+kleineres Intervall (x-Achse) wählen
+->button Plot
