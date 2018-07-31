@@ -1,7 +1,6 @@
 package funktionsplot;
 
 import java.awt.Color;
-import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
@@ -13,6 +12,11 @@ import javax.swing.JMenu;
 
 public class PlotMenu extends JMenu {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6963593375192301738L;
+
 	public PlotMenu(String title) {
 		   super(title);
 		   init();

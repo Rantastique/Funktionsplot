@@ -1,12 +1,10 @@
 package funktionsplot;
 
-import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
-import java.awt.Stroke;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
@@ -78,11 +76,6 @@ public class GraphPanel extends JPanel implements MouseMotionListener, MouseList
 		repaint();
 	}
 	
-	//Umrechnung Funktionswerte->Pixel
-	private Point koordinatesToPixel(double x, double y) {
-		return new Point(xToPixel(x),yToPixel(y));
-	}
-	
 	///Umrechnung x-Wert->Pixel-x-Wert
 	private int xToPixel(double x) {
 		return (int)((x-boundaries.left)*(getWidth()/(boundaries.right-boundaries.left)));
@@ -102,9 +95,7 @@ public class GraphPanel extends JPanel implements MouseMotionListener, MouseList
 			min-=2;
 			max+=2;
 		}
-		System.out.println(min);
 		if(min.isNaN()) {
-			System.out.println("min ist infinite");
 			min = (double) -10;
 		}
 		if(max.isNaN()) {
@@ -155,12 +146,10 @@ public class GraphPanel extends JPanel implements MouseMotionListener, MouseList
 	}
 	
 	public void zeigeAbleitung(Color color) {
-		System.out.println("zeigeAbleitung()");
 		if (!funktionen.isEmpty()) {
 
 			Funktion f = funktionen.get(0).ableitung();
 			f.plotColor = color;
-			f.print();
 			
 			addFunction(f);
 		}
@@ -307,8 +296,6 @@ public class GraphPanel extends JPanel implements MouseMotionListener, MouseList
         g2.fillRect(yAchsePos+yAchseZifferAbst, 10, 20, 20);
         
         g2.setColor(Color.DARK_GRAY);
-        // Font ändern (fürs erste defaultFont zwischenspeichern)
-        Font defaultFont = g2.getFont();
         g2.setFont(new Font("Bold", Font.BOLD, 18));
         
         

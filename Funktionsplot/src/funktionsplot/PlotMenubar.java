@@ -8,6 +8,11 @@ import javax.swing.JMenuBar;
 
 public class PlotMenubar extends JMenuBar {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 408330153904498774L;
+
 	@Override
     protected void paintComponent(Graphics g) {
 		Color hintergrund = new Color(79, 182, 187);
