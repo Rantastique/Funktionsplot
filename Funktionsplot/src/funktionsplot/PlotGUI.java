@@ -399,7 +399,11 @@ public class PlotGUI extends JFrame implements MouseMotionListener, MouseListene
 	}
 
 	private void berechnen() {
+		// evtl vorher gesetzte ActionListener entfernen um versehentlich mehrfaches Aufrufen von "showNst(nst)" zu verhindern
+		zeigeAlle.removeActionListener(nstListener);
 		lTest.setText("Berechnen wurde gedrueckt");
+		
+		// Nullstellen anzeigen
 		ArrayList<Double> nst = g.getNst();
 		nstListener = e -> showNst(nst);
 		if (g.hasNst()) {
@@ -409,16 +413,24 @@ public class PlotGUI extends JFrame implements MouseMotionListener, MouseListene
 					buffer.append(Double.toString(nst.get(i)) + ", ");
 				}
 			}
+			// falls es mehr als 4 Nullstellen gibt: Button anzeigen, der beim Klicken ein OptionPanel aufruft, das alle Nullstellen enthält
 			if (nst.size() > 4) {
 				zeigeAlle.setVisible(true);
 				zeigeAlle.addActionListener(nstListener);	
 			}
-			
+			// letzte Nullstelle aus der ArrayList dem Buffer hinzufügen (so wird bei mehreren Nullstellen kein Komma hinter die letzte Nst gesetzt
 			buffer.append(Double.toString(nst.get(nst.size()-1)));
 			nullstellen.setText(buffer.toString());
 		}
 		else {
 			nullstellen.setText("keine Nullstellen vorhanden");
+		}
+		
+		// Schnittpunkt mit y-Achse anzeigen
+		try {
+			schnittY.setText(Double.toString(g.schnittY()));
+		} catch (Exception e1) {
+			schnittY.setText("Keine Schnittstellen");
 		}
 		
 		g.repaint();
