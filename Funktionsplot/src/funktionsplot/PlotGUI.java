@@ -25,9 +25,7 @@ import javax.swing.JTextField;
 
 import scanner_parser.FuncParser;
 public class PlotGUI extends JFrame implements MouseMotionListener, MouseListener, MouseWheelListener {
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 3834256902728876215L;
 	// Utilties deklarieren
 	// DecimalFormat für Formatieren von Dezimalenzahlen 

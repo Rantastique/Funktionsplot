@@ -8,10 +8,7 @@ import javax.swing.JOptionPane;
 import funktionsplot.Funktion;
 
 public class FuncParser {
-/*
- * Geklaut von Prof. Dr. Uwe Schmidt (FH Wedel)
- * aus seinem Foliensatz f�r "Compilerbau"
- */
+
 	private static FuncParser theparser = new FuncParser(); 
     private FuncScanner s;
     private Token t;
