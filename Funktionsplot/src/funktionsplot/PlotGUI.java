@@ -400,7 +400,6 @@ public class PlotGUI extends JFrame implements MouseMotionListener, MouseListene
 	
 	//Ableitungsbutton
 	private void anzeigen() {
-		System.out.println("anzeigen()");
 		String farbe = farbauswahlAbleitung.getSelectedItem().toString();
 		lTest.setText("Anzeigen wurde gedrueckt. Wunschfarbe: " + farbe);
 		Color farbauswahl = Color.BLACK; // um Variable zu initialisieren

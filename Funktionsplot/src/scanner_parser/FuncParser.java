@@ -315,7 +315,6 @@ public class FuncParser {
     void error() {
         ++errcnt;
         errorbuffer.append("\nparse error, illegal symbol \"" + t.text + "\"");
-        System.out.println("parse error, illegal symbol \"" + t.text + "\"");
         if ( t.tokenId != Token.EOF ) {
             advance();
         }
@@ -337,7 +336,6 @@ public class FuncParser {
     	s = new FuncScanner(input);
         advance();
         wurzel = S();
-        System.out.println("Parsing done, " + errcnt + " error(s) found");
         return new Funktion(wurzel);
     }
  

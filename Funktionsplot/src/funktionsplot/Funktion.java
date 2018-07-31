@@ -64,7 +64,7 @@ public class Funktion implements IFunktion{
 		return new Funktion(wurzel.ableitung());
 	}
 	
-	//f�r debugging:
+	//fuer debugging:
 	public void print()
 	{
 		wurzel.print();
@@ -88,12 +88,9 @@ public class Funktion implements IFunktion{
 						
 		
 		for (Map.Entry<Double, Double> entry: WT.entrySet()) {
-			//System.out.println(entry.getValue());
 			if (Math.abs(entry.getValue()) < abweichung) {	// wenn der Punkt sich im bereich der NST befindet
-				//System.out.println("gelandet!");
 				if(linksX == 0) {				// wenn der Punkt der erste im Intervall ist - > 
 					linksX = entry.getKey();	// - > linke Grenze setzen
-					//System.out.println("linke Grenze gesetzt bei x = " + entry.getKey());
 				}
 				rechtsX = entry.getKey();		// immer die rechte Grenze setzen
 			}else{								// wenn der Punkt sich (noch/schon) nicht im Intervall befindet
@@ -102,7 +99,6 @@ public class Funktion implements IFunktion{
 				if(linksX != 0 && rechtsX != 0) {	// (NST im Intervall noch nicht gesucht)
 					
 					// such Minimum von abs im Intervall --- > Nullstelle
-					//System.out.println(" absolutes minimum im intervall suchen: " + linksX + " und "  + rechtsX );
 					Double minY = null;
 					Double minX = null;
 					TreeMap<Double, Double> values = berechneWertetabelle(linksX, rechtsX, schritte);
@@ -149,14 +145,9 @@ public class Funktion implements IFunktion{
 			oldValue = entry.getValue();
 		}
 		
-		//Zur Kontrolle:
-        System.out.println("Nullstellen:");
-		System.out.println();
-		
 		Iterator<Map.Entry<Double, Double> > it2 = NST.entrySet().iterator();
         while(it2.hasNext()){
             Map.Entry<Double, Double> en = it2.next();
-            System.out.println(  en.getKey() + "\" - \"" + en.getValue()  );
         }
         
 		return NST;
@@ -164,7 +155,6 @@ public class Funktion implements IFunktion{
 
 	@Override
 	public TreeMap<Double, Double> Extremstellen(double linkeIntervallgrenze, double rechteIntervallgrenze,	int schritte) {
-		//System.out.println("Das sind die NST von der Ableitung, also die Extremwerte: ");
 		return null; //ableitung().nullstellen(linkeIntervallgrenze,rechteIntervallgrenze, schritte );
 	}
 }

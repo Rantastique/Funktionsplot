@@ -1,12 +1,10 @@
 package funktionsplot;
 
-import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
-import java.awt.Stroke;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
@@ -102,9 +100,7 @@ public class GraphPanel extends JPanel implements MouseMotionListener, MouseList
 			min-=2;
 			max+=2;
 		}
-		System.out.println(min);
 		if(min.isNaN()) {
-			System.out.println("min ist infinite");
 			min = (double) -10;
 		}
 		if(max.isNaN()) {
@@ -155,12 +151,10 @@ public class GraphPanel extends JPanel implements MouseMotionListener, MouseList
 	}
 	
 	public void zeigeAbleitung(Color color) {
-		System.out.println("zeigeAbleitung()");
 		if (!funktionen.isEmpty()) {
 
 			Funktion f = funktionen.get(0).ableitung();
 			f.plotColor = color;
-			f.print();
 			
 			addFunction(f);
 		}
@@ -395,10 +389,8 @@ public class GraphPanel extends JPanel implements MouseMotionListener, MouseList
          while(it.hasNext()){
          	 Map.Entry<Double, Double> en = it.next();
          	 nst.add(en.getKey());
-         	 System.out.println("NST:" + en.getKey() + "\n");
          }
          for (int i = 0; i < nst.size(); i++) {
-        	 System.out.println(nst.get(i) + "\n");
          }
          return nst;
 	}
