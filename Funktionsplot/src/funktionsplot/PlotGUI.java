@@ -1,6 +1,7 @@
 package funktionsplot;
 
 import java.awt.Color;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
@@ -15,6 +16,7 @@ import javax.swing.BorderFactory;
 import javax.swing.BoundedRangeModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
@@ -45,11 +47,13 @@ public class PlotGUI extends JFrame implements MouseMotionListener, MouseListene
 	private JMenuItem exit, reset;
 	private JLabel lTerm, lFarbeGraph, lIntervall, lXAchseVon, lXAchseBis, lYAchseVon, lYAchseBis, lSchnittpunkte,  lNullstellen, lSchnittY, lAbleitung, lFarbeAbleitung;
 	private JTextField term, xAchseVon, xAchseBis, yAchseVon, yAchseBis, nullstellen, schnittY;
-	private JButton plot, intervallAnpassen, berechnen, anzeigenAbleitung, ableitung;
+	private JButton plot, intervallAnpassen, berechnen, anzeigenAbleitung, ableitung, zeigeAlle;
 	private JComboBox farbauswahlGraph, farbauswahlAbleitung;
 	
 	// zum Testen
 	final JLabel lTest;
+	
+	private ActionListener nstListener;
 	
 	// x-Werte
 	private final int X1 = 20;
@@ -141,6 +145,7 @@ public class PlotGUI extends JFrame implements MouseMotionListener, MouseListene
 		intervallAnpassen = new RoundedCornerButton("Anpassen");
 		berechnen = new RoundedCornerButton("Berechnen");
 		anzeigenAbleitung = new RoundedCornerButton("Anzeigen");
+		zeigeAlle = new RoundedCornerButton("Zeige Alle");
 		
 		// ComboBoxes
 		String[] farben = {"schwarz", "rot", "gruen", "blau", "orange"};
@@ -214,6 +219,7 @@ public class PlotGUI extends JFrame implements MouseMotionListener, MouseListene
 		intervallAnpassen.setBounds(X2, 230, W2, H2);
 		berechnen.setBounds(X2, 370, W2, H2);
 		anzeigenAbleitung.setBounds(X2, 480, W2, H2);
+		zeigeAlle.setBounds(X6, 370, W2, H2);
 		
 		// ComboBoxes
 		farbauswahlGraph.setBounds(X4, 50, W3, H1);
@@ -267,10 +273,13 @@ public class PlotGUI extends JFrame implements MouseMotionListener, MouseListene
 		p.add(intervallAnpassen);
 		p.add(berechnen);
 		p.add(anzeigenAbleitung);
+		p.add(zeigeAlle);
 		
 		// ComboBoxes
 		p.add(farbauswahlGraph);	
 		p.add(farbauswahlAbleitung);
+		
+		zeigeAlle.setVisible(false);
 		
 	}
 	
@@ -304,6 +313,7 @@ public class PlotGUI extends JFrame implements MouseMotionListener, MouseListene
 			nullstellen.setText(null);
 			schnittY.setText(null);
 			farbauswahlAbleitung.setSelectedIndex(0);
+			zeigeAlle.setVisible(false);
 			break;
 		case JOptionPane.NO_OPTION:
 			return;
@@ -343,6 +353,11 @@ public class PlotGUI extends JFrame implements MouseMotionListener, MouseListene
 			g.reset();
 			Funktion f = FuncParser.theParser().parse(funcString);
 			if (FuncParser.theParser().getErrcnt() == 0) {
+				// Elemente mit Informationen über den letzten Graph zurücksetzen
+				nullstellen.setText(null);
+				zeigeAlle.setVisible(false);
+				farbauswahlAbleitung.setSelectedIndex(0);
+				
 				showBoundaries();
 				f.plotColor = farbauswahl;
 				g.addFunction(f);
@@ -380,8 +395,8 @@ public class PlotGUI extends JFrame implements MouseMotionListener, MouseListene
 
 	private void berechnen() {
 		lTest.setText("Berechnen wurde gedrueckt");
-
 		ArrayList<Double> nst = g.getNst();
+		nstListener = e -> showNst(nst);
 		if (g.hasNst()) {
 			StringBuffer buffer = new StringBuffer();
 			if (nst.size() > 1) {
@@ -389,12 +404,18 @@ public class PlotGUI extends JFrame implements MouseMotionListener, MouseListene
 					buffer.append(Double.toString(nst.get(i)) + ", ");
 				}
 			}
+			if (nst.size() > 4) {
+				zeigeAlle.setVisible(true);
+				zeigeAlle.addActionListener(nstListener);	
+			}
+			
 			buffer.append(Double.toString(nst.get(nst.size()-1)));
 			nullstellen.setText(buffer.toString());
 		}
 		else {
 			nullstellen.setText("keine Nullstellen vorhanden");
 		}
+		
 		g.repaint();
 	}
 	
@@ -438,6 +459,28 @@ public class PlotGUI extends JFrame implements MouseMotionListener, MouseListene
 		xAchseBis.setText(String.format("%s", df.format(right)));
 		yAchseVon.setText(String.format("%s",df.format(bottom)));
 		yAchseBis.setText(String.format("%s", df.format(top)));
+	}
+	
+	public void showNst(ArrayList<Double> nst) {
+		System.out.println("Hier!");
+		StringBuffer buffer = new StringBuffer();
+		for (int i = 0; i < nst.size() - 1; i++) {
+			buffer.append(Double.toString(nst.get(i)) + ", ");
+			
+		}
+		buffer.append(Double.toString(nst.get(nst.size()-1)));
+		nullstellen.setText(buffer.toString());
+		
+		String msg = buffer.toString();
+		
+		// JOptionPane		
+		String[] options = {"OK"};
+		JOptionPane.showOptionDialog
+        				(null, msg, "Alle Nullstellen", 
+        				JOptionPane.DEFAULT_OPTION, 
+        				JOptionPane.INFORMATION_MESSAGE, 
+					    null, options, options[0]);
+		zeigeAlle.removeActionListener(nstListener);
 	}
 	
 	// Methoden für den MouseListener
