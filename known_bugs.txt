@@ -11,3 +11,9 @@ f(x)=sin(x)
 Workaround:
 kleineres Intervall (x-Achse) wählen
 ->button Plot
+
+Bug:
+Polstellen werden nicht akkurat angezeigt
+Bsp:
+f(x)=1/x
+->button Plot
