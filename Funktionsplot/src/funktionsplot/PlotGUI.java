@@ -81,7 +81,7 @@ public class PlotGUI extends JFrame implements MouseMotionListener, MouseListene
 	    schriftDunkel = new Color(118, 56, 3);
 		
 		// Frame und Panel konfigurieren
-		this.setSize(930, 600);
+		this.setSize(930, 590);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		p=(JPanel) this.getContentPane();
