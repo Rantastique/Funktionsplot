@@ -12,11 +12,8 @@ import java.text.DecimalFormatSymbols;
 import java.text.ParseException;
 import java.util.ArrayList;
 
-import javax.swing.BorderFactory;
-import javax.swing.BoundedRangeModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
@@ -24,14 +21,11 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import scanner_parser.FuncParser;
 public class PlotGUI extends JFrame implements MouseMotionListener, MouseListener, MouseWheelListener {
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 3834256902728876215L;
 	// Utilties deklarieren
 	// DecimalFormat für Formatieren von Dezimalenzahlen 
@@ -51,7 +45,7 @@ public class PlotGUI extends JFrame implements MouseMotionListener, MouseListene
 	private JMenuItem exit, reset;
 	private JLabel lTerm, lFarbeGraph, lIntervall, lXAchseVon, lXAchseBis, lYAchseVon, lYAchseBis, lSchnittpunkte,  lNullstellen, lSchnittY, lAbleitung, lFarbeAbleitung;
 	private JTextField term, xAchseVon, xAchseBis, yAchseVon, yAchseBis, nullstellen, schnittY;
-	private JButton plot, intervallAnpassen, berechnen, anzeigenAbleitung, ableitung, zeigeAlle;
+	private JButton plot, intervallAnpassen, berechnen, anzeigenAbleitung, zeigeAlle;
 	private JComboBox<String> farbauswahlGraph, farbauswahlAbleitung;
 
 	// zum Testen
@@ -76,7 +70,7 @@ public class PlotGUI extends JFrame implements MouseMotionListener, MouseListene
 	// height
 	private final int H1 = 20;
 	private final int H2 = 40;
-	private final int H3 = 60;
+	//private final int H3 = 60;
 	
 	PlotGUI() {
 		// Dezimal-Format konfigurieren
@@ -153,8 +147,8 @@ public class PlotGUI extends JFrame implements MouseMotionListener, MouseListene
 		
 		// ComboBoxes
 		String[] farben = {"schwarz", "rot", "gruen", "blau", "orange"};
-		farbauswahlGraph = new JComboBox(farben);
-		farbauswahlAbleitung = new JComboBox(farben);
+		farbauswahlGraph = new JComboBox<String>(farben);
+		farbauswahlAbleitung = new JComboBox<String>(farben);
 		
 		// Elemente einfaerben
 		// Menue

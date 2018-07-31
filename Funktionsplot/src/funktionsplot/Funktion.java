@@ -1,7 +1,6 @@
 package funktionsplot;
 
 import java.awt.Color;
-import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.TreeMap;
@@ -141,12 +140,7 @@ public class Funktion implements IFunktion{
 			
 			oldKey = entry.getKey();
 			oldValue = entry.getValue();
-    }
-		
-		Iterator<Map.Entry<Double, Double> > it2 = NST.entrySet().iterator();
-        while(it2.hasNext()){
-            Map.Entry<Double, Double> en = it2.next();
-        }
+		}
         
 		return NST;
 	}
