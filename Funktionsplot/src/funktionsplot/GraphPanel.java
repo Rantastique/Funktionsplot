@@ -52,6 +52,9 @@ public class GraphPanel extends JPanel implements MouseMotionListener, MouseList
 	}
 
 	public void setBoundaries(double left, double right, double top, double bottom) {
+		if(right-left<0.01||right-left>100000) {
+			return;
+		}
 		boundaries = new Boundaries(left, right, top, bottom);
 		plots.clear();
 		plotcolors.clear();
