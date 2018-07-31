@@ -130,8 +130,10 @@ public class GraphPanel extends JPanel implements MouseMotionListener, MouseList
 			nullstellen = funktionen.get(0).nullstellen(boundaries.left, boundaries.right, getWidth());
 			if (!nullstellen.isEmpty()) {
 				nst = true;
-			}	
+				return;
+			}
 		}
+		nst = false;
 	}
 	
 	
