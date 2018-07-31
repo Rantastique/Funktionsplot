@@ -375,6 +375,7 @@ public class GraphPanel extends JPanel implements MouseMotionListener, MouseList
 	}
 	
 	public ArrayList<Double> getNst() {
+		System.out.println("bla");
 		findeNullstellen();
     	Iterator<Map.Entry<Double, Double>> it = nullstellen.entrySet().iterator();
     	ArrayList<Double> nst = new ArrayList<>();
@@ -382,8 +383,6 @@ public class GraphPanel extends JPanel implements MouseMotionListener, MouseList
          while(it.hasNext()){
          	 Map.Entry<Double, Double> en = it.next();
          	 nst.add(en.getKey());
-         }
-         for (int i = 0; i < nst.size(); i++) {
          }
          return nst;
 	}
