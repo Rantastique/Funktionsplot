@@ -279,8 +279,13 @@ public class PlotGUI extends JFrame implements MouseMotionListener, MouseListene
 		p.add(farbauswahlGraph);	
 		p.add(farbauswahlAbleitung);
 		
+
 		zeigeAlle.setVisible(false);
 		
+
+		//zeige Boundaries des GraphPanels an
+		showBoundaries();
+
 	}
 	
 	// Methoden für das Event Handling beim Klicken der Buttons
