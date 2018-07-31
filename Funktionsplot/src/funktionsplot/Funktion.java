@@ -74,8 +74,23 @@ public class Funktion implements IFunktion{
 		double rechtsX = 0;
 		
 		double abweichung = 0.0006;
+		double runden = 100.0; // minimum
 		
-		TreeMap<Double, Double> WT = berechneWertetabelle(linkeIntervallgrenze, rechteIntervallgrenze, schritte*2);
+		
+		// wie genau die NST gerundet werden müssen, abhängig vom aktuellen Intervall
+		double sw = (rechteIntervallgrenze - linkeIntervallgrenze)/schritte*1.0; //schrittweite
+		sw = sw*100;
+		int potenz=2; //minimale Genauigkeit
+		
+		while(sw<=1) {
+			sw*=10;
+			potenz++;
+		}
+		
+		runden = Math.pow(10, potenz)*1.0;
+		
+		
+		TreeMap<Double, Double> WT = berechneWertetabelle(linkeIntervallgrenze, rechteIntervallgrenze, schritte);
 		TreeMap<Double, Double> NST = new TreeMap<Double, Double>();
 		// Da die Abweichung nur fuer die Beruehrungspunkte passt, und nicht fuer die normale Schnittpunkte
 				// sollte es noch ein Verfahren geben, das zuerst den Vorzeichenwechsel findet und dann in diesem Bereich die Nullstelle
@@ -108,7 +123,7 @@ public class Funktion implements IFunktion{
 					}
 					// Nullstelle zur Liste hinzufuegen:
 					if( minX != linkeIntervallgrenze)
-						NST.put((double) (Math.round(minX*1000)/1000.0), minY);
+						NST.put((double) (Math.round(minX*runden)/runden), minY);
 					
 					// Intervall ist abgearbeitet:
 					linksX = 0;
@@ -135,7 +150,7 @@ public class Funktion implements IFunktion{
 				}
 				// Nullstelle zur Liste hinzufuegen:
 				 if( minXX != values.firstKey())  // ohne Raender (wegen Exponentialfunktionen)
-					 NST.put((double) (Math.round(minXX*1000)/1000.0), minYY);
+					 NST.put((double) (Math.round(minXX*runden)/runden), minYY);
 			}
 			
 			oldKey = entry.getKey();
