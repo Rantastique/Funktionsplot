@@ -219,7 +219,7 @@ public class PlotGUI extends JFrame implements MouseMotionListener, MouseListene
 		intervallAnpassen.setBounds(X2, 230, W2, H2);
 		berechnen.setBounds(X2, 370, W2, H2);
 		anzeigenAbleitung.setBounds(X2, 480, W2, H2);
-		zeigeAlle.setBounds(X6, 370, W2, H2);
+		zeigeAlle.setBounds(250, 370, W2, H2);
 		
 		// ComboBoxes
 		farbauswahlGraph.setBounds(X4, 50, W3, H1);
@@ -319,6 +319,7 @@ public class PlotGUI extends JFrame implements MouseMotionListener, MouseListene
 			schnittY.setText(null);
 			farbauswahlAbleitung.setSelectedIndex(0);
 			zeigeAlle.setVisible(false);
+			zeigeAlle.removeActionListener(nstListener);
 			break;
 		case JOptionPane.NO_OPTION:
 			return;
@@ -361,6 +362,7 @@ public class PlotGUI extends JFrame implements MouseMotionListener, MouseListene
 				// Elemente mit Informationen über den letzten Graph zurücksetzen
 				nullstellen.setText(null);
 				zeigeAlle.setVisible(false);
+				zeigeAlle.removeActionListener(nstListener);
 				farbauswahlAbleitung.setSelectedIndex(0);
 				
 				showBoundaries();
@@ -485,7 +487,6 @@ public class PlotGUI extends JFrame implements MouseMotionListener, MouseListene
         				JOptionPane.DEFAULT_OPTION, 
         				JOptionPane.INFORMATION_MESSAGE, 
 					    null, options, options[0]);
-		zeigeAlle.removeActionListener(nstListener);
 	}
 	
 	// Methoden für den MouseListener
