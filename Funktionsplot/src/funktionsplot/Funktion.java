@@ -141,12 +141,7 @@ public class Funktion implements IFunktion{
 			
 			oldKey = entry.getKey();
 			oldValue = entry.getValue();
-    }
-		
-		Iterator<Map.Entry<Double, Double> > it2 = NST.entrySet().iterator();
-        while(it2.hasNext()){
-            Map.Entry<Double, Double> en = it2.next();
-        }
+		}
         
 		return NST;
 	}

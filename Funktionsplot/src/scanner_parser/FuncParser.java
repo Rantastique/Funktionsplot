@@ -3,8 +3,6 @@ package scanner_parser;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.swing.JOptionPane;
-
 import funktionsplot.Funktion;
 
 public class FuncParser {
