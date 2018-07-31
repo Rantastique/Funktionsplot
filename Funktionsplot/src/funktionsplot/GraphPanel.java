@@ -139,7 +139,6 @@ public class GraphPanel extends JPanel implements MouseMotionListener, MouseList
 		nst = false;
 	}
 	
-	
 	// "getter" für den nst-boolean, um ihn in der Klasse PlotGUI abzufragen
 	public boolean hasNst() {
 		if (nst == true) {
@@ -148,6 +147,7 @@ public class GraphPanel extends JPanel implements MouseMotionListener, MouseList
 		return false;
 	}
 	
+	// zeigt den Graph der Ableitung an
 	public void zeigeAbleitung(Color color) {
 		if (!funktionen.isEmpty()) {
 
@@ -158,6 +158,7 @@ public class GraphPanel extends JPanel implements MouseMotionListener, MouseList
 		}
 	}
 	
+	// gibt Schnittpunkt mit der y-Achse zurück
 	public Double schnittY() throws Exception {
 		if(!funktionen.isEmpty()) {
 			return funktionen.get(0).calcAt(0);
@@ -166,7 +167,19 @@ public class GraphPanel extends JPanel implements MouseMotionListener, MouseList
 			throw new Exception("'GraphPanel.ArrayList<Funktion> funktionen' ist leer");
 		}
 	}
-
+	
+	// gibt ArrayList mit den Nullstellen zurück (gebraucht für Anzeige in GUI)
+	public ArrayList<Double> getNst() {
+		findeNullstellen();
+    	Iterator<Map.Entry<Double, Double>> it = nullstellen.entrySet().iterator();
+    	ArrayList<Double> nst = new ArrayList<>();
+         
+         while(it.hasNext()){
+         	 Map.Entry<Double, Double> en = it.next();
+         	 nst.add(en.getKey());
+         }
+         return nst;
+	}
 
 	//Alles zeichnen -> aufruf �ber this.repaint();
 	@Override
@@ -392,17 +405,4 @@ public class GraphPanel extends JPanel implements MouseMotionListener, MouseList
 		}
 	}
 	
-	public ArrayList<Double> getNst() {
-		findeNullstellen();
-    	Iterator<Map.Entry<Double, Double>> it = nullstellen.entrySet().iterator();
-    	ArrayList<Double> nst = new ArrayList<>();
-         
-         while(it.hasNext()){
-         	 Map.Entry<Double, Double> en = it.next();
-         	 nst.add(en.getKey());
-         }
-         return nst;
-	}
-
-
 }
