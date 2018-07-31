@@ -39,12 +39,7 @@ public class FuncParser {
     private FuncParser() {}
     
     void advance() {
-       //try {
 		t = s.nextToken();
-	//} catch (Exception e) {
-	//	e.printStackTrace();
-	//	JOptionPane.showMessageDialog(null, "Falsche Eingabe", " ", JOptionPane.INFORMATION_MESSAGE);
-	//}
     }
     void eat(int token) {
         if ( token == t.tokenId ) {

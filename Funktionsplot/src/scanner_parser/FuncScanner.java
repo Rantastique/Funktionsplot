@@ -7,7 +7,7 @@ public class FuncScanner {
 	public FuncScanner(String line) {
 		this.line = line + '\0';
 	}
-	public Token nextToken()//throws Exception
+	public Token nextToken()
 	{
 		yytext = new String();
 		while (pos < line.length()){ 		
@@ -31,7 +31,6 @@ public class FuncScanner {
 				case "x":
 					return new Token(Token.Identifier,yytext);
 				default:
-					//throw new Exception();
 				}
 					
 			}
@@ -47,7 +46,7 @@ public class FuncScanner {
 				}
 				if (line.charAt(pos) == '.') {
 					yytext +='0'; 		// für die Eingabe mit 2 führenden Kommas
-					System.out.println("Error: Illegal character \'" + line.charAt(pos) + "\' at column " + ((pos++)+1));
+					//System.out.println("Error: Illegal character \'" + line.charAt(pos) + "\' at column " + ((pos++)+1));
 				}
 				return new Token(komma?Token.Number:Token.Ganzzahl,yytext);
 			}
@@ -70,8 +69,6 @@ public class FuncScanner {
 				case ' ' : pos++;
 						   break;
 				default:
-					//throw new Exception();
-					//System.out.println("Error: Illegal character \'" + line.charAt(pos) + "\'at column " + ((pos++)+1));
 			}
 		}
 		return null; // weil der Java-Editor abgrundtief dämlich ist

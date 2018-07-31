@@ -77,10 +77,10 @@ public class Funktion implements IFunktion{
 		
 		TreeMap<Double, Double> WT = berechneWertetabelle(linkeIntervallgrenze, rechteIntervallgrenze, schritte*2);
 		TreeMap<Double, Double> NST = new TreeMap<Double, Double>();
-		// Da die Abweichung nur f�r die Ber�hrungspunkte passt, und nicht f�r die normale Schnittpunkte
+		// Da die Abweichung nur fuer die Beruehrungspunkte passt, und nicht fuer die normale Schnittpunkte
 				// sollte es noch ein Verfahren geben, das zuerst den Vorzeichenwechsel findet und dann in diesem Bereich die Nullstelle
 				
-				double oldKey = WT.firstKey(); // f�r VZW-Suche
+				double oldKey = WT.firstKey(); // fuer VZW-Suche
 				double oldValue = WT.get(WT.firstKey());
 						
 		
@@ -106,7 +106,7 @@ public class Funktion implements IFunktion{
 							minX = entry2.getKey();
 						}
 					}
-					// Nullstelle zur Liste hinzuf�gen:
+					// Nullstelle zur Liste hinzufuegen:
 					if( minX != linkeIntervallgrenze)
 						NST.put((double) (Math.round(minX*100)/100.0), minY);
 					
@@ -116,7 +116,7 @@ public class Funktion implements IFunktion{
 			    }
 			}
 			
-			// f�r normale Scnittpunkte (x^(ungeradeZahl) passen auch rein, theoretisch kann zur Doppelnullstellen f�hren)
+			// fuer normale Scnittpunkte (x^(ungeradeZahl) passen auch rein, theoretisch kann zur Doppelnullstellen fuehren)
 			
 			//letzte Bedingung : Abweichung um die Pollstellen auszuschliessen
 			if((oldValue<=0 && entry.getValue()>0 || oldValue>=0 && entry.getValue()<0) && Math.abs(oldValue) < 10000) { 
@@ -133,8 +133,8 @@ public class Funktion implements IFunktion{
 						minXX = entry2.getKey();
 					}
 				}
-				// Nullstelle zur Liste hinzuf�gen:
-				 if( minXX != values.firstKey())  // ohne R�nder (wegen Exponentialfunktionen)
+				// Nullstelle zur Liste hinzufuegen:
+				 if( minXX != values.firstKey())  // ohne Ruender (wegen Exponentialfunktionen)
 					 NST.put((double) (Math.round(minXX*100)/100.0), minYY);
 			}
 			
@@ -147,6 +147,6 @@ public class Funktion implements IFunktion{
 
 	@Override
 	public TreeMap<Double, Double> Extremstellen(double linkeIntervallgrenze, double rechteIntervallgrenze,	int schritte) {
-		return null; //ableitung().nullstellen(linkeIntervallgrenze,rechteIntervallgrenze, schritte );
+		return null; 
 	}
 }
