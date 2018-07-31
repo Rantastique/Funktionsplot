@@ -30,7 +30,7 @@ public class GraphPanel extends JPanel implements MouseMotionListener, MouseList
 	private TreeMap<Double, Double> nullstellen = new TreeMap<Double,Double>();
 	private boolean nst = false;
 	
-	//Konstruktor
+	// Konstruktor
 	public GraphPanel() {
 		this.setBackground(Color.WHITE);
 		this.addMouseMotionListener(this);
@@ -39,7 +39,7 @@ public class GraphPanel extends JPanel implements MouseMotionListener, MouseList
 		setBoundaries(-30,30,100,-100);		
 	}
 	
-	//getter&setter:
+	// Getter & Setter:
 	
 	public void addFunction(Funktion f) {
 		funktionen.add(f);
@@ -64,7 +64,15 @@ public class GraphPanel extends JPanel implements MouseMotionListener, MouseList
 		return this.boundaries;
 	}
 	
-	//reset
+	// "getter" für den nst-boolean, um ihn in der Klasse PlotGUI abzufragen
+	public boolean hasNst() {
+		if (nst == true) {
+			return true;
+		}
+		return false;
+	}
+	
+	// Reset-Methoden
 	public void reset() {
 		funktionen.clear();
 		plotcolors.clear();
@@ -110,7 +118,7 @@ public class GraphPanel extends JPanel implements MouseMotionListener, MouseList
 		setBoundaries(boundaries.left, boundaries.right, maxplot, minplot);
 	}
 	
-	//Berechnung der Pixelwerte einer Funkntion
+	//Berechnung der Pixelwerte einer Funnktion
 	private void plot(Funktion f) {		
 		TreeMap<Double, Double> wertetabelle = f.berechneWertetabelle(boundaries.left, boundaries.right, getWidth());
 		
@@ -137,14 +145,6 @@ public class GraphPanel extends JPanel implements MouseMotionListener, MouseList
 			}
 		}
 		nst = false;
-	}
-	
-	// "getter" für den nst-boolean, um ihn in der Klasse PlotGUI abzufragen
-	public boolean hasNst() {
-		if (nst == true) {
-			return true;
-		}
-		return false;
 	}
 	
 	// zeigt den Graph der Ableitung an
