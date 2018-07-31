@@ -47,10 +47,6 @@ public class PlotGUI extends JFrame implements MouseMotionListener, MouseListene
 	private JTextField term, xAchseVon, xAchseBis, yAchseVon, yAchseBis, nullstellen, schnittY;
 	private JButton plot, intervallAnpassen, berechnen, anzeigenAbleitung, zeigeAlle;
 	private JComboBox<String> farbauswahlGraph, farbauswahlAbleitung;
-
-	// zum Testen
-	final JLabel lTest;
-	
 	private ActionListener nstListener;
 	
 	// x-Werte
@@ -70,7 +66,6 @@ public class PlotGUI extends JFrame implements MouseMotionListener, MouseListene
 	// height
 	private final int H1 = 20;
 	private final int H2 = 40;
-	//private final int H3 = 60;
 	
 	PlotGUI() {
 		// Dezimal-Format konfigurieren
@@ -108,12 +103,7 @@ public class PlotGUI extends JFrame implements MouseMotionListener, MouseListene
 		menu = new PlotMenu("Menue");
 		exit = new JMenuItem("Plotter verlassen");
 		reset = new JMenuItem("Zuruecksetzen");
-		
-		// Test
-		lTest = new JLabel("Hier könnte Ihre Testnachricht stehen");
-		lTest.setBounds(X1, 510, 600, 50);
-		p.add(lTest);
-		
+				
 		// Elemente initialisieren
 		// Label
 		lTerm = new JLabel("Funktionsterm:");
@@ -169,20 +159,6 @@ public class PlotGUI extends JFrame implements MouseMotionListener, MouseListene
 		lAbleitung.setForeground(schrift);
 		lFarbeAbleitung.setForeground(schrift);
 		
-		// Textfields // DEBUGGEN
-		term.setForeground(schrift);
-		lFarbeGraph.setForeground(schrift);
-		lIntervall.setForeground(schrift);
-		lXAchseVon.setForeground(schrift);
-		lXAchseBis.setForeground(schrift);
-		lYAchseVon.setForeground(schrift);
-		lYAchseBis.setForeground(schrift);
-		lSchnittpunkte.setForeground(schrift);
-		lNullstellen.setForeground(schrift);
-		lSchnittY.setForeground(schrift);
-		lAbleitung.setForeground(schrift);
-		lFarbeAbleitung.setForeground(schrift);
-		
 		// ComboBoxes
 		farbauswahlGraph.setForeground(schrift);
 		farbauswahlGraph.setForeground(schrift);
@@ -223,7 +199,6 @@ public class PlotGUI extends JFrame implements MouseMotionListener, MouseListene
 		farbauswahlAbleitung.setBounds(X4, 450, W3, H1);
 		
 		// ActionListener hinzufuegen
-		
 		// Menue
 		exit.addActionListener(e -> exit());
 		reset.addActionListener(e -> reset());
@@ -276,16 +251,14 @@ public class PlotGUI extends JFrame implements MouseMotionListener, MouseListene
 		p.add(farbauswahlGraph);	
 		p.add(farbauswahlAbleitung);
 		
-
+		// Sichtbarkeit des Buttons zum Anzeigen aller Nullstellen auf unsichtbar setzen
 		zeigeAlle.setVisible(false);
 		
-
 		//zeige Boundaries des GraphPanels an
 		showBoundaries();
-
 	}
 	
-	// Methoden für das Event Handling beim Klicken der Buttons
+	// Methoden für das Event Handling beim Klicken der Menü-Items
 	
 	private void exit() {
 		String msg = "Wollen Sie den Plotter wirklich verlassen?";
@@ -307,6 +280,7 @@ public class PlotGUI extends JFrame implements MouseMotionListener, MouseListene
 		String msg = "Wollen Sie den aktuellen Graphen verwerfen?";
 		String[] optionen = {"Ja", "Nein", "Abbrechen"}; 
 		int n = JOptionPane.showOptionDialog(this.getParent(), msg, "Graph zuruecksetzen?", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, optionen, optionen[0] );
+		
 		switch(n) {
 		case JOptionPane.YES_OPTION:
 			g.reset();
@@ -323,10 +297,11 @@ public class PlotGUI extends JFrame implements MouseMotionListener, MouseListene
 		case JOptionPane.NO_OPTION:
 			return;
 		case JOptionPane.CANCEL_OPTION:
-			return;
-			
+			return;	
 		}
 	}
+	
+	// Methoden für das Event Handling beim Klicken der Buttons
 
 	private void plot() {
 		// Boundaries zurücksetzen um optimales Einzeichnen zu ermöglichen
@@ -354,8 +329,6 @@ public class PlotGUI extends JFrame implements MouseMotionListener, MouseListene
 			break;
 		}
 		
-		lTest.setText(String.format("Plot! wurde gedrueckt. Da steht: %s. Wunschfarbe: %s", funcString, farbe));
-		
 		if(!funcString.isEmpty()) {
 			FuncParser.theParser().resetErrcnt();
 			g.reset();
@@ -379,13 +352,10 @@ public class PlotGUI extends JFrame implements MouseMotionListener, MouseListene
 			return;
 		}
 		String msg = "Das Eingabefeld ist leer.";
-		JOptionPane.showMessageDialog(this.getParent(), msg, "Eingabefehler", JOptionPane.ERROR_MESSAGE);
-		
-		
+		JOptionPane.showMessageDialog(this.getParent(), msg, "Eingabefehler", JOptionPane.ERROR_MESSAGE);	
 	}
 	
 	private void anpassen() {
-		
 		try {
 			double xVon = df.parse(xAchseVon.getText()).doubleValue();
 			double xBis = df.parse(xAchseBis.getText()).doubleValue();
@@ -393,20 +363,17 @@ public class PlotGUI extends JFrame implements MouseMotionListener, MouseListene
 			double yBis = df.parse(yAchseBis.getText()).doubleValue();
 			
 			g.setBoundaries(xVon, xBis, yBis, yVon);
-			lTest.setText(String.format("Anpassen wurde gedrueckt. Da steht: %s, %s, %s, %s", xVon, xBis, yVon, yBis));
 			
 		} catch (ParseException e1) {
 			// TODO Auto-generated catch block
 			String msg = "Bitte Intervallgrenze im Format #,# angeben";
 			JOptionPane.showMessageDialog(this.getParent(), msg, "Eingabefehler", JOptionPane.ERROR_MESSAGE);			
 		}
-		
 	}
 
 	private void berechnen() {
 		// evtl vorher gesetzte ActionListener entfernen um versehentlich mehrfaches Aufrufen von "showNst(nst)" zu verhindern
 		zeigeAlle.removeActionListener(nstListener);
-		lTest.setText("Berechnen wurde gedrueckt");
 		
 		// Nullstellen anzeigen
 		ArrayList<Double> nst = g.getNst();
@@ -441,10 +408,8 @@ public class PlotGUI extends JFrame implements MouseMotionListener, MouseListene
 		g.repaint();
 	}
 	
-	//Ableitungsbutton
 	private void anzeigen() {
 		String farbe = farbauswahlAbleitung.getSelectedItem().toString();
-		lTest.setText("Anzeigen wurde gedrueckt. Wunschfarbe: " + farbe);
 		Color farbauswahl = Color.BLACK; // um Variable zu initialisieren
 		
 		switch (farbe) {
@@ -468,7 +433,10 @@ public class PlotGUI extends JFrame implements MouseMotionListener, MouseListene
 		g.zeigeAbleitung(farbauswahl);
 	}
 	
-	public void showBoundaries() {
+	// Hilfs-Methoden
+	
+	// Methode zum Anzeigen der aktuellen Intervallgrenzen in den entsprechenden TextFields
+	private void showBoundaries() {
 		// aktuelle Intervallgrenzen abfragen
 		double left = g.getBoundaries().left;
 		double right = g.getBoundaries().right;
@@ -482,7 +450,8 @@ public class PlotGUI extends JFrame implements MouseMotionListener, MouseListene
 		yAchseBis.setText(String.format("%s", df.format(top)));
 	}
 	
-	public void showNst(ArrayList<Double> nst) {
+	// Methode zum Anzeigen vieler Nullstellen in einem JOptionPane
+	private void showNst(ArrayList<Double> nst) {
 		StringBuffer buffer = new StringBuffer();
 		for (int i = 0; i < nst.size() - 1; i++) {
 			buffer.append(Double.toString(nst.get(i)) + ", ");
