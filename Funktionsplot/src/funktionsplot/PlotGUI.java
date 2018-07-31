@@ -311,6 +311,7 @@ public class PlotGUI extends JFrame implements MouseMotionListener, MouseListene
 		case JOptionPane.YES_OPTION:
 			g.reset();
 			g.resetBoundaries();
+			showBoundaries();
 			term.setText(null);
 			farbauswahlGraph.setSelectedIndex(0);
 			nullstellen.setText(null);
@@ -328,6 +329,9 @@ public class PlotGUI extends JFrame implements MouseMotionListener, MouseListene
 	}
 
 	private void plot() {
+		// Boundaries zurücksetzen um optimales Einzeichnen zu ermöglichen
+		// (durch Verschieben der Boundaries durch Setzen/Zoomen kann es sonst zu suboptimalen Graphen kommen)
+		g.resetBoundaries();
 		String funcString = term.getText();
 		String farbe = farbauswahlGraph.getSelectedItem().toString();
 		Color farbauswahl = Color.BLACK; // um Variable zu initialisieren
@@ -360,6 +364,7 @@ public class PlotGUI extends JFrame implements MouseMotionListener, MouseListene
 				// Elemente mit Informationen über den letzten Graph zurücksetzen
 				nullstellen.setText(null);
 				zeigeAlle.setVisible(false);
+				schnittY.setText(null);
 				zeigeAlle.removeActionListener(nstListener);
 				farbauswahlAbleitung.setSelectedIndex(0);
 				
@@ -478,7 +483,6 @@ public class PlotGUI extends JFrame implements MouseMotionListener, MouseListene
 	}
 	
 	public void showNst(ArrayList<Double> nst) {
-		System.out.println("Hier!");
 		StringBuffer buffer = new StringBuffer();
 		for (int i = 0; i < nst.size() - 1; i++) {
 			buffer.append(Double.toString(nst.get(i)) + ", ");
