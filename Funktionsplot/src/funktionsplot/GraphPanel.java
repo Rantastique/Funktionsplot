@@ -64,15 +64,20 @@ public class GraphPanel extends JPanel implements MouseMotionListener, MouseList
 		return this.boundaries;
 	}
 	
-	//reset everything
+	//reset
 	public void reset() {
 		funktionen.clear();
 		plotcolors.clear();
 		plots.clear();
 		nullstellen.clear();
 		nst = false;
+		repaint();
+	}
+	
+	public void resetBoundaries() {
 		setBoundaries(-30,30,100,-100);	
 	}
+	
 	
 	///Umrechnung x-Wert->Pixel-x-Wert
 	private int xToPixel(double x) {

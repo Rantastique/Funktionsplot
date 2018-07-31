@@ -304,12 +304,13 @@ public class PlotGUI extends JFrame implements MouseMotionListener, MouseListene
 	}
 	
 	private void reset() {
-		String msg = "Wollen Sie den aktuellen Graphen?";
+		String msg = "Wollen Sie den aktuellen Graphen verwerfen?";
 		String[] optionen = {"Ja", "Nein", "Abbrechen"}; 
 		int n = JOptionPane.showOptionDialog(this.getParent(), msg, "Graph zuruecksetzen?", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, optionen, optionen[0] );
 		switch(n) {
 		case JOptionPane.YES_OPTION:
 			g.reset();
+			g.resetBoundaries();
 			term.setText(null);
 			farbauswahlGraph.setSelectedIndex(0);
 			nullstellen.setText(null);
