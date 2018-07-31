@@ -98,7 +98,7 @@ public class Funktion implements IFunktion{
 					// such Minimum von abs im Intervall --- > Nullstelle
 					Double minY = null;
 					Double minX = null;
-					TreeMap<Double, Double> values = berechneWertetabelle(linksX, rechtsX, schritte);
+					TreeMap<Double, Double> values = berechneWertetabelle(linksX, rechtsX, schritte*10);
 					
 					for (Entry<Double, Double> entry2 : values.entrySet()) {
 						if((minY==null || Math.abs(entry2.getValue())<minY)) {
@@ -108,7 +108,7 @@ public class Funktion implements IFunktion{
 					}
 					// Nullstelle zur Liste hinzufuegen:
 					if( minX != linkeIntervallgrenze)
-						NST.put((double) (Math.round(minX*100)/100.0), minY);
+						NST.put((double) (Math.round(minX*1000)/1000.0), minY);
 					
 					// Intervall ist abgearbeitet:
 					linksX = 0;
@@ -134,8 +134,8 @@ public class Funktion implements IFunktion{
 					}
 				}
 				// Nullstelle zur Liste hinzufuegen:
-				 if( minXX != values.firstKey())  // ohne Ruender (wegen Exponentialfunktionen)
-					 NST.put((double) (Math.round(minXX*100)/100.0), minYY);
+				 if( minXX != values.firstKey())  // ohne Raender (wegen Exponentialfunktionen)
+					 NST.put((double) (Math.round(minXX*1000)/1000.0), minYY);
 			}
 			
 			oldKey = entry.getKey();
