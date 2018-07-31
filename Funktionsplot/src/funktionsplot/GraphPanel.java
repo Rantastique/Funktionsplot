@@ -154,6 +154,15 @@ public class GraphPanel extends JPanel implements MouseMotionListener, MouseList
 			addFunction(f);
 		}
 	}
+	
+	public Double schnittY() throws Exception {
+		if(!funktionen.isEmpty()) {
+			return funktionen.get(0).calcAt(0);
+		}
+		else {
+			throw new Exception("'GraphPanel.ArrayList<Funktion> funktionen' ist leer");
+		}
+	}
 
 
 	//Alles zeichnen -> aufruf �ber this.repaint();
