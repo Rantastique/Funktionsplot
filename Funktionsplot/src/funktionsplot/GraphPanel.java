@@ -102,13 +102,13 @@ public class GraphPanel extends JPanel implements MouseMotionListener, MouseList
 		TreeMap<Double, Double> wertetabelle = f.berechneWertetabelle(boundaries.left, boundaries.right, getWidth());
 		Double max = f.maximumIn(wertetabelle);
 		// verhindert, dass bei Werten gegen unendlich ein unsinniger Graphabschnitt dargestellt wird
-		if (max >= 1.0E13) {
+		if (max >= 1.0E12) {
 			max = 10.0;
 		}
 		
 		Double min = f.minimumIn(wertetabelle);
 		// verhindert, dass bei Werten gegen unendlich ein unsinniger Graphabschnitt dargestellt wird
-		if (min <= -1.0E13) {
+		if (min <= -1.0E12) {
 			min = -10.0;
 		}
 		

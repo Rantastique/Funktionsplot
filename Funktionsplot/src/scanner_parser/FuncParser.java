@@ -310,8 +310,14 @@ public class FuncParser {
         }
     }
     
-    public StringBuffer getErrMsg() {
-    	return errorbuffer;
+    public String getErrMsg() {
+    	String msg = errorbuffer.toString();
+    	if (msg.contains("$")) {
+    		msg = "\nNur x ist als Variable erlaubt!";
+    	}
+    	// leert den StringBuffer, damit bei einer neuen fehlerhaften Eingabe keine alten Fehler angezeigt werden
+    	errorbuffer.delete(0, errorbuffer.length());
+    	return msg;
     }
     
     public int getErrcnt() {
