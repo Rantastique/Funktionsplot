@@ -50,7 +50,6 @@ public interface IFunktion {
 	
 	//Vorschl�ge>:
 	public TreeMap<Double,Double> nullstellen(double linkeIntervallgrenze, double rechteIntervallgrenze, int schritte);
-	public TreeMap<Double,Double> Extremstellen(double linkeIntervallgrenze, double rechteIntervallgrenze, int schritte);
 	//public double[] Wendestellen();
 	//public double globalMax();
 	//public double globalMin();

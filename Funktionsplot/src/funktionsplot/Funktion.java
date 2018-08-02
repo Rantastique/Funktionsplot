@@ -159,9 +159,4 @@ public class Funktion implements IFunktion{
         
 		return NST;
 	}
-
-	@Override
-	public TreeMap<Double, Double> Extremstellen(double linkeIntervallgrenze, double rechteIntervallgrenze,	int schritte) {
-		return null; 
-	}
 }
